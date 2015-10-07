@@ -4,23 +4,41 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Just a test~~~~ | Hexo</title>
+    <title>GeeksforGeeks 015-C++中的delete和free() | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Xue Wentao">
     
 
     
-    <meta name="description" content="This is a test!!!">
+    <meta name="description" content="delete的使用情况
+1. 指针指向使用new分配的内存
+2. NULL指针
+free()的使用情况
+1. 指针指向使用malloc()分配的内存
+2. NULL指针
+Example12345678910111213141516171819202122232425#include&amp;lt;stdio.h&amp;gt;#include&amp;lt;stdlib.h&amp;gt;int main()&amp;#123;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Just a test~~~~">
-<meta property="og:url" content="http://yoursite.com/2015/10/07/Just-a-test/index.html">
+<meta property="og:title" content="GeeksforGeeks 015-C++中的delete和free()">
+<meta property="og:url" content="http://yoursite.com/2015/10/07/GeeksforGeeks-015/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="This is a test!!!">
-<meta property="og:updated_time" content="2015-10-07T08:16:12.418Z">
+<meta property="og:description" content="delete的使用情况
+1. 指针指向使用new分配的内存
+2. NULL指针
+free()的使用情况
+1. 指针指向使用malloc()分配的内存
+2. NULL指针
+Example12345678910111213141516171819202122232425#include&amp;lt;stdio.h&amp;gt;#include&amp;lt;stdlib.h&amp;gt;int main()&amp;#123;">
+<meta property="og:updated_time" content="2015-10-07T13:17:12.718Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Just a test~~~~">
-<meta name="twitter:description" content="This is a test!!!">
+<meta name="twitter:title" content="GeeksforGeeks 015-C++中的delete和free()">
+<meta name="twitter:description" content="delete的使用情况
+1. 指针指向使用new分配的内存
+2. NULL指针
+free()的使用情况
+1. 指针指向使用malloc()分配的内存
+2. NULL指针
+Example12345678910111213141516171819202122232425#include&amp;lt;stdio.h&amp;gt;#include&amp;lt;stdlib.h&amp;gt;int main()&amp;#123;">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -84,14 +102,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/07/Just-a-test/" title="Just a test~~~~" itemprop="url">Just a test~~~~</a>
+      <a href="/2015/10/07/GeeksforGeeks-015/" title="GeeksforGeeks 015-C++中的delete和free()" itemprop="url">GeeksforGeeks 015-C++中的delete和free()</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-07T07:34:50.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    <time datetime="2015-10-07T12:51:07.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
     
   </p>
 </header>
@@ -100,14 +118,26 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#This_is_a_test!!!"><span class="toc-number">1.</span> <span class="toc-text">This is a test!!!</span></a></li></ol>
+			
 		
 		</div>
 		
-		<h3 id="This_is_a_test!!!">This is a test!!!</h3>  
+		<p><strong>delete的使用情况</strong></p>
+<pre><code><span class="number">1.</span> 指针指向使用<span class="keyword">new</span>分配的内存
+<span class="number">2.</span> <span class="literal">NULL</span>指针
+</code></pre><p><strong>free()的使用情况</strong></p>
+<pre><code><span class="number">1.</span> 指针指向使用<span class="built_in">malloc</span>()分配的内存
+<span class="number">2.</span> <span class="literal">NULL</span>指针
+</code></pre><p><strong>Example</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x;</span><br><span class="line">    <span class="keyword">int</span> *ptr1 = &amp;x;</span><br><span class="line">    <span class="keyword">int</span> *ptr2 = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">    <span class="keyword">int</span> *ptr3 = <span class="keyword">new</span> <span class="keyword">int</span>;</span><br><span class="line">    <span class="keyword">int</span> *ptr4 = <span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/* delete Should NOT be used like below because x is allocated</span><br><span class="line">        on stack frame */</span></span><br><span class="line">    <span class="keyword">delete</span> ptr1; </span><br><span class="line"> </span><br><span class="line">    <span class="comment">/* delete Should NOT be used like below because x is allocated</span><br><span class="line">        using malloc() */</span></span><br><span class="line">    <span class="keyword">delete</span> ptr2; </span><br><span class="line"> </span><br><span class="line">    <span class="comment">/* Correct uses of delete */</span></span><br><span class="line">    <span class="keyword">delete</span> ptr3;</span><br><span class="line">    <span class="keyword">delete</span> ptr4;</span><br><span class="line"> </span><br><span class="line">    getchar();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
 
 
 </div>
@@ -116,7 +146,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/10/07/Just-a-test/" data-title="Just a test~~~~ | Hexo" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/10/07/GeeksforGeeks-015/" data-title="GeeksforGeeks 015-C++中的delete和free() | Hexo" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -130,18 +160,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/10/07/GeeksforGeeks-001/" title="GeeksforGeeks 001-某些C程序无法用C++编译">
+ <a href="/2015/10/07/GeeksforGeeks-016/" title="GeeksforGeeks 016-struct vs class">
   <strong>上一篇：</strong><br/>
   <span>
-  GeeksforGeeks 001-某些C程序无法用C++编译</span>
+  GeeksforGeeks 016-struct vs class</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/10/06/hello-world/"  title="Hello World">
+<a href="/2015/10/07/GeeksforGeeks-014/"  title="GeeksforGeeks 014-mallo() vs new">
  <strong>下一篇：</strong><br/> 
- <span>Hello World
+ <span>GeeksforGeeks 014-mallo() vs new
 </span>
 </a>
 </div>
@@ -156,7 +186,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#This_is_a_test!!!"><span class="toc-number">1.</span> <span class="toc-text">This is a test!!!</span></a></li></ol>
+ 
  
   </div>
 

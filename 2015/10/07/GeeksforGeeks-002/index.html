@@ -4,23 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Just a test~~~~ | Hexo</title>
+    <title>GeeksforGeeks 002-C++中的Name Mangling和extern &quot;C&quot; | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Xue Wentao">
     
 
     
-    <meta name="description" content="This is a test!!!">
+    <meta name="description" content="Name Mangling 是一种在编译过程中，将函数、变量的名称重新改编的机制。在 C++重载、namespace等操作符下，函数可以有同样的名字，编译器为了区分各个不同地方的函数，将各个函数通过编译器内定的算法，将函数改成唯一的名称。有如下函数声明123int  f (void) &amp;#123; return 1; &amp;#125;int  f (int)  &amp;#123; return 0; &amp;#1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Just a test~~~~">
-<meta property="og:url" content="http://yoursite.com/2015/10/07/Just-a-test/index.html">
+<meta property="og:title" content="GeeksforGeeks 002-C++中的Name Mangling和extern "C"">
+<meta property="og:url" content="http://yoursite.com/2015/10/07/GeeksforGeeks-002/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="This is a test!!!">
-<meta property="og:updated_time" content="2015-10-07T08:16:12.418Z">
+<meta property="og:description" content="Name Mangling 是一种在编译过程中，将函数、变量的名称重新改编的机制。在 C++重载、namespace等操作符下，函数可以有同样的名字，编译器为了区分各个不同地方的函数，将各个函数通过编译器内定的算法，将函数改成唯一的名称。有如下函数声明123int  f (void) &amp;#123; return 1; &amp;#125;int  f (int)  &amp;#123; return 0; &amp;#1">
+<meta property="og:updated_time" content="2015-10-07T12:47:44.924Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Just a test~~~~">
-<meta name="twitter:description" content="This is a test!!!">
+<meta name="twitter:title" content="GeeksforGeeks 002-C++中的Name Mangling和extern "C"">
+<meta name="twitter:description" content="Name Mangling 是一种在编译过程中，将函数、变量的名称重新改编的机制。在 C++重载、namespace等操作符下，函数可以有同样的名字，编译器为了区分各个不同地方的函数，将各个函数通过编译器内定的算法，将函数改成唯一的名称。有如下函数声明123int  f (void) &amp;#123; return 1; &amp;#125;int  f (int)  &amp;#123; return 0; &amp;#1">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -84,14 +84,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/07/Just-a-test/" title="Just a test~~~~" itemprop="url">Just a test~~~~</a>
+      <a href="/2015/10/07/GeeksforGeeks-002/" title="GeeksforGeeks 002-C++中的Name Mangling和extern &quot;C&quot;" itemprop="url">GeeksforGeeks 002-C++中的Name Mangling和extern &quot;C&quot;</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-07T07:34:50.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    <time datetime="2015-10-07T08:20:57.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
     
   </p>
 </header>
@@ -100,14 +100,27 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#This_is_a_test!!!"><span class="toc-number">1.</span> <span class="toc-text">This is a test!!!</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#在C++中如何处理C的符号"><span class="toc-number">1.</span> <span class="toc-text">在C++中如何处理C的符号</span></a></li></ol>
 		
 		</div>
 		
-		<h3 id="This_is_a_test!!!">This is a test!!!</h3>  
+		<p>Name Mangling 是一种在编译过程中，将函数、变量的名称重新改编的机制。在 C++重载、namespace等操作符下，函数可以有同样的名字，编译器为了区分各个不同地方的函数，将各个函数通过编译器内定的算法，将函数改成唯一的名称。<br>有如下函数声明<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span>  <span class="title">f</span> <span class="params">(<span class="keyword">void</span>)</span> </span>&#123; <span class="keyword">return</span> <span class="number">1</span>; &#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span>  <span class="title">f</span> <span class="params">(<span class="keyword">int</span>)</span>  </span>&#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">g</span> <span class="params">(<span class="keyword">void</span>)</span> </span>&#123; <span class="keyword">int</span> i = f(), j = f(<span class="number">0</span>); &#125;</span><br></pre></td></tr></table></figure></p>
+<p>C++编译器会将其重命名为<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>  __f_v (<span class="keyword">void</span>) &#123; <span class="keyword">return</span> <span class="number">1</span>; &#125;</span><br><span class="line"><span class="keyword">int</span>  __f_i (<span class="keyword">int</span>)  &#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"><span class="keyword">void</span> __g_v (<span class="keyword">void</span>) &#123; <span class="keyword">int</span> i = __f_v(), j = __f_i(<span class="number">0</span>); &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="在C++中如何处理C的符号"><strong>在C++中如何处理C的符号</strong></h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Save file as .cpp and use C++ compiler to compile it</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">printf</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *format,...)</span></span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"GeeksforGeeks"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译器报错<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">undefined reference to `<span class="built_in">printf</span>(<span class="keyword">char</span> <span class="keyword">const</span>*, ...)'</span><br><span class="line">ld returned <span class="number">1</span> <span class="built_in">exit</span> status</span><br></pre></td></tr></table></figure></p>
+<p>原因是printf的名字在C++编译器中被改变，因而无法找到新的函数名的定义</p>
+<p>加上如下代码可以保证C++编译器不会改变函数名<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Save file as .cpp and use C++ compiler to compile it</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">printf</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *format,...)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"GeeksforGeeks"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>所有C风格的头文件都有如下声明<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br><span class="line">    <span class="comment">/* Declarations of this file */</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure></p>
+<p>总结<br>1.C++支持函数重载，额外的信息会被增加到函数名上去以防止二进制代码的冲突<br>2.C不支持函数重载，为了避免链接错误，需要加入”C”block</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
 
 
 </div>
@@ -116,7 +129,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/10/07/Just-a-test/" data-title="Just a test~~~~ | Hexo" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/10/07/GeeksforGeeks-002/" data-title="GeeksforGeeks 002-C++中的Name Mangling和extern &quot;C&quot; | Hexo" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -130,18 +143,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/10/07/GeeksforGeeks-001/" title="GeeksforGeeks 001-某些C程序无法用C++编译">
+ <a href="/2015/10/07/GeeksforGeeks-003/" title="GeeksforGeeks 003-C和C++中void*的不同">
   <strong>上一篇：</strong><br/>
   <span>
-  GeeksforGeeks 001-某些C程序无法用C++编译</span>
+  GeeksforGeeks 003-C和C++中void*的不同</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/10/06/hello-world/"  title="Hello World">
+<a href="/2015/10/07/GeeksforGeeks-001/"  title="GeeksforGeeks 001-某些C程序无法用C++编译">
  <strong>下一篇：</strong><br/> 
- <span>Hello World
+ <span>GeeksforGeeks 001-某些C程序无法用C++编译
 </span>
 </a>
 </div>
@@ -156,7 +169,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#This_is_a_test!!!"><span class="toc-number">1.</span> <span class="toc-text">This is a test!!!</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#在C++中如何处理C的符号"><span class="toc-number">1.</span> <span class="toc-text">在C++中如何处理C的符号</span></a></li></ol>
  
   </div>
 

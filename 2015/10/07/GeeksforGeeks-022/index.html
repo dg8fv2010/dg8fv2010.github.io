@@ -4,23 +4,38 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Just a test~~~~ | Hexo</title>
+    <title>GeeksforGeeks 022-C++中的构造函数 | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Xue Wentao">
     
 
     
-    <meta name="description" content="This is a test!!!">
+    <meta name="description" content="构造函数和普通函数不同：
+1. 构造函数和类的名字相同
+2. 构造函数没有返回值
+3. 当对象创建时，构造函数自动被调用
+4. 如果不指定构造函数，编译器会生成一个默认的构造函数
+编译器会为每一个类创建默认的构造函数，但是当定义了自己的构造函数时，编译器就不会创建默认构造函数了如下程序编译出错：123456789101112131415161718192021#include&amp;lt;iostrea">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Just a test~~~~">
-<meta property="og:url" content="http://yoursite.com/2015/10/07/Just-a-test/index.html">
+<meta property="og:title" content="GeeksforGeeks 022-C++中的构造函数">
+<meta property="og:url" content="http://yoursite.com/2015/10/07/GeeksforGeeks-022/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="This is a test!!!">
-<meta property="og:updated_time" content="2015-10-07T08:16:12.418Z">
+<meta property="og:description" content="构造函数和普通函数不同：
+1. 构造函数和类的名字相同
+2. 构造函数没有返回值
+3. 当对象创建时，构造函数自动被调用
+4. 如果不指定构造函数，编译器会生成一个默认的构造函数
+编译器会为每一个类创建默认的构造函数，但是当定义了自己的构造函数时，编译器就不会创建默认构造函数了如下程序编译出错：123456789101112131415161718192021#include&amp;lt;iostrea">
+<meta property="og:updated_time" content="2015-10-07T13:48:55.762Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Just a test~~~~">
-<meta name="twitter:description" content="This is a test!!!">
+<meta name="twitter:title" content="GeeksforGeeks 022-C++中的构造函数">
+<meta name="twitter:description" content="构造函数和普通函数不同：
+1. 构造函数和类的名字相同
+2. 构造函数没有返回值
+3. 当对象创建时，构造函数自动被调用
+4. 如果不指定构造函数，编译器会生成一个默认的构造函数
+编译器会为每一个类创建默认的构造函数，但是当定义了自己的构造函数时，编译器就不会创建默认构造函数了如下程序编译出错：123456789101112131415161718192021#include&amp;lt;iostrea">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -84,14 +99,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/07/Just-a-test/" title="Just a test~~~~" itemprop="url">Just a test~~~~</a>
+      <a href="/2015/10/07/GeeksforGeeks-022/" title="GeeksforGeeks 022-C++中的构造函数" itemprop="url">GeeksforGeeks 022-C++中的构造函数</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-07T07:34:50.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    <time datetime="2015-10-07T13:33:30.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
     
   </p>
 </header>
@@ -100,14 +115,25 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#This_is_a_test!!!"><span class="toc-number">1.</span> <span class="toc-text">This is a test!!!</span></a></li></ol>
+			
 		
 		</div>
 		
-		<h3 id="This_is_a_test!!!">This is a test!!!</h3>  
+		<p>构造函数和普通函数不同：</p>
+<pre><code><span class="number">1.</span> 构造函数和类的名字相同
+<span class="number">2.</span> 构造函数没有返回值
+<span class="number">3.</span> 当对象创建时，构造函数自动被调用
+<span class="number">4.</span> 如果不指定构造函数，编译器会生成一个默认的构造函数
+</code></pre><p>编译器会为每一个类创建默认的构造函数，但是当定义了自己的构造函数时，编译器就不会创建默认构造函数了<br>如下程序编译出错：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> myInteger</span><br><span class="line">&#123;</span><br><span class="line">   <span class="keyword">private</span>:</span><br><span class="line">     <span class="keyword">int</span> value;</span><br><span class="line">   <span class="keyword">public</span>: </span><br><span class="line">     myInteger(<span class="keyword">int</span> v)  <span class="comment">// parametrized constructor</span></span><br><span class="line">     &#123;  value = v;  &#125;</span><br><span class="line">   </span><br><span class="line">     <span class="comment">//...other things in class  </span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  myInteger I1;</span><br><span class="line">  getchar();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
 
 
 </div>
@@ -116,7 +142,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/10/07/Just-a-test/" data-title="Just a test~~~~ | Hexo" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/10/07/GeeksforGeeks-022/" data-title="GeeksforGeeks 022-C++中的构造函数 | Hexo" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -130,18 +156,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/10/07/GeeksforGeeks-001/" title="GeeksforGeeks 001-某些C程序无法用C++编译">
+ <a href="/2015/10/07/GeeksforGeeks-023/" title="GeeksforGeeks 023-C++中的拷贝构造函数">
   <strong>上一篇：</strong><br/>
   <span>
-  GeeksforGeeks 001-某些C程序无法用C++编译</span>
+  GeeksforGeeks 023-C++中的拷贝构造函数</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/10/06/hello-world/"  title="Hello World">
+<a href="/2015/10/07/GeeksforGeeks-021/"  title="GeeksforGeeks 021-C++中的this指针">
  <strong>下一篇：</strong><br/> 
- <span>Hello World
+ <span>GeeksforGeeks 021-C++中的this指针
 </span>
 </a>
 </div>
@@ -156,7 +182,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#This_is_a_test!!!"><span class="toc-number">1.</span> <span class="toc-text">This is a test!!!</span></a></li></ol>
+ 
  
   </div>
 

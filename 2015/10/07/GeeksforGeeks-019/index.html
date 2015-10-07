@@ -4,23 +4,38 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Just a test~~~~ | Hexo</title>
+    <title>GeeksforGeeks 019-C++中的static成员函数 | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Xue Wentao">
     
 
     
-    <meta name="description" content="This is a test!!!">
+    <meta name="description" content="static成员函数没有this指针
+123456#include&amp;lt;iostream&amp;gt;class Test &amp;#123;        static Test * fun() &amp;#123;     return this; // compiler error   &amp;#125;&amp;#125;;
+
+不可以是虚函数
+
+拥有相同名称和参数类型列表的两个成员函数不能被重载，如果其中一个是stati">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Just a test~~~~">
-<meta property="og:url" content="http://yoursite.com/2015/10/07/Just-a-test/index.html">
+<meta property="og:title" content="GeeksforGeeks 019-C++中的static成员函数">
+<meta property="og:url" content="http://yoursite.com/2015/10/07/GeeksforGeeks-019/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="This is a test!!!">
-<meta property="og:updated_time" content="2015-10-07T08:16:12.418Z">
+<meta property="og:description" content="static成员函数没有this指针
+123456#include&amp;lt;iostream&amp;gt;class Test &amp;#123;        static Test * fun() &amp;#123;     return this; // compiler error   &amp;#125;&amp;#125;;
+
+不可以是虚函数
+
+拥有相同名称和参数类型列表的两个成员函数不能被重载，如果其中一个是stati">
+<meta property="og:updated_time" content="2015-10-07T13:26:37.439Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Just a test~~~~">
-<meta name="twitter:description" content="This is a test!!!">
+<meta name="twitter:title" content="GeeksforGeeks 019-C++中的static成员函数">
+<meta name="twitter:description" content="static成员函数没有this指针
+123456#include&amp;lt;iostream&amp;gt;class Test &amp;#123;        static Test * fun() &amp;#123;     return this; // compiler error   &amp;#125;&amp;#125;;
+
+不可以是虚函数
+
+拥有相同名称和参数类型列表的两个成员函数不能被重载，如果其中一个是stati">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -84,14 +99,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/07/Just-a-test/" title="Just a test~~~~" itemprop="url">Just a test~~~~</a>
+      <a href="/2015/10/07/GeeksforGeeks-019/" title="GeeksforGeeks 019-C++中的static成员函数" itemprop="url">GeeksforGeeks 019-C++中的static成员函数</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-07T07:34:50.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    <time datetime="2015-10-07T12:51:25.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
     
   </p>
 </header>
@@ -100,14 +115,31 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#This_is_a_test!!!"><span class="toc-number">1.</span> <span class="toc-text">This is a test!!!</span></a></li></ol>
+			
 		
 		</div>
 		
-		<h3 id="This_is_a_test!!!">This is a test!!!</h3>  
+		<ol>
+<li><p>static成员函数没有this指针</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">class</span> Test &#123;     </span><br><span class="line">   <span class="function"><span class="keyword">static</span> Test * <span class="title">fun</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">this</span>; <span class="comment">// compiler error</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不可以是虚函数</p>
+</li>
+<li><p>拥有相同名称和参数类型列表的两个成员函数不能被重载，如果其中一个是static成员函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">class</span> Test &#123;</span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span> </span>&#123;&#125; <span class="comment">// compiler error</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不可以被声明为const，volatile，const volatile</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">class</span> Test &#123;     </span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="comment">// compiler error</span></span><br><span class="line">     <span class="keyword">return</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ol>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
 
 
 </div>
@@ -116,7 +148,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/10/07/Just-a-test/" data-title="Just a test~~~~ | Hexo" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/10/07/GeeksforGeeks-019/" data-title="GeeksforGeeks 019-C++中的static成员函数 | Hexo" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -130,18 +162,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/10/07/GeeksforGeeks-001/" title="GeeksforGeeks 001-某些C程序无法用C++编译">
+ <a href="/2015/10/07/GeeksforGeeks-020/" title="GeeksforGeeks 020-C++中的static成员变量">
   <strong>上一篇：</strong><br/>
   <span>
-  GeeksforGeeks 001-某些C程序无法用C++编译</span>
+  GeeksforGeeks 020-C++中的static成员变量</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/10/06/hello-world/"  title="Hello World">
+<a href="/2015/10/07/GeeksforGeeks-018/"  title="GeeksforGeeks 018-C++中空的class大小不为0">
  <strong>下一篇：</strong><br/> 
- <span>Hello World
+ <span>GeeksforGeeks 018-C++中空的class大小不为0
 </span>
 </a>
 </div>
@@ -156,7 +188,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#This_is_a_test!!!"><span class="toc-number">1.</span> <span class="toc-text">This is a test!!!</span></a></li></ol>
+ 
  
   </div>
 

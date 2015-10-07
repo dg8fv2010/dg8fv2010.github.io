@@ -4,23 +4,26 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Just a test~~~~ | Hexo</title>
+    <title>GeeksforGeeks 003-C和C++中void*的不同 | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Xue Wentao">
     
 
     
-    <meta name="description" content="This is a test!!!">
+    <meta name="description" content="C允许void*指针指向任意指针类型无需转换如下代码只能在C中编译通过隐式类型转换123void* ptr;int *i = ptr; /* Implicit conversion from void* to int* */int *j = malloc(sizeof(int) * 5); /* Implicit conversion from void* to int* */
+ 显式类型转换12">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Just a test~~~~">
-<meta property="og:url" content="http://yoursite.com/2015/10/07/Just-a-test/index.html">
+<meta property="og:title" content="GeeksforGeeks 003-C和C++中void*的不同">
+<meta property="og:url" content="http://yoursite.com/2015/10/07/GeeksforGeeks-003/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="This is a test!!!">
-<meta property="og:updated_time" content="2015-10-07T08:16:12.418Z">
+<meta property="og:description" content="C允许void*指针指向任意指针类型无需转换如下代码只能在C中编译通过隐式类型转换123void* ptr;int *i = ptr; /* Implicit conversion from void* to int* */int *j = malloc(sizeof(int) * 5); /* Implicit conversion from void* to int* */
+ 显式类型转换12">
+<meta property="og:updated_time" content="2015-10-07T12:48:03.555Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Just a test~~~~">
-<meta name="twitter:description" content="This is a test!!!">
+<meta name="twitter:title" content="GeeksforGeeks 003-C和C++中void*的不同">
+<meta name="twitter:description" content="C允许void*指针指向任意指针类型无需转换如下代码只能在C中编译通过隐式类型转换123void* ptr;int *i = ptr; /* Implicit conversion from void* to int* */int *j = malloc(sizeof(int) * 5); /* Implicit conversion from void* to int* */
+ 显式类型转换12">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -84,14 +87,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/07/Just-a-test/" title="Just a test~~~~" itemprop="url">Just a test~~~~</a>
+      <a href="/2015/10/07/GeeksforGeeks-003/" title="GeeksforGeeks 003-C和C++中void*的不同" itemprop="url">GeeksforGeeks 003-C和C++中void*的不同</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-07T07:34:50.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    <time datetime="2015-10-07T08:21:03.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
     
   </p>
 </header>
@@ -100,14 +103,21 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#This_is_a_test!!!"><span class="toc-number">1.</span> <span class="toc-text">This is a test!!!</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text"> </span></a></li></ol>
 		
 		</div>
 		
-		<h3 id="This_is_a_test!!!">This is a test!!!</h3>  
+		<p>C允许void*指针指向任意指针类型无需转换<br>如下代码只能在C中编译通过<br>隐式类型转换<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span>* ptr;</span><br><span class="line"><span class="keyword">int</span> *i = ptr; <span class="comment">/* Implicit conversion from void* to int* */</span></span><br><span class="line"><span class="keyword">int</span> *j = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>) * <span class="number">5</span>); <span class="comment">/* Implicit conversion from void* to int* */</span></span><br></pre></td></tr></table></figure></p>
+<h1 id=""> </h1><p>显式类型转换<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span>* ptr;</span><br><span class="line"><span class="keyword">int</span> *i = (<span class="keyword">int</span> *) ptr;</span><br><span class="line"><span class="keyword">int</span> *j = (<span class="keyword">int</span> *) <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>) * <span class="number">5</span>);</span><br></pre></td></tr></table></figure></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
 
 
 </div>
@@ -116,7 +126,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/10/07/Just-a-test/" data-title="Just a test~~~~ | Hexo" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/10/07/GeeksforGeeks-003/" data-title="GeeksforGeeks 003-C和C++中void*的不同 | Hexo" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -130,18 +140,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/10/07/GeeksforGeeks-001/" title="GeeksforGeeks 001-某些C程序无法用C++编译">
+ <a href="/2015/10/07/GeeksforGeeks-004/" title="GeeksforGeeks 004-相同的程序，在C和C++中的运行结果却不同">
   <strong>上一篇：</strong><br/>
   <span>
-  GeeksforGeeks 001-某些C程序无法用C++编译</span>
+  GeeksforGeeks 004-相同的程序，在C和C++中的运行结果却不同</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/10/06/hello-world/"  title="Hello World">
+<a href="/2015/10/07/GeeksforGeeks-002/"  title="GeeksforGeeks 002-C++中的Name Mangling和extern &quot;C&quot;">
  <strong>下一篇：</strong><br/> 
- <span>Hello World
+ <span>GeeksforGeeks 002-C++中的Name Mangling和extern &quot;C&quot;
 </span>
 </a>
 </div>
@@ -156,7 +166,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#This_is_a_test!!!"><span class="toc-number">1.</span> <span class="toc-text">This is a test!!!</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text"> </span></a></li></ol>
  
   </div>
 

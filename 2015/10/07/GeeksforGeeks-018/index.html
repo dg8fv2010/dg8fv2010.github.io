@@ -4,23 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Just a test~~~~ | Hexo</title>
+    <title>GeeksforGeeks 018-C++中空的class大小不为0 | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Xue Wentao">
     
 
     
-    <meta name="description" content="This is a test!!!">
+    <meta name="description" content="为了保证两个不同的对象有不同的地址123456789101112#include&amp;lt;iostream&amp;gt;using namespace std; class Empty &amp;#123; &amp;#125;; class Derived: Empty &amp;#123; int a; &amp;#125;; int main()&amp;#123;    cout &amp;lt;&amp;lt; sizeof(Derived);">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Just a test~~~~">
-<meta property="og:url" content="http://yoursite.com/2015/10/07/Just-a-test/index.html">
+<meta property="og:title" content="GeeksforGeeks 018-C++中空的class大小不为0">
+<meta property="og:url" content="http://yoursite.com/2015/10/07/GeeksforGeeks-018/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="This is a test!!!">
-<meta property="og:updated_time" content="2015-10-07T08:16:12.418Z">
+<meta property="og:description" content="为了保证两个不同的对象有不同的地址123456789101112#include&amp;lt;iostream&amp;gt;using namespace std; class Empty &amp;#123; &amp;#125;; class Derived: Empty &amp;#123; int a; &amp;#125;; int main()&amp;#123;    cout &amp;lt;&amp;lt; sizeof(Derived);">
+<meta property="og:updated_time" content="2015-10-07T13:24:34.944Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Just a test~~~~">
-<meta name="twitter:description" content="This is a test!!!">
+<meta name="twitter:title" content="GeeksforGeeks 018-C++中空的class大小不为0">
+<meta name="twitter:description" content="为了保证两个不同的对象有不同的地址123456789101112#include&amp;lt;iostream&amp;gt;using namespace std; class Empty &amp;#123; &amp;#125;; class Derived: Empty &amp;#123; int a; &amp;#125;; int main()&amp;#123;    cout &amp;lt;&amp;lt; sizeof(Derived);">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -84,14 +84,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/07/Just-a-test/" title="Just a test~~~~" itemprop="url">Just a test~~~~</a>
+      <a href="/2015/10/07/GeeksforGeeks-018/" title="GeeksforGeeks 018-C++中空的class大小不为0" itemprop="url">GeeksforGeeks 018-C++中空的class大小不为0</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-07T07:34:50.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    <time datetime="2015-10-07T12:51:21.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
     
   </p>
 </header>
@@ -100,14 +100,24 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#This_is_a_test!!!"><span class="toc-number">1.</span> <span class="toc-text">This is a test!!!</span></a></li></ol>
+			
 		
 		</div>
 		
-		<h3 id="This_is_a_test!!!">This is a test!!!</h3>  
+		<p>为了保证两个不同的对象有不同的地址<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Empty &#123; &#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Derived: Empty &#123; <span class="keyword">int</span> a; &#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="keyword">sizeof</span>(Derived);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output (with GCC compiler. See this):<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure></p>
+<p>以上程序输出不会大于4，一个空的基类不需要用单独一个byte来表示</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">class</span> Empty</span><br><span class="line">&#123;&#125;;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">class</span> Derived1 : <span class="keyword">public</span> Empty</span><br><span class="line">&#123;&#125;;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">class</span> Derived2 : <span class="keyword">virtual</span> <span class="keyword">public</span> Empty</span><br><span class="line">&#123;&#125;;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">class</span> Derived3 : <span class="keyword">public</span> Empty</span><br><span class="line">&#123;   </span><br><span class="line">    <span class="keyword">char</span> c;</span><br><span class="line">&#125;;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">class</span> Derived4 : <span class="keyword">virtual</span> <span class="keyword">public</span> Empty</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">char</span> c;</span><br><span class="line">&#125;;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">class</span> Dummy</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">char</span> c;</span><br><span class="line">&#125;;</span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"sizeof(Empty) "</span> &lt;&lt; <span class="keyword">sizeof</span>(Empty) &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"sizeof(Derived1) "</span> &lt;&lt; <span class="keyword">sizeof</span>(Derived1) &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"sizeof(Derived2) "</span> &lt;&lt; <span class="keyword">sizeof</span>(Derived2) &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"sizeof(Derived3) "</span> &lt;&lt; <span class="keyword">sizeof</span>(Derived3) &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"sizeof(Derived4) "</span> &lt;&lt; <span class="keyword">sizeof</span>(Derived4) &lt;&lt; endl;   </span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"sizeof(Dummy) "</span> &lt;&lt; <span class="keyword">sizeof</span>(Dummy) &lt;&lt; endl;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Output (with GCC compiler. See this):<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">sizeof</span>(Empty) <span class="number">1</span></span><br><span class="line"><span class="keyword">sizeof</span>(Derived1) <span class="number">1</span></span><br><span class="line"><span class="keyword">sizeof</span>(Derived2) <span class="number">4</span></span><br><span class="line"><span class="keyword">sizeof</span>(Derived3) <span class="number">1</span></span><br><span class="line"><span class="keyword">sizeof</span>(Derived4) <span class="number">8</span>：虚继承会创建虚表，指针的大小是<span class="number">4</span>；<span class="keyword">char</span>的大小是<span class="number">1</span>，但是为了保证字节对齐，需要填充<span class="number">3</span>个字节，总共是<span class="number">8</span></span><br><span class="line"><span class="keyword">sizeof</span>(Dummy) <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
 
 
 </div>
@@ -116,7 +126,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/10/07/Just-a-test/" data-title="Just a test~~~~ | Hexo" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/10/07/GeeksforGeeks-018/" data-title="GeeksforGeeks 018-C++中空的class大小不为0 | Hexo" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -130,18 +140,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/10/07/GeeksforGeeks-001/" title="GeeksforGeeks 001-某些C程序无法用C++编译">
+ <a href="/2015/10/07/GeeksforGeeks-019/" title="GeeksforGeeks 019-C++中的static成员函数">
   <strong>上一篇：</strong><br/>
   <span>
-  GeeksforGeeks 001-某些C程序无法用C++编译</span>
+  GeeksforGeeks 019-C++中的static成员函数</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/10/06/hello-world/"  title="Hello World">
+<a href="/2015/10/07/GeeksforGeeks-017/"  title="GeeksforGeeks 017-C++的class可以包含一个自身的对象吗？">
  <strong>下一篇：</strong><br/> 
- <span>Hello World
+ <span>GeeksforGeeks 017-C++的class可以包含一个自身的对象吗？
 </span>
 </a>
 </div>
@@ -156,7 +166,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#This_is_a_test!!!"><span class="toc-number">1.</span> <span class="toc-text">This is a test!!!</span></a></li></ol>
+ 
  
   </div>
 

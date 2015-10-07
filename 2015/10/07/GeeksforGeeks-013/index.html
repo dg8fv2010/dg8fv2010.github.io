@@ -4,23 +4,56 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Just a test~~~~ | Hexo</title>
+    <title>GeeksforGeeks 013-C++中的inline函数 | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Xue Wentao">
     
 
     
-    <meta name="description" content="This is a test!!!">
+    <meta name="description" content="inline函数会被编译器在编译期间替换
+编译器可能会忽视inline：
+1. 函数包含循环
+2. 函数包含static关键字
+3. 递归函数
+4. 函数的返回类型不是void，并且函数体内没有return
+5. 函数包含switch或goto
+优点：
+1. 不会发生Function call overhead
+2. 当函数被调用时，省去了栈上的操作
+3. 省去了函数的return调用
+4. 可以">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Just a test~~~~">
-<meta property="og:url" content="http://yoursite.com/2015/10/07/Just-a-test/index.html">
+<meta property="og:title" content="GeeksforGeeks 013-C++中的inline函数">
+<meta property="og:url" content="http://yoursite.com/2015/10/07/GeeksforGeeks-013/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="This is a test!!!">
-<meta property="og:updated_time" content="2015-10-07T08:16:12.418Z">
+<meta property="og:description" content="inline函数会被编译器在编译期间替换
+编译器可能会忽视inline：
+1. 函数包含循环
+2. 函数包含static关键字
+3. 递归函数
+4. 函数的返回类型不是void，并且函数体内没有return
+5. 函数包含switch或goto
+优点：
+1. 不会发生Function call overhead
+2. 当函数被调用时，省去了栈上的操作
+3. 省去了函数的return调用
+4. 可以">
+<meta property="og:updated_time" content="2015-10-07T13:11:04.315Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Just a test~~~~">
-<meta name="twitter:description" content="This is a test!!!">
+<meta name="twitter:title" content="GeeksforGeeks 013-C++中的inline函数">
+<meta name="twitter:description" content="inline函数会被编译器在编译期间替换
+编译器可能会忽视inline：
+1. 函数包含循环
+2. 函数包含static关键字
+3. 递归函数
+4. 函数的返回类型不是void，并且函数体内没有return
+5. 函数包含switch或goto
+优点：
+1. 不会发生Function call overhead
+2. 当函数被调用时，省去了栈上的操作
+3. 省去了函数的return调用
+4. 可以">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -84,14 +117,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/07/Just-a-test/" title="Just a test~~~~" itemprop="url">Just a test~~~~</a>
+      <a href="/2015/10/07/GeeksforGeeks-013/" title="GeeksforGeeks 013-C++中的inline函数" itemprop="url">GeeksforGeeks 013-C++中的inline函数</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-07T07:34:50.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    <time datetime="2015-10-07T12:50:57.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
     
   </p>
 </header>
@@ -100,14 +133,44 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#This_is_a_test!!!"><span class="toc-number">1.</span> <span class="toc-text">This is a test!!!</span></a></li></ol>
+			
 		
 		</div>
 		
-		<h3 id="This_is_a_test!!!">This is a test!!!</h3>  
+		<p>inline函数会被编译器在编译期间替换</p>
+<p><strong>编译器可能会忽视inline：</strong></p>
+<pre><code><span class="number">1.</span> 函数包含循环
+<span class="number">2.</span> 函数包含<span class="keyword">static</span>关键字
+<span class="number">3.</span> 递归函数
+<span class="number">4.</span> 函数的返回类型不是<span class="keyword">void</span>，并且函数体内没有<span class="keyword">return</span>
+<span class="number">5.</span> 函数包含<span class="keyword">switch</span>或<span class="keyword">goto</span>
+</code></pre><p><strong>优点：</strong></p>
+<pre><code><span class="number">1.</span> 不会发生Function call overhead
+<span class="number">2.</span> 当函数被调用时，省去了栈上的操作
+<span class="number">3.</span> 省去了函数的<span class="keyword">return</span>调用
+<span class="number">4.</span> 可以让编译器执行一些优化
+<span class="number">5.</span> 适合嵌入式系统
+</code></pre><p><strong>缺点：</strong></p>
+<pre><code><span class="number">1.</span> 在inlined函数里面增加的变量会占用额外的<span class="keyword">register</span>
+<span class="number">2.</span> 使用太多<span class="keyword">inline</span>函数会使二进制文件变大
+<span class="number">3.</span> 太多的<span class="keyword">inline</span>函数会降低instruction cache hit rate
+<span class="number">4.</span> 增加编译时间
+<span class="number">5.</span> 对嵌入式系统可能不管用，因为对于嵌入式系统代码大小比速度更重要
+<span class="number">6.</span> 二进制文件的增加可能导致thrashing
+</code></pre><p>类里面的所有函数默认为inline函数<br>正确用法<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> S</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">square</span><span class="params">(<span class="keyword">int</span> s)</span></span>; <span class="comment">// declare the function</span></span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">int</span> S::square(<span class="keyword">int</span> s) <span class="comment">// use inline prefix</span></span><br><span class="line">&#123;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>错误用法<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> S</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">square</span><span class="params">(<span class="keyword">int</span> s)</span> <span class="comment">// redundant use of inline</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="comment">// this function is automatically inline</span></span><br><span class="line">        <span class="comment">// function body</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>在C++中，宏无法调用私有变量<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">class</span> S</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> m;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> MAC(S::m)    <span class="comment">// error</span></span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>类中的virtual函数不是inline函数<br>virtual意味着在运行时，inline意味着在编译阶段</p>
+<p>只有在函数调用时间比函数本体运行时间长的时候，inline才有效，如下函数无效<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"value of S = "</span> &lt;&lt; S &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
 
 
 </div>
@@ -116,7 +179,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/10/07/Just-a-test/" data-title="Just a test~~~~ | Hexo" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/10/07/GeeksforGeeks-013/" data-title="GeeksforGeeks 013-C++中的inline函数 | Hexo" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -130,18 +193,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/10/07/GeeksforGeeks-001/" title="GeeksforGeeks 001-某些C程序无法用C++编译">
+ <a href="/2015/10/07/GeeksforGeeks-014/" title="GeeksforGeeks 014-mallo() vs new">
   <strong>上一篇：</strong><br/>
   <span>
-  GeeksforGeeks 001-某些C程序无法用C++编译</span>
+  GeeksforGeeks 014-mallo() vs new</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/10/06/hello-world/"  title="Hello World">
+<a href="/2015/10/07/GeeksforGeeks-012/"  title="GeeksforGeeks 012-main函数能否被重载">
  <strong>下一篇：</strong><br/> 
- <span>Hello World
+ <span>GeeksforGeeks 012-main函数能否被重载
 </span>
 </a>
 </div>
@@ -156,7 +219,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#This_is_a_test!!!"><span class="toc-number">1.</span> <span class="toc-text">This is a test!!!</span></a></li></ol>
+ 
  
   </div>
 

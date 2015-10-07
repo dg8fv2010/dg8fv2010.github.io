@@ -4,23 +4,35 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Just a test~~~~ | Hexo</title>
+    <title>GeeksforGeeks 004-相同的程序，在C和C++中的运行结果却不同 | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Xue Wentao">
     
 
     
-    <meta name="description" content="This is a test!!!">
+    <meta name="description" content="character literals（字符）在C和C++中的处理方式是不同的
+123456#include&amp;lt;stdio.h&amp;gt;int main()&amp;#123;  printf(&quot;%d&quot;, sizeof(&apos;a&apos;));  return 0;&amp;#125;
+在C中，是sizeof(int)；在C++中，是sizeof(char)
+
+在C中，需要使用struct来声明一个结构体变量，在C++中不是">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Just a test~~~~">
-<meta property="og:url" content="http://yoursite.com/2015/10/07/Just-a-test/index.html">
+<meta property="og:title" content="GeeksforGeeks 004-相同的程序，在C和C++中的运行结果却不同">
+<meta property="og:url" content="http://yoursite.com/2015/10/07/GeeksforGeeks-004/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="This is a test!!!">
-<meta property="og:updated_time" content="2015-10-07T08:16:12.418Z">
+<meta property="og:description" content="character literals（字符）在C和C++中的处理方式是不同的
+123456#include&amp;lt;stdio.h&amp;gt;int main()&amp;#123;  printf(&quot;%d&quot;, sizeof(&apos;a&apos;));  return 0;&amp;#125;
+在C中，是sizeof(int)；在C++中，是sizeof(char)
+
+在C中，需要使用struct来声明一个结构体变量，在C++中不是">
+<meta property="og:updated_time" content="2015-10-07T12:48:22.504Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Just a test~~~~">
-<meta name="twitter:description" content="This is a test!!!">
+<meta name="twitter:title" content="GeeksforGeeks 004-相同的程序，在C和C++中的运行结果却不同">
+<meta name="twitter:description" content="character literals（字符）在C和C++中的处理方式是不同的
+123456#include&amp;lt;stdio.h&amp;gt;int main()&amp;#123;  printf(&quot;%d&quot;, sizeof(&apos;a&apos;));  return 0;&amp;#125;
+在C中，是sizeof(int)；在C++中，是sizeof(char)
+
+在C中，需要使用struct来声明一个结构体变量，在C++中不是">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -84,14 +96,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/07/Just-a-test/" title="Just a test~~~~" itemprop="url">Just a test~~~~</a>
+      <a href="/2015/10/07/GeeksforGeeks-004/" title="GeeksforGeeks 004-相同的程序，在C和C++中的运行结果却不同" itemprop="url">GeeksforGeeks 004-相同的程序，在C和C++中的运行结果却不同</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-07T07:34:50.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    <time datetime="2015-10-07T08:21:08.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
     
   </p>
 </header>
@@ -100,14 +112,31 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#This_is_a_test!!!"><span class="toc-number">1.</span> <span class="toc-text">This is a test!!!</span></a></li></ol>
+			
 		
 		</div>
 		
-		<h3 id="This_is_a_test!!!">This is a test!!!</h3>  
+		<ol>
+<li><p>character literals（字符）在C和C++中的处理方式是不同的</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"%d"</span>, <span class="keyword">sizeof</span>(<span class="string">'a'</span>));</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在C中，是sizeof(int)；在C++中，是sizeof(char)</p>
+</li>
+<li><p>在C中，需要使用struct来声明一个结构体变量，在C++中不是必须的。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> T;</span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">struct</span> T &#123; <span class="keyword">double</span> x; &#125;;  <span class="comment">// In C++, this T hides the global variable T,</span></span><br><span class="line">                            <span class="comment">// but not in C</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, <span class="keyword">sizeof</span>(T));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在C中是sizeof(int)，在C++中是sizeof(struct)</p>
+</li>
+<li><p>布尔操作的结果不同</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// output = 4 in C (which is size of int)</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d"</span>, <span class="keyword">sizeof</span>(<span class="number">1</span>==<span class="number">1</span>));</span><br><span class="line"> </span><br><span class="line"><span class="comment">// output = 1 in c++ (which is the size of boolean datatype)</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="keyword">sizeof</span>(<span class="number">1</span>==<span class="number">1</span>);</span><br></pre></td></tr></table></figure></li>
+</ol>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
 
 
 </div>
@@ -116,7 +145,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/10/07/Just-a-test/" data-title="Just a test~~~~ | Hexo" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/10/07/GeeksforGeeks-004/" data-title="GeeksforGeeks 004-相同的程序，在C和C++中的运行结果却不同 | Hexo" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -130,18 +159,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/10/07/GeeksforGeeks-001/" title="GeeksforGeeks 001-某些C程序无法用C++编译">
+ <a href="/2015/10/07/GeeksforGeeks-005/" title="GeeksforGeeks 005-character literals在C和C++中的不同类型">
   <strong>上一篇：</strong><br/>
   <span>
-  GeeksforGeeks 001-某些C程序无法用C++编译</span>
+  GeeksforGeeks 005-character literals在C和C++中的不同类型</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/10/06/hello-world/"  title="Hello World">
+<a href="/2015/10/07/GeeksforGeeks-003/"  title="GeeksforGeeks 003-C和C++中void*的不同">
  <strong>下一篇：</strong><br/> 
- <span>Hello World
+ <span>GeeksforGeeks 003-C和C++中void*的不同
 </span>
 </a>
 </div>
@@ -156,7 +185,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#This_is_a_test!!!"><span class="toc-number">1.</span> <span class="toc-text">This is a test!!!</span></a></li></ol>
+ 
  
   </div>
 
