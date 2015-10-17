@@ -4,23 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>GeeksforGeeks 029 | Hexo</title>
+    <title>GeeksforGeeks 029-C++析构函数的小问题 | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Xue Wentao">
     
 
     
-    <meta name="description">
+    <meta name="description" content="预测下列程序的输出1234567891011121314151617181920212223242526#include &amp;lt;iostream&amp;gt;using namespace std; int i; class A&amp;#123;public:    ~A()    &amp;#123;        i=10;    &amp;#125;&amp;#125;; int foo()&amp;#123;    i=3;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GeeksforGeeks 029">
+<meta property="og:title" content="GeeksforGeeks 029-C++析构函数的小问题">
 <meta property="og:url" content="http://yoursite.com/2015/10/07/GeeksforGeeks-029/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description">
-<meta property="og:updated_time" content="2015-10-07T13:34:45.738Z">
+<meta property="og:description" content="预测下列程序的输出1234567891011121314151617181920212223242526#include &amp;lt;iostream&amp;gt;using namespace std; int i; class A&amp;#123;public:    ~A()    &amp;#123;        i=10;    &amp;#125;&amp;#125;; int foo()&amp;#123;    i=3;">
+<meta property="og:updated_time" content="2015-10-17T12:35:04.011Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GeeksforGeeks 029">
-<meta name="twitter:description">
+<meta name="twitter:title" content="GeeksforGeeks 029-C++析构函数的小问题">
+<meta name="twitter:description" content="预测下列程序的输出1234567891011121314151617181920212223242526#include &amp;lt;iostream&amp;gt;using namespace std; int i; class A&amp;#123;public:    ~A()    &amp;#123;        i=10;    &amp;#125;&amp;#125;; int foo()&amp;#123;    i=3;">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -84,7 +84,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/07/GeeksforGeeks-029/" title="GeeksforGeeks 029" itemprop="url">GeeksforGeeks 029</a>
+      <a href="/2015/10/07/GeeksforGeeks-029/" title="GeeksforGeeks 029-C++析构函数的小问题" itemprop="url">GeeksforGeeks 029-C++析构函数的小问题</a>
   </h1>
   <p class="article-author">By
        
@@ -104,10 +104,28 @@
 		
 		</div>
 		
-		  
+		<p>预测下列程序的输出<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">int</span> i;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> A</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ~A()</span><br><span class="line">    &#123;</span><br><span class="line">        i=<span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    i=<span class="number">3</span>;</span><br><span class="line">    A ob;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"i = "</span> &lt;&lt; foo() &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以上程序的输出是i=3。<br>当从一个函数返回时，析构函数是最后一个被调用的函数，对象ob的析构函数在i的值被拷贝到foo函数的返回值之后才被调用。因此，在析构函数将i的值改成10之前当前i的值被复制输出。</p>
+<p><strong>如何将i最后的输出改为10</strong></p>
+<ol>
+<li><p>返回引用</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">int</span> i;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> A</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ~A()</span><br><span class="line">    &#123;</span><br><span class="line">        i = <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span>&amp; <span class="title">foo</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    i = <span class="number">3</span>;</span><br><span class="line">    A ob;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"i = "</span> &lt;&lt; foo() &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时i的地址被复制给函数的返回值，</p>
+</li>
+<li><p>在block scope中创建对象ob</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">int</span> i;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> A</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ~A()</span><br><span class="line">    &#123;</span><br><span class="line">        i = <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    i = <span class="number">3</span>;</span><br><span class="line">    &#123;</span><br><span class="line">        A ob;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"i = "</span> &lt;&lt; foo() &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时对象的析构函数将会在block之内被调用</p>
+</li>
+</ol>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
 
 
 </div>
@@ -116,7 +134,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/10/07/GeeksforGeeks-029/" data-title="GeeksforGeeks 029 | Hexo" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/10/07/GeeksforGeeks-029/" data-title="GeeksforGeeks 029-C++析构函数的小问题 | Hexo" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -130,18 +148,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/10/07/GeeksforGeeks-030/" title="GeeksforGeeks 030">
+ <a href="/2015/10/07/GeeksforGeeks-030/" title="GeeksforGeeks 030-C++中的拷贝去除">
   <strong>上一篇：</strong><br/>
   <span>
-  GeeksforGeeks 030</span>
+  GeeksforGeeks 030-C++中的拷贝去除</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/10/07/GeeksforGeeks-028/"  title="GeeksforGeeks 028">
+<a href="/2015/10/07/GeeksforGeeks-028/"  title="GeeksforGeeks 028-私有的析构函数">
  <strong>下一篇：</strong><br/> 
- <span>GeeksforGeeks 028
+ <span>GeeksforGeeks 028-私有的析构函数
 </span>
 </a>
 </div>
@@ -180,7 +198,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>26</sup></a></li>
+			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>33</sup></a></li>
 		  
 		
 		</ul>

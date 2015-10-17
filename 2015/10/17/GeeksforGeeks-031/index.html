@@ -4,35 +4,26 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>GeeksforGeeks 004-相同的程序，在C和C++中的运行结果却不同 | Hexo</title>
+    <title>GeeksforGeeks-031-编译器什么时候创建默认构造函数和拷贝构造函数 | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Xue Wentao">
     
 
     
-    <meta name="description" content="character literals（字符）在C和C++中的处理方式是不同的
-123456#include&amp;lt;stdio.h&amp;gt;int main()&amp;#123;  printf(&quot;%d&quot;, sizeof(&apos;a&apos;));  return 0;&amp;#125;
-在C中，是sizeof(int)；在C++中，是sizeof(char)
-
-在C中，需要使用struct来声明一个结构体变量，在C++中不是">
+    <meta name="description" content="编译器创建的默认构造函数是空的编译器创建的拷贝构造函数不为空
+如果我们实现了一个构造函数，即使是一个拷贝构造函数，编译器都不会创建默认的构造函数12345678910111213141516#include &amp;lt;iostream&amp;gt;using namespace std; class Point&amp;#123;    int x, y;public:   Point(const Point &amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GeeksforGeeks 004-相同的程序，在C和C++中的运行结果却不同">
-<meta property="og:url" content="http://yoursite.com/2015/10/07/GeeksforGeeks-004/index.html">
+<meta property="og:title" content="GeeksforGeeks-031-编译器什么时候创建默认构造函数和拷贝构造函数">
+<meta property="og:url" content="http://yoursite.com/2015/10/17/GeeksforGeeks-031/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="character literals（字符）在C和C++中的处理方式是不同的
-123456#include&amp;lt;stdio.h&amp;gt;int main()&amp;#123;  printf(&quot;%d&quot;, sizeof(&apos;a&apos;));  return 0;&amp;#125;
-在C中，是sizeof(int)；在C++中，是sizeof(char)
-
-在C中，需要使用struct来声明一个结构体变量，在C++中不是">
-<meta property="og:updated_time" content="2015-10-07T12:48:22.504Z">
+<meta property="og:description" content="编译器创建的默认构造函数是空的编译器创建的拷贝构造函数不为空
+如果我们实现了一个构造函数，即使是一个拷贝构造函数，编译器都不会创建默认的构造函数12345678910111213141516#include &amp;lt;iostream&amp;gt;using namespace std; class Point&amp;#123;    int x, y;public:   Point(const Point &amp;">
+<meta property="og:updated_time" content="2015-10-17T12:46:35.486Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GeeksforGeeks 004-相同的程序，在C和C++中的运行结果却不同">
-<meta name="twitter:description" content="character literals（字符）在C和C++中的处理方式是不同的
-123456#include&amp;lt;stdio.h&amp;gt;int main()&amp;#123;  printf(&quot;%d&quot;, sizeof(&apos;a&apos;));  return 0;&amp;#125;
-在C中，是sizeof(int)；在C++中，是sizeof(char)
-
-在C中，需要使用struct来声明一个结构体变量，在C++中不是">
+<meta name="twitter:title" content="GeeksforGeeks-031-编译器什么时候创建默认构造函数和拷贝构造函数">
+<meta name="twitter:description" content="编译器创建的默认构造函数是空的编译器创建的拷贝构造函数不为空
+如果我们实现了一个构造函数，即使是一个拷贝构造函数，编译器都不会创建默认的构造函数12345678910111213141516#include &amp;lt;iostream&amp;gt;using namespace std; class Point&amp;#123;    int x, y;public:   Point(const Point &amp;">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -96,14 +87,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/07/GeeksforGeeks-004/" title="GeeksforGeeks 004-相同的程序，在C和C++中的运行结果却不同" itemprop="url">GeeksforGeeks 004-相同的程序，在C和C++中的运行结果却不同</a>
+      <a href="/2015/10/17/GeeksforGeeks-031/" title="GeeksforGeeks-031-编译器什么时候创建默认构造函数和拷贝构造函数" itemprop="url">GeeksforGeeks-031-编译器什么时候创建默认构造函数和拷贝构造函数</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-07T08:21:08.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    <time datetime="2015-10-17T12:42:22.000Z" itemprop="datePublished"> 发表于 2015-10-17</time>
     
   </p>
 </header>
@@ -116,18 +107,11 @@
 		
 		</div>
 		
-		<ol>
-<li><p>character literals（字符）在C和C++中的处理方式是不同的</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"%d"</span>, <span class="keyword">sizeof</span>(<span class="string">'a'</span>));</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在C中，是sizeof(int)；在C++中，是sizeof(char)</p>
-</li>
-<li><p>在C中，需要使用struct来声明一个结构体变量，在C++中不是必须的。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> T;</span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">struct</span> T &#123; <span class="keyword">double</span> x; &#125;;  <span class="comment">// In C++, this T hides the global variable T,</span></span><br><span class="line">                            <span class="comment">// but not in C</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, <span class="keyword">sizeof</span>(T));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在C中是sizeof(int)，在C++中是sizeof(struct)</p>
-</li>
-<li><p>布尔操作的结果不同</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// output = 4 in C (which is size of int)</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d"</span>, <span class="keyword">sizeof</span>(<span class="number">1</span>==<span class="number">1</span>));</span><br><span class="line"> </span><br><span class="line"><span class="comment">// output = 1 in c++ (which is the size of boolean datatype)</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="keyword">sizeof</span>(<span class="number">1</span>==<span class="number">1</span>);</span><br></pre></td></tr></table></figure></li>
-</ol>
+		<p>编译器创建的默认构造函数是空的<br>编译器创建的拷贝构造函数不为空</p>
+<p>如果我们实现了一个构造函数，即使是一个拷贝构造函数，编译器都不会创建默认的构造函数<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Point</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> x, y;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   Point(<span class="keyword">const</span> Point &amp;p) &#123; x = p.x; y = p.y; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    Point p1;  <span class="comment">// COMPILER ERROR</span></span><br><span class="line">    Point p2 = p1;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">COMPILER ERROR: no matching function for call to 'Point::Point()</span><br></pre></td></tr></table></figure></p>
+<p>如我我们实现了其他的构造函数，而没有实现拷贝构造函数，编译器将会创建一个拷贝构造函数<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Point</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> x, y;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   Point(<span class="keyword">int</span> i, <span class="keyword">int</span> j) &#123; x = <span class="number">10</span>; y = <span class="number">20</span>; &#125;</span><br><span class="line">   <span class="function"><span class="keyword">int</span> <span class="title">getX</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> x; &#125;</span><br><span class="line">   <span class="function"><span class="keyword">int</span> <span class="title">getY</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> y; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="function">Point <span class="title">p1</span><span class="params">(<span class="number">10</span>, <span class="number">20</span>)</span></span>;</span><br><span class="line">    Point p2 = p1; <span class="comment">// This compiles fine</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"x = "</span> &lt;&lt; p2.getX() &lt;&lt; <span class="string">" y = "</span> &lt;&lt; p2.getY();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">10</span> y = <span class="number">20</span></span><br></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -145,7 +129,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/10/07/GeeksforGeeks-004/" data-title="GeeksforGeeks 004-相同的程序，在C和C++中的运行结果却不同 | Hexo" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/10/17/GeeksforGeeks-031/" data-title="GeeksforGeeks-031-编译器什么时候创建默认构造函数和拷贝构造函数 | Hexo" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -159,18 +143,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/10/07/GeeksforGeeks-005/" title="GeeksforGeeks 005-character literals在C和C++中的不同类型">
+ <a href="/2015/10/17/GeeksforGeeks-032/" title="GeeksforGeeks-032-C++中拷贝构造函数的参数必须是const">
   <strong>上一篇：</strong><br/>
   <span>
-  GeeksforGeeks 005-character literals在C和C++中的不同类型</span>
+  GeeksforGeeks-032-C++中拷贝构造函数的参数必须是const</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/10/07/GeeksforGeeks-003/"  title="GeeksforGeeks 003-C和C++中void*的不同">
+<a href="/2015/10/07/GeeksforGeeks-030/"  title="GeeksforGeeks 030-C++中的拷贝去除">
  <strong>下一篇：</strong><br/> 
- <span>GeeksforGeeks 003-C和C++中void*的不同
+ <span>GeeksforGeeks 030-C++中的拷贝去除
 </span>
 </a>
 </div>

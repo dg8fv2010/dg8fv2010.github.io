@@ -4,23 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>GeeksforGeeks 030 | Hexo</title>
+    <title>GeeksforGeeks 030-C++中的拷贝去除 | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Xue Wentao">
     
 
     
-    <meta name="description">
+    <meta name="description" content="拷贝去除：Copy elision or Copy omission是一种编译器的优化技术，来避免对象的不必要拷贝12345678910111213141516171819202122#include &amp;lt;iostream&amp;gt;using namespace std;  class B&amp;#123;public:       B(const char* str = &quot;\0&quot;) //defaul">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GeeksforGeeks 030">
+<meta property="og:title" content="GeeksforGeeks 030-C++中的拷贝去除">
 <meta property="og:url" content="http://yoursite.com/2015/10/07/GeeksforGeeks-030/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description">
-<meta property="og:updated_time" content="2015-10-07T13:34:50.789Z">
+<meta property="og:description" content="拷贝去除：Copy elision or Copy omission是一种编译器的优化技术，来避免对象的不必要拷贝12345678910111213141516171819202122#include &amp;lt;iostream&amp;gt;using namespace std;  class B&amp;#123;public:       B(const char* str = &quot;\0&quot;) //defaul">
+<meta property="og:updated_time" content="2015-10-17T12:39:23.127Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GeeksforGeeks 030">
-<meta name="twitter:description">
+<meta name="twitter:title" content="GeeksforGeeks 030-C++中的拷贝去除">
+<meta name="twitter:description" content="拷贝去除：Copy elision or Copy omission是一种编译器的优化技术，来避免对象的不必要拷贝12345678910111213141516171819202122#include &amp;lt;iostream&amp;gt;using namespace std;  class B&amp;#123;public:       B(const char* str = &quot;\0&quot;) //defaul">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -84,7 +84,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/07/GeeksforGeeks-030/" title="GeeksforGeeks 030" itemprop="url">GeeksforGeeks 030</a>
+      <a href="/2015/10/07/GeeksforGeeks-030/" title="GeeksforGeeks 030-C++中的拷贝去除" itemprop="url">GeeksforGeeks 030-C++中的拷贝去除</a>
   </h1>
   <p class="article-author">By
        
@@ -104,10 +104,26 @@
 		
 		</div>
 		
-		  
+		<p><strong>拷贝去除：Copy elision or Copy omission</strong><br>是一种编译器的优化技术，来避免对象的不必要拷贝<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">class</span> B</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:   </span><br><span class="line">    B(<span class="keyword">const</span> <span class="keyword">char</span>* str = <span class="string">"\0"</span>) <span class="comment">//default constructor</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Constructor called"</span> &lt;&lt; endl;</span><br><span class="line">    &#125;   </span><br><span class="line">     </span><br><span class="line">    B(<span class="keyword">const</span> B &amp;b)  <span class="comment">//copy constructor</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Copy constructor called"</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    B ob = <span class="string">"copy me"</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">The output of above program is:</span><br><span class="line">Constructor called</span><br></pre></td></tr></table></figure>
+<p>当对象ob创建时，一个参数的构造函数将“copy me”转化成了一个临时对象，并将临时对象拷贝给对象ob<br>因此<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">B ob = <span class="string">"copy me"</span>;</span><br></pre></td></tr></table></figure></p>
+<p>将会被编译器转化成<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">B ob = B(<span class="string">"copy me"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>但是，绝大多数编译器避免了临时对象的创建和拷贝<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">B ob = <span class="string">"copy me"</span>; <span class="comment">//copy initialization</span></span><br></pre></td></tr></table></figure></p>
+<p>会转化为<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">B <span class="title">ob</span><span class="params">(<span class="string">"copy me"</span>)</span></span>; <span class="comment">//direct initialization</span></span><br></pre></td></tr></table></figure></p>
+<p>如果不想让编译器忽略拷贝构造函数，在g++中可以使用“-fno-elide-constructors”来编译程序<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">aashish@aashish-ThinkPad-SL400:~$ g++ copy_elision.cpp -fno-elide-constructors</span><br><span class="line">aashish@aashish-ThinkPad-SL400:~$ ./a.out</span><br><span class="line">Constructor called</span><br><span class="line">Copy constructor called</span><br></pre></td></tr></table></figure></p>
+<p>如上所示，会先调用构造函数，然后再调用拷贝构造函数</p>
+<p><a href="http://blog.chinaunix.net/uid-22754909-id-3969535.html" target="_blank" rel="external">http://blog.chinaunix.net/uid-22754909-id-3969535.html</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> G</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">int</span> i;</span><br><span class="line">        G() &#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"ctor"</span>&lt;&lt;endl;i+=<span class="number">1</span>;&#125;</span><br><span class="line">        G(<span class="keyword">const</span> G&amp; rg)&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"copy ctor"</span>&lt;&lt;endl;i+=<span class="number">2</span>;&#125;</span><br><span class="line">        G&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> G&amp; rg)&#123;<span class="built_in">cout</span>&lt;&lt;__FUNCTION__&lt;&lt;endl;i+=<span class="number">3</span>;<span class="keyword">return</span> *<span class="keyword">this</span>;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> G::i=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function">G <span class="title">Create</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;__FUNCTION__&lt;&lt;<span class="string">" starts"</span>&lt;&lt;endl;</span><br><span class="line">        G obj;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;__FUNCTION__&lt;&lt;<span class="string">" ends"</span>&lt;&lt;endl;</span><br><span class="line">        <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span><br><span class="line"></span>&#123;</span><br><span class="line">        G g1=Create();</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"G.i="</span>&lt;&lt;G::i&lt;&lt;endl;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>VC编译器，用2008或者2012，Debug版都是3，Release版都是1。用GCC4.7，Debug/Release都是1。<br>因为G g1=Create();这句话，可能会触发C++编译器的一个实现特性，叫做NRVO，命名返回值优化。也就是G函数中的obj并没有被创建在G的调用栈中，而是调用Create()函数的main的栈当中，因此obj不再是一个函数的返回变量，而是用g1给Create()返回的变量命名。<br>VC的Debug版没有触发NRVO，因此会多调用一个拷贝构造函数，结果和Release版不一样。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
 
 
 </div>
@@ -116,7 +132,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/10/07/GeeksforGeeks-030/" data-title="GeeksforGeeks 030 | Hexo" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/10/07/GeeksforGeeks-030/" data-title="GeeksforGeeks 030-C++中的拷贝去除 | Hexo" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -129,11 +145,19 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2015/10/17/GeeksforGeeks-031/" title="GeeksforGeeks-031-编译器什么时候创建默认构造函数和拷贝构造函数">
+  <strong>上一篇：</strong><br/>
+  <span>
+  GeeksforGeeks-031-编译器什么时候创建默认构造函数和拷贝构造函数</span>
+</a>
+</div>
+
 
 <div class="next">
-<a href="/2015/10/07/GeeksforGeeks-029/"  title="GeeksforGeeks 029">
+<a href="/2015/10/07/GeeksforGeeks-029/"  title="GeeksforGeeks 029-C++析构函数的小问题">
  <strong>下一篇：</strong><br/> 
- <span>GeeksforGeeks 029
+ <span>GeeksforGeeks 029-C++析构函数的小问题
 </span>
 </a>
 </div>
@@ -172,7 +196,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>26</sup></a></li>
+			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>33</sup></a></li>
 		  
 		
 		</ul>
