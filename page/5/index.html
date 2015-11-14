@@ -85,6 +85,139 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/10/18/GeeksforGeeks-042/" title="GeeksforGeeks-042-C++中的友元类和函数" itemprop="url">GeeksforGeeks-042-C++中的友元类和函数</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-18T07:12:13.000Z" itemprop="datePublished"> 发表于 2015-10-18</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><strong>友元类：</strong>友元类可以访问其他类的private和project成员<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Node</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="keyword">int</span> key;</span><br><span class="line">  Node *next;</span><br><span class="line">  <span class="comment">/* Other members of Node Class */</span></span><br><span class="line"> </span><br><span class="line">  <span class="keyword">friend</span> <span class="keyword">class</span> LinkedList; <span class="comment">// Now class Binary Tree can</span></span><br><span class="line">                           <span class="comment">// access private members of Node</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><strong>友元函数：</strong>友元函数可以访问其他类的private和protect成员<br>友元函数可以是：</p>
+<pre><code><span class="number">1.</span> 其他类的成员函数
+<span class="number">2.</span> 全局函数
+</code></pre><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Node</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="keyword">int</span> key;</span><br><span class="line">  Node *next;</span><br><span class="line"> </span><br><span class="line">  <span class="comment">/* Other members of Node Class */</span></span><br><span class="line">  <span class="keyword">friend</span> <span class="keyword">int</span> LinkedList::search(); <span class="comment">// Only search() of linkedList</span></span><br><span class="line">                                  <span class="comment">// can access internal members</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>注意事项：</p>
+<pre><code><span class="number">1.</span> 友元函数需要受限地使用，太多的函数和类被声明为友元不利于OOP
+<span class="number">2.</span> 友元关系不是相互的
+<span class="number">3.</span> 友元关系不能被继承
+<span class="number">4.</span> Java中没有友元的概念
+</code></pre><p><strong>友元类的演示</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">class</span> A &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    A() &#123; a=<span class="number">0</span>; &#125;</span><br><span class="line">    <span class="keyword">friend</span> <span class="keyword">class</span> B;     <span class="comment">// Friend Class</span></span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> B &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> b;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">showA</span><span class="params">(A&amp; x)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Since B is friend of A, it can access</span></span><br><span class="line">        <span class="comment">// private members of A</span></span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"A::a="</span> &lt;&lt; x.a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   A a;</span><br><span class="line">   B b;</span><br><span class="line">   b.showA(a);</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A::a=<span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>友元函数的演示</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> B;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> A</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">showB</span><span class="params">(B&amp; )</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> B</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> b;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    B()  &#123;  b = <span class="number">0</span>; &#125;</span><br><span class="line">    <span class="keyword">friend</span> <span class="keyword">void</span> A::showB(B&amp; x); <span class="comment">// Friend function</span></span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">void</span> A::showB(B &amp;x)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Since show() is friend of B, it can</span></span><br><span class="line">    <span class="comment">// access private members of B</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"B::b = "</span> &lt;&lt; x.b;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    A a;</span><br><span class="line">    B x;</span><br><span class="line">    a.showB(x);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">B::b = <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>全局友元函数的演示</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> A</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    A() &#123;a = <span class="number">0</span>;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">friend</span> <span class="keyword">void</span> <span class="title">showA</span><span class="params">(A&amp;)</span></span>; <span class="comment">// global friend function</span></span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">showA</span><span class="params">(A&amp; x)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Since showA() is a friend, it can access</span></span><br><span class="line">    <span class="comment">// private members of A</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"A::a="</span> &lt;&lt; x.a;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    A a;</span><br><span class="line">    showA(a);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A::a = <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/18/GeeksforGeeks-041/" title="GeeksforGeeks-041-C++中的对象切割" itemprop="url">GeeksforGeeks-041-C++中的对象切割</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-18T07:12:09.000Z" itemprop="datePublished"> 发表于 2015-10-18</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>一个派生类对象可以被赋给一个基类<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Base &#123; <span class="keyword">int</span> x, y; &#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Derived : <span class="keyword">public</span> Base &#123; <span class="keyword">int</span> z, w; &#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    Derived d;</span><br><span class="line">    Base b = d; <span class="comment">// Object Slicing,  z and w of d are sliced off</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当一个派生类对象被赋给一个基类对象时，会发生<strong>对象切割（Object slicing）</strong>，派生类的额外属性会被基类丢弃。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Base(<span class="keyword">int</span> a)     &#123; i = a; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span></span><br><span class="line">    </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"I am Base class object, i = "</span> &lt;&lt; i &lt;&lt; endl; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Derived : <span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> j;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Derived(<span class="keyword">int</span> a, <span class="keyword">int</span> b) : Base(a) &#123; j = b; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span></span><br><span class="line">    </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"I am Derived class object, i = "</span></span><br><span class="line">           &lt;&lt; i &lt;&lt; <span class="string">", j = "</span> &lt;&lt; j &lt;&lt; endl;  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Global method, Base class object is passed by value</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">somefunc</span> <span class="params">(Base obj)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    obj.display();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="function">Base <span class="title">b</span><span class="params">(<span class="number">33</span>)</span></span>;</span><br><span class="line">    <span class="function">Derived <span class="title">d</span><span class="params">(<span class="number">45</span>, <span class="number">54</span>)</span></span>;</span><br><span class="line">    somefunc(b);</span><br><span class="line">    somefunc(d);  <span class="comment">// Object Slicing, the member j of d is sliced off</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">I am Base <span class="keyword">class</span> object, i = <span class="number">33</span></span><br><span class="line">I am Base <span class="keyword">class</span> object, i = <span class="number">45</span></span><br></pre></td></tr></table></figure></p>
+<p>我们使用指针或者引用可以避免不必要的行为发生。当指针或引用作为函数参数传递时不会发生对象切割，因为任何类型的指针或引用都占用相同大小的内存。</p>
+<p><strong>使用引用</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// rest of code is similar to above</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">somefunc</span> <span class="params">(Base &amp;obj)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    obj.display();</span><br><span class="line">&#125;          </span><br><span class="line"><span class="comment">// rest of code is similar to above</span></span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">I am Base <span class="keyword">class</span> object, i = <span class="number">33</span></span><br><span class="line">I am Derived <span class="keyword">class</span> object, i = <span class="number">45</span>, j = <span class="number">54</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>使用指针</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// rest of code is similar to above</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">somefunc</span> <span class="params">(Base *objp)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    objp-&gt;display();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    Base *bp = <span class="keyword">new</span> Base(<span class="number">33</span>) ;</span><br><span class="line">    Derived *dp = <span class="keyword">new</span> Derived(<span class="number">45</span>, <span class="number">54</span>);</span><br><span class="line">    somefunc(bp);</span><br><span class="line">    somefunc(dp);  <span class="comment">// No Object Slicing</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">I am Base <span class="keyword">class</span> object, i = <span class="number">33</span></span><br><span class="line">I am Derived <span class="keyword">class</span> object, i = <span class="number">45</span>, j = <span class="number">54</span></span><br></pre></td></tr></table></figure></p>
+<p>可以通过将基类函数设为纯虚函数防止对象创建来阻止对象切割，我们不可以创建一个类的对象如果这个类中包含纯虚函数。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/10/18/GeeksforGeeks-040/" title="GeeksforGeeks-040-C++中对派生类的方法使用了更加严格的访问限定会怎样" itemprop="url">GeeksforGeeks-040-C++中对派生类的方法使用了更加严格的访问限定会怎样</a>
   </h1>
   <p class="article-author">By
@@ -577,125 +710,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/10/17/GeeksforGeeks-032/" title="GeeksforGeeks-032-C++中拷贝构造函数的参数必须是const" itemprop="url">GeeksforGeeks-032-C++中拷贝构造函数的参数必须是const</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
-		
-  <p class="article-time">
-    <time datetime="2015-10-17T12:47:15.000Z" itemprop="datePublished"> 发表于 2015-10-17</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>首先，为了防止对象被修改。其次，还有其他的原因。<br>看如下程序：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Test</span><br><span class="line">&#123;</span><br><span class="line">   <span class="comment">/* Class data members */</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   Test(Test &amp;t) &#123; <span class="comment">/* Copy data members from t*/</span>&#125;</span><br><span class="line">   Test()        &#123; <span class="comment">/* Initialize data members */</span> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function">Test <span class="title">fun</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"fun() Called\n"</span>;</span><br><span class="line">    Test t;</span><br><span class="line">    <span class="keyword">return</span> t;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    Test t1;</span><br><span class="line">    Test t2 = fun();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Compiler Error in line <span class="string">"Test t2 = fun();"</span></span><br></pre></td></tr></table></figure></p>
-<p>可以修改为<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Test(<span class="keyword">const</span> Test &amp;t) &#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"Copy Constructor Called\n"</span>; &#125;</span><br></pre></td></tr></table></figure></p>
-<p>或者将<br><figure class="highlight"><figcaption><span>t2 = fun();</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#20462;&#25913;&#20026;&#10;```c++&#10;Test t2;&#10;t2 = fun();</span><br></pre></td></tr></table></figure></p>
-<p>程序可以运行。</p>
-<p>函数fun返回一个值，因此，编译器会创建一个临时变量，通过拷贝构造函数传递给t2。<br>但是编译器创建的临时变量不能够绑定给一个非const的引用，修改编译器创建的临时变量没有意义。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/10/17/GeeksforGeeks-031/" title="GeeksforGeeks-031-编译器什么时候创建默认构造函数和拷贝构造函数" itemprop="url">GeeksforGeeks-031-编译器什么时候创建默认构造函数和拷贝构造函数</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
-		
-  <p class="article-time">
-    <time datetime="2015-10-17T12:42:22.000Z" itemprop="datePublished"> 发表于 2015-10-17</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>编译器创建的默认构造函数是空的<br>编译器创建的拷贝构造函数不为空</p>
-<p>如果我们实现了一个构造函数，即使是一个拷贝构造函数，编译器都不会创建默认的构造函数<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Point</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> x, y;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   Point(<span class="keyword">const</span> Point &amp;p) &#123; x = p.x; y = p.y; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    Point p1;  <span class="comment">// COMPILER ERROR</span></span><br><span class="line">    Point p2 = p1;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Output:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">COMPILER ERROR: no matching function for call to 'Point::Point()</span><br></pre></td></tr></table></figure></p>
-<p>如我我们实现了其他的构造函数，而没有实现拷贝构造函数，编译器将会创建一个拷贝构造函数<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Point</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> x, y;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   Point(<span class="keyword">int</span> i, <span class="keyword">int</span> j) &#123; x = <span class="number">10</span>; y = <span class="number">20</span>; &#125;</span><br><span class="line">   <span class="function"><span class="keyword">int</span> <span class="title">getX</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> x; &#125;</span><br><span class="line">   <span class="function"><span class="keyword">int</span> <span class="title">getY</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> y; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="function">Point <span class="title">p1</span><span class="params">(<span class="number">10</span>, <span class="number">20</span>)</span></span>;</span><br><span class="line">    Point p2 = p1; <span class="comment">// This compiles fine</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"x = "</span> &lt;&lt; p2.getX() &lt;&lt; <span class="string">" y = "</span> &lt;&lt; p2.getY();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">10</span> y = <span class="number">20</span></span><br></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/page/4/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/">Next<span></span></a>
@@ -724,7 +738,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>80</sup></a></li>
+			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>82</sup></a></li>
 		  
 		
 		</ul>

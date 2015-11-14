@@ -1,0 +1,475 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>GeeksforGeeks-082-虚函数解析 | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Xue Wentao">
+    
+
+    
+    <meta name="description" content="观察如下代码：12345678910class A&amp;#123;//虚函数示例代码public:    virtual void fun()&amp;#123;cout&amp;lt;&amp;lt;1&amp;lt;&amp;lt;endl;&amp;#125;    virtual void fun2()&amp;#123;cout&amp;lt;&amp;lt;2&amp;lt;&amp;lt;endl;&amp;#125;&amp;#125;;class B : public A&amp;#123;p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GeeksforGeeks-082-虚函数解析">
+<meta property="og:url" content="http://yoursite.com/2015/11/14/GeeksforGeeks-082/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="观察如下代码：12345678910class A&amp;#123;//虚函数示例代码public:    virtual void fun()&amp;#123;cout&amp;lt;&amp;lt;1&amp;lt;&amp;lt;endl;&amp;#125;    virtual void fun2()&amp;#123;cout&amp;lt;&amp;lt;2&amp;lt;&amp;lt;endl;&amp;#125;&amp;#125;;class B : public A&amp;#123;p">
+<meta property="og:image" content="https://raw.githubusercontent.com/dg8fv2010/img/master/GeeksforGeeks-082-img01.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/dg8fv2010/img/master/GeeksforGeeks-082-img02.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/dg8fv2010/img/master/GeeksforGeeks-082-img03.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/dg8fv2010/img/master/GeeksforGeeks-082-img04.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/dg8fv2010/img/master/GeeksforGeeks-082-img05.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/dg8fv2010/img/master/GeeksforGeeks-082-img06.png">
+<meta property="og:updated_time" content="2015-11-14T12:12:22.230Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GeeksforGeeks-082-虚函数解析">
+<meta name="twitter:description" content="观察如下代码：12345678910class A&amp;#123;//虚函数示例代码public:    virtual void fun()&amp;#123;cout&amp;lt;&amp;lt;1&amp;lt;&amp;lt;endl;&amp;#125;    virtual void fun2()&amp;#123;cout&amp;lt;&amp;lt;2&amp;lt;&amp;lt;endl;&amp;#125;&amp;#125;;class B : public A&amp;#123;p">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Hexo" title="Hexo"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/tags">tags</a></li>
+					
+						<li><a href="/categories">categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/14/GeeksforGeeks-082/" title="GeeksforGeeks-082-虚函数解析" itemprop="url">GeeksforGeeks-082-虚函数解析</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-14T11:52:56.000Z" itemprop="datePublished"> 发表于 2015-11-14</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			
+		
+		</div>
+		
+		<p>观察如下代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> A&#123;<span class="comment">//虚函数示例代码</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span></span>&#123;<span class="built_in">cout</span>&lt;&lt;<span class="number">1</span>&lt;&lt;endl;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">fun2</span><span class="params">()</span></span>&#123;<span class="built_in">cout</span>&lt;&lt;<span class="number">2</span>&lt;&lt;endl;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> B : <span class="keyword">public</span> A&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span></span>&#123;<span class="built_in">cout</span>&lt;&lt;<span class="number">3</span>&lt;&lt;endl;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fun2</span><span class="params">()</span></span>&#123;<span class="built_in">cout</span>&lt;&lt;<span class="number">4</span>&lt;&lt;endl;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>因为这两个类中有虚函数存在，所以编译器就会为他们分别插入一个虚指针，并分别创建一个虚表，每个类都有一个虚表，虚表保存自己类中虚函数的地址。<br>可以把虚表形象的看成一个数组，数组的每个元素存放的就是虚函数的地址。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A *p=<span class="keyword">new</span> A();</span><br><span class="line">p-&gt;fun();</span><br></pre></td></tr></table></figure></p>
+<p>这里是调用的A::fun()，首先取出虚指针的值，它的值就是虚表的地址，根据这个值找到虚表由于调用的函数A::fun()是第一个虚函数，所以取出虚表第一个元素的值，这个值就是A::fun()的地址。<br>只要虚函数不同，指向的虚表就不同，而不同的虚表里装着对应类的虚函数。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">//将上面“虚函数示例代码”添加在这里</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">void</span>(*fun)(A*); <span class="comment">// 定义了一个函数指针名字叫做fun，并且有一个A*类型的参数，这个指针用来保存从虚表里取出的函数地址</span></span><br><span class="line">    A *p=<span class="keyword">new</span> B; <span class="comment">// new B是向内存申请一个内存单元的地址，然后将其保存在一个指针中，最后将地址赋给A类型的指针p</span></span><br><span class="line">    <span class="keyword">long</span> lVptrAddr; <span class="comment">// 用来保存虚指针的值</span></span><br><span class="line">    <span class="built_in">memcpy</span>(&amp;lVptrAddr,p,<span class="number">4</span>); <span class="comment">// 虚指针的值，也就是虚表的地址</span></span><br><span class="line">    <span class="built_in">memcpy</span>(&amp;fun,<span class="keyword">reinterpret_cast</span>&lt;<span class="keyword">long</span>*&gt;(lVptrAddr),<span class="number">4</span>); <span class="comment">// 取出虚表的第一个元素，并存放在函数指针fun里面</span></span><br><span class="line">    fun(p); <span class="comment">// 调研了刚才取出的函数地址里面的函数，也就是B::fun() </span></span><br><span class="line">    <span class="keyword">delete</span> p;</span><br><span class="line">    system(<span class="string">"pause"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>一般继承，无虚函数覆盖：<br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/GeeksforGeeks-082-img01.png" alt=""><br>子类没有重载任何父类的函数，那么在派生类的实例中，虚函数表如下所示：<br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/GeeksforGeeks-082-img02.png" alt=""><br>可以看到以下几点：</p>
+<pre><code><span class="number">1.</span> 虚函数按照声明顺序存放于表中
+<span class="number">2.</span> 父类的虚函数在子类的虚函数之前
+</code></pre><p>一般继承，有虚函数覆盖：<br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/GeeksforGeeks-082-img03.png" alt=""><br>子类只覆盖了父类的一个函数f()，对于派生类，虚函数表如下所示：<br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/GeeksforGeeks-082-img04.png" alt=""><br>可以看到以下几点：</p>
+<pre><code><span class="number">1</span>. 覆盖的<span class="function"><span class="title">f</span><span class="params">()</span></span>函数被放到了虚表中原来父函数的地方
+<span class="number">2</span>. 没有被覆盖的函数依旧
+</code></pre><p>对于下面的程序<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Base *b = <span class="keyword">new</span> Derive();</span><br><span class="line">b-&gt;f();</span><br></pre></td></tr></table></figure></p>
+<p>由b指向的内存中的虚函数表的f()位置已经被Derive::f()函数地址所替代，因此在实际调用中，Derive::f()被调用。</p>
+<p>多重继承，有虚函数覆盖：<br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/GeeksforGeeks-082-img05.png" alt=""><br>子类的虚函数表为：<br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/GeeksforGeeks-082-img06.png" alt=""></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2015/11/14/GeeksforGeeks-082/" data-title="GeeksforGeeks-082-虚函数解析 | Hexo" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/11/14/GeeksforGeeks-081/"  title="GeeksforGeeks-081-Puzzles">
+ <strong>下一篇：</strong><br/> 
+ <span>GeeksforGeeks-081-Puzzles
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="dg8fv2010 for https://github.com/dg8fv2010" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>82</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Larry Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/dg8fv2010 for https://github.com/dg8fv2010" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="Xue Wentao">Xue Wentao</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fe6d1f421bbc9962127a50488f9ed37d1' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

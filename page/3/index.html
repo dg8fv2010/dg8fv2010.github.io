@@ -85,6 +85,124 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/11/14/GeeksforGeeks-062/" title="GeeksforGeeks-062-C++中的Pre-increment (or pre-decrement)" itemprop="url">GeeksforGeeks-062-C++中的Pre-increment (or pre-decrement)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-14T06:55:23.000Z" itemprop="datePublished"> 发表于 2015-11-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>如下程序：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">  ++a = <span class="number">20</span>; <span class="comment">// works</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"a = %d"</span>, a);</span><br><span class="line">  getchar();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出a=20，但是下面的程序编译报错：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">  a++ = <span class="number">20</span>; <span class="comment">// error</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"a = %d"</span>, a);</span><br><span class="line">  getchar();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/14/GeeksforGeeks-061/" title="GeeksforGeeks-061-默认的赋值操作符和引用" itemprop="url">GeeksforGeeks-061-默认的赋值操作符和引用</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-14T06:55:18.000Z" itemprop="datePublished"> 发表于 2015-11-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>预测下面程序的输出：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">class</span> Test</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> x;</span><br><span class="line">    <span class="keyword">int</span> &amp;ref;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Test (<span class="keyword">int</span> i):x(i), ref(x) &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; ref; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setX</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123; x = i; &#125;   </span><br><span class="line">&#125;;</span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="function">Test <span class="title">t1</span><span class="params">(<span class="number">10</span>)</span></span>;</span><br><span class="line">    <span class="function">Test <span class="title">t2</span><span class="params">(<span class="number">20</span>)</span></span>;</span><br><span class="line">    t2 = t1;</span><br><span class="line">    t1.setX(<span class="number">40</span>);</span><br><span class="line">    t2.print();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Compiler Error: non-static reference member 'int&amp; Test::ref', can't use default assignment operator</span><br></pre></td></tr></table></figure></p>
+<p>在下面几种情况中，编译器不会创建默认赋值函数：</p>
+<pre><code><span class="number">1.</span> 类有<span class="keyword">const</span>类型或引用类型的非<span class="keyword">static</span>成员变量。
+<span class="number">2.</span> 类有非<span class="keyword">static</span>成员变量，它的类型不可以被拷贝赋值操作符访问。
+<span class="number">3.</span> 类从一个基类派生而来，基类有不可访问的拷贝赋值操作符。
+</code></pre><p>以上任何一种情况为真时，都需要定义自己的赋值操作符。<br>如下程序：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">class</span> Test</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> x;</span><br><span class="line">    <span class="keyword">int</span> &amp;ref;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Test (<span class="keyword">int</span> i):x(i), ref(x) &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; ref; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setX</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123; x = i; &#125;   </span><br><span class="line">    Test &amp;<span class="keyword">operator</span> = (<span class="keyword">const</span> Test &amp;t) &#123; x = t.x; <span class="keyword">return</span> *<span class="keyword">this</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="function">Test <span class="title">t1</span><span class="params">(<span class="number">10</span>)</span></span>;</span><br><span class="line">    <span class="function">Test <span class="title">t2</span><span class="params">(<span class="number">20</span>)</span></span>;</span><br><span class="line">    t2 = t1;</span><br><span class="line">    t1.setX(<span class="number">40</span>);</span><br><span class="line">    t2.print();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10</span></span><br></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/11/14/GeeksforGeeks-060/" title="GeeksforGeeks-060-赋值操作符可以被继承吗？" itemprop="url">GeeksforGeeks-060-赋值操作符可以被继承吗？</a>
   </h1>
   <p class="article-author">By
@@ -563,122 +681,6 @@ x = <span class="number">30</span>, y = <span class="number">0</span>
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/14/GeeksforGeeks-052/" title="GeeksforGeeks-052-虚函数可以是inline的吗？" itemprop="url">GeeksforGeeks-052-虚函数可以是inline的吗？</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-14T05:48:22.000Z" itemprop="datePublished"> 发表于 2015-11-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>虚函数用于实现运行时多态，又称为动态绑定或后置绑定。inline函数出于效率而使用。<br>inline函数背后的思想是，无论何时inline函数被调用时，在编译阶段，inline函数里面的代码会在该inline函数被调用处插入或替换。<br>当小函数经常被使用，并且在程序中被调用了很多次的时候，inline函数非常有用。</p>
-<p>在默认情况下，所有在类里面的函数都会隐式或自动地被视为inline函数，虚函数除外。</p>
-<p>无论何时，如果使用基类的指针或引用来调用虚函数时，它不可能是inline的（因为调用时在运行时被解释的）。<br>但是，在使用这个类的对象调用时，可以是inline的，因为编译器在编译阶段就可以准确地知道类的对象。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">class</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">who</span><span class="params">()</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"I am Base\n"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> Derived: <span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">who</span><span class="params">()</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"I am Derived\n"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="comment">// note here virtual function who() is called through</span></span><br><span class="line">    <span class="comment">// object of the class (it will be resolved at compile</span></span><br><span class="line">    <span class="comment">// time) so it can be inlined.</span></span><br><span class="line">    Base b;</span><br><span class="line">    b.who();</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// Here virtual function is called through pointer,</span></span><br><span class="line">    <span class="comment">// so it cannot be inlined</span></span><br><span class="line">    Base *ptr = <span class="keyword">new</span> Derived();</span><br><span class="line">    ptr-&gt;who();</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/14/GeeksforGeeks-051/" title="GeeksforGeeks-051-C++中虚函数的私有化" itemprop="url">GeeksforGeeks-051-C++中虚函数的私有化</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-14T05:48:12.000Z" itemprop="datePublished"> 发表于 2015-11-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>在C++中，虚函数可以是私有的，并且可以被派生类override。<br>如下程序可以正常运行：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Derived;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Base &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"Base Fun"</span>; &#125;</span><br><span class="line"><span class="function"><span class="keyword">friend</span> <span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Derived: <span class="keyword">public</span> Base &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"Derived Fun"</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">   Base *ptr = <span class="keyword">new</span> Derived;</span><br><span class="line">   ptr-&gt;fun();</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Derived <span class="title">fun</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
-<p>以上程序有几点需要注意：</p>
-<pre><code><span class="number">1</span>. ptr是基类类型的指针并且指向派生类，当ptr-&gt;<span class="function"><span class="title">fun</span><span class="params">()</span></span>被调用时，派生类的<span class="function"><span class="title">fun</span><span class="params">()</span></span>函数被执行。
-<span class="number">2</span>. <span class="function"><span class="title">main</span><span class="params">()</span></span>函数是基类的友元函数，如果去除友元关系，程序会编译失败。
-</code></pre>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
@@ -707,7 +709,7 @@ x = <span class="number">30</span>, y = <span class="number">0</span>
 		<ul>
 		
 		  
-			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>80</sup></a></li>
+			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>82</sup></a></li>
 		  
 		
 		</ul>
