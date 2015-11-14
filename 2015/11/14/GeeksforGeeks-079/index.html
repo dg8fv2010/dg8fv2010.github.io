@@ -4,23 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>GeeksforGeeks-079 | Hexo</title>
+    <title>GeeksforGeeks-079-在C++中模拟final class | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Xue Wentao">
     
 
     
-    <meta name="description">
+    <meta name="description" content="在C++中如何设计一个无法被继承的类。可以使用私有构造函数、虚继承和友元类来实现相同的机制。在下面的代码中，我们使Final类无法被继承，当派生类试图继承它时，编译器报错。有一个额外的类MakeFinal（构造函数是私有的）可以实现我们的目标，Final的构造函数可以调用MakeFinal的私有构造函数。需要注意的是，MakeFinal是一个虚基类，因此需要通过派生类的构造函数而不是Final的构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GeeksforGeeks-079">
+<meta property="og:title" content="GeeksforGeeks-079-在C++中模拟final class">
 <meta property="og:url" content="http://yoursite.com/2015/11/14/GeeksforGeeks-079/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description">
-<meta property="og:updated_time" content="2015-11-14T08:20:13.142Z">
+<meta property="og:description" content="在C++中如何设计一个无法被继承的类。可以使用私有构造函数、虚继承和友元类来实现相同的机制。在下面的代码中，我们使Final类无法被继承，当派生类试图继承它时，编译器报错。有一个额外的类MakeFinal（构造函数是私有的）可以实现我们的目标，Final的构造函数可以调用MakeFinal的私有构造函数。需要注意的是，MakeFinal是一个虚基类，因此需要通过派生类的构造函数而不是Final的构">
+<meta property="og:updated_time" content="2015-11-14T09:34:29.939Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GeeksforGeeks-079">
-<meta name="twitter:description">
+<meta name="twitter:title" content="GeeksforGeeks-079-在C++中模拟final class">
+<meta name="twitter:description" content="在C++中如何设计一个无法被继承的类。可以使用私有构造函数、虚继承和友元类来实现相同的机制。在下面的代码中，我们使Final类无法被继承，当派生类试图继承它时，编译器报错。有一个额外的类MakeFinal（构造函数是私有的）可以实现我们的目标，Final的构造函数可以调用MakeFinal的私有构造函数。需要注意的是，MakeFinal是一个虚基类，因此需要通过派生类的构造函数而不是Final的构">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -84,7 +84,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/14/GeeksforGeeks-079/" title="GeeksforGeeks-079" itemprop="url">GeeksforGeeks-079</a>
+      <a href="/2015/11/14/GeeksforGeeks-079/" title="GeeksforGeeks-079-在C++中模拟final class" itemprop="url">GeeksforGeeks-079-在C++中模拟final class</a>
   </h1>
   <p class="article-author">By
        
@@ -104,10 +104,20 @@
 		
 		</div>
 		
-		  
+		<p>在C++中如何设计一个无法被继承的类。<br><strong>可以使用私有构造函数、虚继承和友元类来实现相同的机制。</strong><br>在下面的代码中，我们使Final类无法被继承，当派生类试图继承它时，编译器报错。<br>有一个额外的类MakeFinal（构造函数是私有的）可以实现我们的目标，Final的构造函数可以调用MakeFinal的私有构造函数。<br>需要注意的是，MakeFinal是一个虚基类，因此需要通过派生类的构造函数而不是Final的构造函数调用MakeFinal的构造函数（虚基类的构造函数不是被从它继承的类中调用的，而是被实体类的构造函数调用的）。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* A program with compilation error to demonstrate that Final class cannot</span><br><span class="line">   be inherited */</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Final;  <span class="comment">// The class to be made final</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> MakeFinal <span class="comment">// used to make the Final class final</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    MakeFinal() &#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"MakFinal constructor"</span> &lt;&lt; endl; &#125;</span><br><span class="line"><span class="keyword">friend</span> <span class="keyword">class</span> Final;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Final : <span class="keyword">virtual</span> MakeFinal</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Final() &#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"Final constructor"</span> &lt;&lt; endl; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Derived : <span class="keyword">public</span> Final <span class="comment">// Compiler error</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Derived() &#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"Derived constructor"</span> &lt;&lt; endl; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    Derived d;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output: Compiler Error<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In constructor 'Derived::Derived()':</span><br><span class="line">error: 'MakeFinal::MakeFinal()' is private</span><br></pre></td></tr></table></figure></p>
+<p>在上面的代码中，Derived的构造函数直接调用MakeFinal的构造函数，导致编译失败。</p>
+<p>如下程序编译成功：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* A program without any compilation error to demonstrate that instances of</span><br><span class="line">   the Final class can be created */</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Final;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> MakeFinal</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    MakeFinal() &#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"MakeFinal constructor"</span> &lt;&lt; endl; &#125;</span><br><span class="line">    <span class="keyword">friend</span> <span class="keyword">class</span> Final;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Final : <span class="keyword">virtual</span> MakeFinal</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Final() &#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"Final constructor"</span> &lt;&lt; endl; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    Final f;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output: Compiles and runs fine<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MakeFinal constructor</span><br><span class="line">Final constructor</span><br></pre></td></tr></table></figure></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
 
 
 </div>
@@ -116,7 +126,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/11/14/GeeksforGeeks-079/" data-title="GeeksforGeeks-079 | Hexo" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/11/14/GeeksforGeeks-079/" data-title="GeeksforGeeks-079-在C++中模拟final class | Hexo" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -130,18 +140,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/11/14/GeeksforGeeks-080/" title="GeeksforGeeks-080">
+ <a href="/2015/11/14/GeeksforGeeks-080/" title="GeeksforGeeks-080-C++中的const成员函数">
   <strong>上一篇：</strong><br/>
   <span>
-  GeeksforGeeks-080</span>
+  GeeksforGeeks-080-C++中的const成员函数</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/11/14/GeeksforGeeks-078/"  title="GeeksforGeeks-078">
+<a href="/2015/11/14/GeeksforGeeks-078/"  title="GeeksforGeeks-078-C++中的转换操作">
  <strong>下一篇：</strong><br/> 
- <span>GeeksforGeeks-078
+ <span>GeeksforGeeks-078-C++中的转换操作
 </span>
 </a>
 </div>
@@ -180,7 +190,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>74</sup></a></li>
+			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>80</sup></a></li>
 		  
 		
 		</ul>

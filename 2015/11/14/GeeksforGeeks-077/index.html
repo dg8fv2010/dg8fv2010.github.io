@@ -4,23 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>GeeksforGeeks-077 | Hexo</title>
+    <title>GeeksforGeeks-077-C++中的嵌套类 | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Xue Wentao">
     
 
     
-    <meta name="description">
+    <meta name="description" content="嵌套类指的是声明在一个类里面的类。类的成员没有特殊权限去访问嵌套类里面的成员。例如，程序1编译成功，程序2编译失败。Program 11234567891011121314151617181920212223#include&amp;lt;iostream&amp;gt; using namespace std;  /* start of Enclosing class declaration */ class">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GeeksforGeeks-077">
+<meta property="og:title" content="GeeksforGeeks-077-C++中的嵌套类">
 <meta property="og:url" content="http://yoursite.com/2015/11/14/GeeksforGeeks-077/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description">
-<meta property="og:updated_time" content="2015-11-14T08:20:03.444Z">
+<meta property="og:description" content="嵌套类指的是声明在一个类里面的类。类的成员没有特殊权限去访问嵌套类里面的成员。例如，程序1编译成功，程序2编译失败。Program 11234567891011121314151617181920212223#include&amp;lt;iostream&amp;gt; using namespace std;  /* start of Enclosing class declaration */ class">
+<meta property="og:updated_time" content="2015-11-14T09:11:55.944Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GeeksforGeeks-077">
-<meta name="twitter:description">
+<meta name="twitter:title" content="GeeksforGeeks-077-C++中的嵌套类">
+<meta name="twitter:description" content="嵌套类指的是声明在一个类里面的类。类的成员没有特殊权限去访问嵌套类里面的成员。例如，程序1编译成功，程序2编译失败。Program 11234567891011121314151617181920212223#include&amp;lt;iostream&amp;gt; using namespace std;  /* start of Enclosing class declaration */ class">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -84,7 +84,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/14/GeeksforGeeks-077/" title="GeeksforGeeks-077" itemprop="url">GeeksforGeeks-077</a>
+      <a href="/2015/11/14/GeeksforGeeks-077/" title="GeeksforGeeks-077-C++中的嵌套类" itemprop="url">GeeksforGeeks-077-C++中的嵌套类</a>
   </h1>
   <p class="article-author">By
        
@@ -104,10 +104,17 @@
 		
 		</div>
 		
-		  
+		<p>嵌套类指的是声明在一个类里面的类。<br>类的成员没有特殊权限去访问嵌套类里面的成员。<br>例如，程序1编译成功，程序2编译失败。<br><strong>Program 1</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">/* start of Enclosing class declaration */</span> </span><br><span class="line"><span class="keyword">class</span> Enclosing &#123;     </span><br><span class="line">       </span><br><span class="line">   <span class="keyword">int</span> x;</span><br><span class="line">    </span><br><span class="line">   <span class="comment">/* start of Nested class declaration */</span> </span><br><span class="line">   <span class="keyword">class</span> Nested &#123;</span><br><span class="line">      <span class="keyword">int</span> y;  </span><br><span class="line">      <span class="function"><span class="keyword">void</span> <span class="title">NestedFun</span><span class="params">(Enclosing *e)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;e-&gt;x;  <span class="comment">// works fine: nested class can access</span></span><br><span class="line">                     <span class="comment">// private members of Enclosing class</span></span><br><span class="line">      &#125;      </span><br><span class="line">   &#125;; <span class="comment">// declaration Nested class ends here</span></span><br><span class="line">&#125;; <span class="comment">// declaration Enclosing class ends here</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;    </span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Program 2</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">/* start of Enclosing class declaration */</span> </span><br><span class="line"><span class="keyword">class</span> Enclosing &#123;     </span><br><span class="line">       </span><br><span class="line">   <span class="keyword">int</span> x;</span><br><span class="line">    </span><br><span class="line">   <span class="comment">/* start of Nested class declaration */</span> </span><br><span class="line">   <span class="keyword">class</span> Nested &#123;</span><br><span class="line">      <span class="keyword">int</span> y;  </span><br><span class="line">   &#125;; <span class="comment">// declaration Nested class ends here</span></span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">EnclosingFun</span><span class="params">(Nested *n)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;n-&gt;y;  <span class="comment">// Compiler Error: y is private in Nested</span></span><br><span class="line">   &#125;     </span><br><span class="line">&#125;; <span class="comment">// declaration Enclosing class ends here</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
 
 
 </div>
@@ -116,7 +123,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/11/14/GeeksforGeeks-077/" data-title="GeeksforGeeks-077 | Hexo" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/11/14/GeeksforGeeks-077/" data-title="GeeksforGeeks-077-C++中的嵌套类 | Hexo" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -130,18 +137,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/11/14/GeeksforGeeks-078/" title="GeeksforGeeks-078">
+ <a href="/2015/11/14/GeeksforGeeks-078/" title="GeeksforGeeks-078-C++中的转换操作">
   <strong>上一篇：</strong><br/>
   <span>
-  GeeksforGeeks-078</span>
+  GeeksforGeeks-078-C++中的转换操作</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/11/14/GeeksforGeeks-076/"  title="GeeksforGeeks-076">
+<a href="/2015/11/14/GeeksforGeeks-076/"  title="GeeksforGeeks-076-C++中的局部类">
  <strong>下一篇：</strong><br/> 
- <span>GeeksforGeeks-076
+ <span>GeeksforGeeks-076-C++中的局部类
 </span>
 </a>
 </div>
@@ -180,7 +187,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>74</sup></a></li>
+			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>80</sup></a></li>
 		  
 		
 		</ul>

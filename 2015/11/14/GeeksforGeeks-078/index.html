@@ -4,23 +4,38 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>GeeksforGeeks-078 | Hexo</title>
+    <title>GeeksforGeeks-078-C++中的转换操作 | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Xue Wentao">
     
 
     
-    <meta name="description">
+    <meta name="description" content="C++支持4中转换操作符
+1. const_cast
+2. static_cast
+3. dynamic_cast
+4. reinterpret_cast
+1. const_castconst_cast用来去除变量的const或volatile属性。     1) cosnt_cast可以用来改变const成员函数里面的非const成员。观察如下程序，在const成员函数fun里面，‘this’被">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GeeksforGeeks-078">
+<meta property="og:title" content="GeeksforGeeks-078-C++中的转换操作">
 <meta property="og:url" content="http://yoursite.com/2015/11/14/GeeksforGeeks-078/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description">
-<meta property="og:updated_time" content="2015-11-14T08:20:08.194Z">
+<meta property="og:description" content="C++支持4中转换操作符
+1. const_cast
+2. static_cast
+3. dynamic_cast
+4. reinterpret_cast
+1. const_castconst_cast用来去除变量的const或volatile属性。     1) cosnt_cast可以用来改变const成员函数里面的非const成员。观察如下程序，在const成员函数fun里面，‘this’被">
+<meta property="og:updated_time" content="2015-11-14T09:32:55.112Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GeeksforGeeks-078">
-<meta name="twitter:description">
+<meta name="twitter:title" content="GeeksforGeeks-078-C++中的转换操作">
+<meta name="twitter:description" content="C++支持4中转换操作符
+1. const_cast
+2. static_cast
+3. dynamic_cast
+4. reinterpret_cast
+1. const_castconst_cast用来去除变量的const或volatile属性。     1) cosnt_cast可以用来改变const成员函数里面的非const成员。观察如下程序，在const成员函数fun里面，‘this’被">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -84,7 +99,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/14/GeeksforGeeks-078/" title="GeeksforGeeks-078" itemprop="url">GeeksforGeeks-078</a>
+      <a href="/2015/11/14/GeeksforGeeks-078/" title="GeeksforGeeks-078-C++中的转换操作" itemprop="url">GeeksforGeeks-078-C++中的转换操作</a>
   </h1>
   <p class="article-author">By
        
@@ -104,10 +119,41 @@
 		
 		</div>
 		
-		  
+		<p>C++支持4中转换操作符</p>
+<pre><code><span class="number">1.</span> <span class="keyword">const_cast</span>
+<span class="number">2.</span> <span class="keyword">static_cast</span>
+<span class="number">3.</span> <span class="keyword">dynamic_cast</span>
+<span class="number">4.</span> <span class="keyword">reinterpret_cast</span>
+</code></pre><p><strong>1. const_cast</strong><br>const_cast用来去除变量的const或volatile属性。<br>     <strong>1)</strong> cosnt_cast可以用来改变const成员函数里面的非const成员。观察如下程序，在const成员函数fun里面，‘this’被编译器当做 ‘const student<em> const this’。因为 ‘this’是指向常量的常指针，所以编译器不允许通过 ‘this’指针改变数据成员。const_cast将 ‘this’指针的类型转变成了‘student</em> const this’。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> student</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> roll;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// constructor</span></span><br><span class="line">    student(<span class="keyword">int</span> r):roll(r) &#123;&#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// A const function that changes roll with the help of const_cast</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span> <span class="keyword">const</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        ( <span class="keyword">const_cast</span> &lt;student*&gt; (<span class="keyword">this</span>) )-&gt;roll = <span class="number">5</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getRoll</span><span class="params">()</span>  </span>&#123; <span class="keyword">return</span> roll; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="function">student <span class="title">s</span><span class="params">(<span class="number">3</span>)</span></span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Old roll number: "</span> &lt;&lt; s.getRoll() &lt;&lt; endl;</span><br><span class="line"> </span><br><span class="line">    s.fun();</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"New roll number: "</span> &lt;&lt; s.getRoll() &lt;&lt; endl;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Old roll number: <span class="number">3</span></span><br><span class="line">New roll number: <span class="number">5</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>2)</strong> const_cast可以向一个不接受const参数的函数传递const数据，。在下面的程序中，fun函数接受一个正常的指针，但是一个指向const的指针可以通过const_cast传递给这个函数。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span>* ptr)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (*ptr + <span class="number">10</span>);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> val = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> *ptr = &amp;val;</span><br><span class="line">    <span class="keyword">int</span> *ptr1 = <span class="keyword">const_cast</span> &lt;<span class="keyword">int</span> *&gt;(ptr);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; fun(ptr1);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">20</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>3)</strong> 修改一个被初始化为const的值是不被允许的。如下程序无法正常运行，因为‘val’是一个const变量，但是‘fun(ptr1)’却希望使用const_cast来修改‘val’。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span>* ptr)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    *ptr = *ptr + <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">return</span> (*ptr);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> val = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> *ptr = &amp;val;</span><br><span class="line">    <span class="keyword">int</span> *ptr1 = <span class="keyword">const_cast</span> &lt;<span class="keyword">int</span> *&gt;(ptr);</span><br><span class="line">    fun(ptr1);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; val;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Undefined Behavior</span><br></pre></td></tr></table></figure></p>
+<p>如果一个变量没有初始化为const，那么就不会有问题，如下程序会输出20<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span>* ptr)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    *ptr = *ptr + <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">return</span> (*ptr);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> val = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> *ptr = &amp;val;</span><br><span class="line">    <span class="keyword">int</span> *ptr1 = <span class="keyword">const_cast</span> &lt;<span class="keyword">int</span> *&gt;(ptr);</span><br><span class="line">    fun(ptr1);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; val;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>4)</strong> const_cast比简单的类型转换更加安全。如果原始对象和转换对象不同时无法进行转换。如下程序编译失败，因为‘int <em>’被转换为‘char </em>’。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a1 = <span class="number">40</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span>* b1 = &amp;a1;</span><br><span class="line">    <span class="keyword">char</span>* c1 = <span class="keyword">const_cast</span> &lt;<span class="keyword">char</span> *&gt; (b1); <span class="comment">// compiler error</span></span><br><span class="line">    *c1 = <span class="string">'A'</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>output:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">prog.cpp: In function ‘int main()’:</span><br><span class="line">prog.cpp:8: error: invalid const_cast from type 'const int*' to type 'char*'</span><br></pre></td></tr></table></figure></p>
+<p><strong>5)</strong> const_cast可以用来去除volatile属性。如下程序，b1的类型是PVKi（pointer to a volatile and constant integer），c1的类型是Pi（Pointer to integer）。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;typeinfo&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a1 = <span class="number">40</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">volatile</span> <span class="keyword">int</span>* b1 = &amp;a1;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"typeid of b1 "</span> &lt;&lt; <span class="keyword">typeid</span>(b1).name() &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">    <span class="keyword">int</span>* c1 = <span class="keyword">const_cast</span> &lt;<span class="keyword">int</span> *&gt; (b1);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"typeid of c1 "</span> &lt;&lt; <span class="keyword">typeid</span>(c1).name() &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeid</span> of b1 PVKi</span><br><span class="line"><span class="keyword">typeid</span> of c1 Pi</span><br></pre></td></tr></table></figure></p>
+<p><strong>练习</strong><br>预测下列程序的输出。<br><strong>Question 1</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a1 = <span class="number">40</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span>* b1 = &amp;a1;</span><br><span class="line">    <span class="keyword">char</span>* c1 = (<span class="keyword">char</span> *)(b1);</span><br><span class="line">    *c1 = <span class="string">'A'</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Question 2</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> student</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> roll;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// constructor</span></span><br><span class="line">    student(<span class="keyword">int</span> r):roll(r) &#123;&#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// A const function that changes roll with the help of const_cast</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span> <span class="keyword">const</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        ( <span class="keyword">const_cast</span> &lt;student*&gt; (<span class="keyword">this</span>) )-&gt;roll = <span class="number">5</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getRoll</span><span class="params">()</span>  </span>&#123; <span class="keyword">return</span> roll; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="function">student <span class="title">s</span><span class="params">(<span class="number">3</span>)</span></span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Old roll number: "</span> &lt;&lt; s.getRoll() &lt;&lt; endl;</span><br><span class="line"> </span><br><span class="line">    s.fun();</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"New roll number: "</span> &lt;&lt; s.getRoll() &lt;&lt; endl;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Question 1</p>
+<pre><code class="c++">a1 = <span class="number">65</span>
+*b1 = <span class="number">65</span>
+*c1 = <span class="string">'A'</span>
+</code></pre>
+<p>Question 2</p>
+<pre><code><span class="number">1.</span> *<span class="keyword">const_cast</span>&lt;<span class="keyword">int</span>*&gt;(&amp;( <span class="keyword">const_cast</span> &lt;student*&gt; (<span class="keyword">this</span>) )-&gt;roll) = <span class="number">5</span>;最里面的<span class="keyword">const_cast</span>移除<span class="keyword">this</span>指针的<span class="keyword">const</span>属性，roll是一个<span class="keyword">const</span>变量，也需要移除<span class="keyword">const</span>属性。&amp;被使用，因为<span class="keyword">const_cast</span>只对指针有用。&amp;给出了<span class="keyword">this</span>-&gt;roll的地址。
+<span class="number">2.</span> *<span class="keyword">const_cast</span>(&amp;( <span class="keyword">const_cast</span> (<span class="keyword">this</span>) )-&gt;roll) = <span class="number">5</span>;
+</code></pre>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
 
 
 </div>
@@ -116,7 +162,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/11/14/GeeksforGeeks-078/" data-title="GeeksforGeeks-078 | Hexo" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/11/14/GeeksforGeeks-078/" data-title="GeeksforGeeks-078-C++中的转换操作 | Hexo" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -130,18 +176,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/11/14/GeeksforGeeks-079/" title="GeeksforGeeks-079">
+ <a href="/2015/11/14/GeeksforGeeks-079/" title="GeeksforGeeks-079-在C++中模拟final class">
   <strong>上一篇：</strong><br/>
   <span>
-  GeeksforGeeks-079</span>
+  GeeksforGeeks-079-在C++中模拟final class</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/11/14/GeeksforGeeks-077/"  title="GeeksforGeeks-077">
+<a href="/2015/11/14/GeeksforGeeks-077/"  title="GeeksforGeeks-077-C++中的嵌套类">
  <strong>下一篇：</strong><br/> 
- <span>GeeksforGeeks-077
+ <span>GeeksforGeeks-077-C++中的嵌套类
 </span>
 </a>
 </div>
@@ -180,7 +226,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>74</sup></a></li>
+			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>80</sup></a></li>
 		  
 		
 		</ul>

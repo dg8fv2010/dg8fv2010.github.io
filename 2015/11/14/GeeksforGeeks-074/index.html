@@ -11,16 +11,16 @@
     
 
     
-    <meta name="description" content="模板元编程；template metaprogramming预测下面程序的输出：123456789101112131415161718#include &amp;lt;iostream&amp;gt;using namespace std; template&amp;lt;int n&amp;gt; struct funStruct&amp;#123;    enum &amp;#123; val = 2*funStruct&amp;lt;n-1&amp;gt">
+    <meta name="description" content="模板元编程：template metaprogramming预测下面程序的输出：123456789101112131415161718#include &amp;lt;iostream&amp;gt;using namespace std; template&amp;lt;int n&amp;gt; struct funStruct&amp;#123;    enum &amp;#123; val = 2*funStruct&amp;lt;n-1&amp;gt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GeeksforGeeks-074-C++中的模板元编程">
 <meta property="og:url" content="http://yoursite.com/2015/11/14/GeeksforGeeks-074/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="模板元编程；template metaprogramming预测下面程序的输出：123456789101112131415161718#include &amp;lt;iostream&amp;gt;using namespace std; template&amp;lt;int n&amp;gt; struct funStruct&amp;#123;    enum &amp;#123; val = 2*funStruct&amp;lt;n-1&amp;gt">
-<meta property="og:updated_time" content="2015-11-14T08:31:58.500Z">
+<meta property="og:description" content="模板元编程：template metaprogramming预测下面程序的输出：123456789101112131415161718#include &amp;lt;iostream&amp;gt;using namespace std; template&amp;lt;int n&amp;gt; struct funStruct&amp;#123;    enum &amp;#123; val = 2*funStruct&amp;lt;n-1&amp;gt">
+<meta property="og:updated_time" content="2015-11-14T08:53:29.619Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GeeksforGeeks-074-C++中的模板元编程">
-<meta name="twitter:description" content="模板元编程；template metaprogramming预测下面程序的输出：123456789101112131415161718#include &amp;lt;iostream&amp;gt;using namespace std; template&amp;lt;int n&amp;gt; struct funStruct&amp;#123;    enum &amp;#123; val = 2*funStruct&amp;lt;n-1&amp;gt">
+<meta name="twitter:description" content="模板元编程：template metaprogramming预测下面程序的输出：123456789101112131415161718#include &amp;lt;iostream&amp;gt;using namespace std; template&amp;lt;int n&amp;gt; struct funStruct&amp;#123;    enum &amp;#123; val = 2*funStruct&amp;lt;n-1&amp;gt">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -104,7 +104,7 @@
 		
 		</div>
 		
-		<p>模板元编程；template metaprogramming<br>预测下面程序的输出：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">int</span> n&gt; <span class="keyword">struct</span> funStruct</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">enum</span> &#123; val = <span class="number">2</span>*funStruct&lt;n-<span class="number">1</span>&gt;::val &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">template</span>&lt;&gt; <span class="keyword">struct</span> funStruct&lt;<span class="number">0</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">enum</span> &#123; val = <span class="number">1</span> &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; funStruct&lt;<span class="number">8</span>&gt;::val &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+		<p>模板元编程：template metaprogramming<br>预测下面程序的输出：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">int</span> n&gt; <span class="keyword">struct</span> funStruct</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">enum</span> &#123; val = <span class="number">2</span>*funStruct&lt;n-<span class="number">1</span>&gt;::val &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">template</span>&lt;&gt; <span class="keyword">struct</span> funStruct&lt;<span class="number">0</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">enum</span> &#123; val = <span class="number">1</span> &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; funStruct&lt;<span class="number">8</span>&gt;::val &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">256</span></span><br></pre></td></tr></table></figure></p>
 <p>程序计算2的8次方。<br>实际上，funStruct可以用来计算任何已知类型n的2^n。以上程序需要注意的是：计算是在编译阶段完成的。因此，实际上是编译器计算的2^8。<br>为了理解编译器是如何实现的，需要考虑模板和枚举的情况。</p>
 <ol>
@@ -144,10 +144,10 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/11/14/GeeksforGeeks-075/" title="GeeksforGeeks-075">
+ <a href="/2015/11/14/GeeksforGeeks-075/" title="GeeksforGeeks-075-C++中的模板特化">
   <strong>上一篇：</strong><br/>
   <span>
-  GeeksforGeeks-075</span>
+  GeeksforGeeks-075-C++中的模板特化</span>
 </a>
 </div>
 
@@ -194,7 +194,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>74</sup></a></li>
+			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>80</sup></a></li>
 		  
 		
 		</ul>

@@ -4,23 +4,32 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>GeeksforGeeks-080 | Hexo</title>
+    <title>GeeksforGeeks-080-C++中的const成员函数 | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Xue Wentao">
     
 
     
-    <meta name="description">
+    <meta name="description" content="const函数的想法是不允许修改他们调用的对象。如果可能，让尽量多的函数称为const函数，来避免对象的以外修改。
+#includeusing namespace std;
+class Test {    int value;public:    Test(int v = 0) {value = v;}
+// We get compiler error if we add a line like">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GeeksforGeeks-080">
+<meta property="og:title" content="GeeksforGeeks-080-C++中的const成员函数">
 <meta property="og:url" content="http://yoursite.com/2015/11/14/GeeksforGeeks-080/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description">
-<meta property="og:updated_time" content="2015-11-14T08:20:18.771Z">
+<meta property="og:description" content="const函数的想法是不允许修改他们调用的对象。如果可能，让尽量多的函数称为const函数，来避免对象的以外修改。
+#includeusing namespace std;
+class Test {    int value;public:    Test(int v = 0) {value = v;}
+// We get compiler error if we add a line like">
+<meta property="og:updated_time" content="2015-11-14T09:34:55.881Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GeeksforGeeks-080">
-<meta name="twitter:description">
+<meta name="twitter:title" content="GeeksforGeeks-080-C++中的const成员函数">
+<meta name="twitter:description" content="const函数的想法是不允许修改他们调用的对象。如果可能，让尽量多的函数称为const函数，来避免对象的以外修改。
+#includeusing namespace std;
+class Test {    int value;public:    Test(int v = 0) {value = v;}
+// We get compiler error if we add a line like">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -84,7 +93,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/14/GeeksforGeeks-080/" title="GeeksforGeeks-080" itemprop="url">GeeksforGeeks-080</a>
+      <a href="/2015/11/14/GeeksforGeeks-080/" title="GeeksforGeeks-080-C++中的const成员函数" itemprop="url">GeeksforGeeks-080-C++中的const成员函数</a>
   </h1>
   <p class="article-author">By
        
@@ -104,10 +113,27 @@
 		
 		</div>
 		
-		  
+		<p>const函数的想法是不允许修改他们调用的对象。如果可能，让尽量多的函数称为const函数，来避免对象的以外修改。</p>
+<p>#include<iostream><br>using namespace std;</iostream></p>
+<p>class Test {<br>    int value;<br>public:<br>    Test(int v = 0) {value = v;}</p>
+<pre><code>// We <span class="built_in">get</span> compiler error <span class="keyword">if</span> we <span class="built_in">add</span> <span class="operator">a</span> <span class="built_in">line</span> like <span class="string">"value = 100;"</span><span class="comment">
+// in this function.</span>
+int getValue() const {<span class="constant">return</span> <span class="built_in">value</span>;} 
+</code></pre><p>};</p>
+<p>int main() {<br>    Test t(20);<br>    cout&lt;&lt;t.getValue();<br>    return 0;<br>}<br>Output:<br>20</p>
+<p>当一个函数被声明为const，它可以被任何类型的对象调用。非const函数只能被非cosnt对象调用。</p>
+<p>#include<iostream><br>using namespace std;</iostream></p>
+<p>class Test {<br>    int value;<br>public:<br>    Test(int v = 0) {value = v;}<br>    int getValue() {return value;}<br>};</p>
+<p>int main() {<br>    const Test t;<br>    cout &lt;&lt; t.getValue();<br>    return 0;<br>}<br>Output:<br> passing ‘const Test’ as ‘this’ argument of ‘int<br>Test::getValue()’ discards qualifiers</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
 
 
 </div>
@@ -116,7 +142,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/11/14/GeeksforGeeks-080/" data-title="GeeksforGeeks-080 | Hexo" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/11/14/GeeksforGeeks-080/" data-title="GeeksforGeeks-080-C++中的const成员函数 | Hexo" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -131,9 +157,9 @@
  
 
 <div class="next">
-<a href="/2015/11/14/GeeksforGeeks-079/"  title="GeeksforGeeks-079">
+<a href="/2015/11/14/GeeksforGeeks-079/"  title="GeeksforGeeks-079-在C++中模拟final class">
  <strong>下一篇：</strong><br/> 
- <span>GeeksforGeeks-079
+ <span>GeeksforGeeks-079-在C++中模拟final class
 </span>
 </a>
 </div>
@@ -172,7 +198,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>74</sup></a></li>
+			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>80</sup></a></li>
 		  
 		
 		</ul>

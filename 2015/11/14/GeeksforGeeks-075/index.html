@@ -4,23 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>GeeksforGeeks-075 | Hexo</title>
+    <title>GeeksforGeeks-075-C++中的模板特化 | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Xue Wentao">
     
 
     
-    <meta name="description">
+    <meta name="description" content="模板特化：template specialization模板可以编写一段代码，并且适用于任何数据类型。但是，如果我们想对于某个特殊的数据类型采用一套不同的代码时该怎么做？如果一个大的工程需要sort函数适用于许多不同的数据类型，Quick Sort用于除char类型以外的所有数据类型。对于char，总共可能的值只有256个，因此计数排序可能是一个更好的选择。那么有没有可能只有在char类型的时候才">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GeeksforGeeks-075">
+<meta property="og:title" content="GeeksforGeeks-075-C++中的模板特化">
 <meta property="og:url" content="http://yoursite.com/2015/11/14/GeeksforGeeks-075/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description">
-<meta property="og:updated_time" content="2015-11-14T08:19:53.132Z">
+<meta property="og:description" content="模板特化：template specialization模板可以编写一段代码，并且适用于任何数据类型。但是，如果我们想对于某个特殊的数据类型采用一套不同的代码时该怎么做？如果一个大的工程需要sort函数适用于许多不同的数据类型，Quick Sort用于除char类型以外的所有数据类型。对于char，总共可能的值只有256个，因此计数排序可能是一个更好的选择。那么有没有可能只有在char类型的时候才">
+<meta property="og:updated_time" content="2015-11-14T09:04:48.406Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GeeksforGeeks-075">
-<meta name="twitter:description">
+<meta name="twitter:title" content="GeeksforGeeks-075-C++中的模板特化">
+<meta name="twitter:description" content="模板特化：template specialization模板可以编写一段代码，并且适用于任何数据类型。但是，如果我们想对于某个特殊的数据类型采用一套不同的代码时该怎么做？如果一个大的工程需要sort函数适用于许多不同的数据类型，Quick Sort用于除char类型以外的所有数据类型。对于char，总共可能的值只有256个，因此计数排序可能是一个更好的选择。那么有没有可能只有在char类型的时候才">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -84,7 +84,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/14/GeeksforGeeks-075/" title="GeeksforGeeks-075" itemprop="url">GeeksforGeeks-075</a>
+      <a href="/2015/11/14/GeeksforGeeks-075/" title="GeeksforGeeks-075-C++中的模板特化" itemprop="url">GeeksforGeeks-075-C++中的模板特化</a>
   </h1>
   <p class="article-author">By
        
@@ -104,10 +104,21 @@
 		
 		</div>
 		
-		  
+		<p>模板特化：template specialization<br>模板可以编写一段代码，并且适用于任何数据类型。但是，如果我们想对于某个特殊的数据类型采用一套不同的代码时该怎么做？<br>如果一个大的工程需要sort函数适用于许多不同的数据类型，Quick Sort用于除char类型以外的所有数据类型。对于char，总共可能的值只有256个，因此计数排序可能是一个更好的选择。<br>那么有没有可能只有在char类型的时候才sort函数使用不同的代码？这就是模板特化。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A generic sort function</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T arr[], <span class="keyword">int</span> size)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="comment">// code to implement Quick Sort</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Template Specialization: A function specialized for char data type</span></span><br><span class="line"><span class="keyword">template</span> &lt;&gt;</span><br><span class="line"><span class="keyword">void</span> sort&lt;<span class="keyword">char</span>&gt;(<span class="keyword">char</span> arr[], <span class="keyword">int</span> size)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// code to implement counting sort</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>函数模板特化的示例代码：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(T a)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; <span class="string">"The main template fun(): "</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">template</span>&lt;&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span> a)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Specialized Template for int type: "</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    fun&lt;<span class="keyword">char</span>&gt;(<span class="string">'a'</span>);</span><br><span class="line">    fun&lt;<span class="keyword">int</span>&gt;(<span class="number">10</span>);</span><br><span class="line">    fun&lt;<span class="keyword">float</span>&gt;(<span class="number">10.14</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The main template fun(): a</span><br><span class="line">Specialized Template for int type: 10</span><br><span class="line">The main template fun(): 10.14</span><br></pre></td></tr></table></figure></p>
+<p><strong>类模板特化的示例代码：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> Test</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// Data memnbers of test</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   Test()</span><br><span class="line">   &#123;</span><br><span class="line">       <span class="comment">// Initializstion of data memnbers</span></span><br><span class="line">       <span class="built_in">cout</span> &lt;&lt; <span class="string">"General template object \n"</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// Other methods of Test</span></span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">template</span> &lt;&gt;</span><br><span class="line"><span class="keyword">class</span> Test &lt;<span class="keyword">int</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   Test()</span><br><span class="line">   &#123;</span><br><span class="line">       <span class="comment">// Initializstion of data memnbers</span></span><br><span class="line">       <span class="built_in">cout</span> &lt;&lt; <span class="string">"Specialized template object\n"</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    Test&lt;<span class="keyword">int</span>&gt; a;</span><br><span class="line">    Test&lt;<span class="keyword">char</span>&gt; b;</span><br><span class="line">    Test&lt;<span class="keyword">float</span>&gt; c;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Specialized <span class="keyword">template</span> object</span><br><span class="line">General <span class="keyword">template</span> object</span><br><span class="line">General <span class="keyword">template</span> object</span><br></pre></td></tr></table></figure></p>
+<p><strong>模板特化是怎样工作的？</strong><br>当我们在实现一个类或函数的模板时，当被一个新的数据类型或新的数据类型集合（以防多个模板参数）使用时，编译器都会创建一份类或函数的拷贝。<br>当一个特化版本出现时，编译器首先检查特化版本，再检查主模板。<br>Compiler first checks with the most specialized version by matching the passed<br>parameter with the data type(s) specified in a specialized version.<br>但出现一个特化版本时，编译器首先检查特化版本再检查主模板。编译器会首先会对传入参数的类型进行匹配。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
 
 
 </div>
@@ -116,7 +127,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/11/14/GeeksforGeeks-075/" data-title="GeeksforGeeks-075 | Hexo" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/11/14/GeeksforGeeks-075/" data-title="GeeksforGeeks-075-C++中的模板特化 | Hexo" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -130,10 +141,10 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/11/14/GeeksforGeeks-076/" title="GeeksforGeeks-076">
+ <a href="/2015/11/14/GeeksforGeeks-076/" title="GeeksforGeeks-076-C++中的局部类">
   <strong>上一篇：</strong><br/>
   <span>
-  GeeksforGeeks-076</span>
+  GeeksforGeeks-076-C++中的局部类</span>
 </a>
 </div>
 
@@ -180,7 +191,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>74</sup></a></li>
+			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>80</sup></a></li>
 		  
 		
 		</ul>
