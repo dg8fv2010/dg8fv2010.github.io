@@ -85,20 +85,31 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/07/Just-a-test/" title="Just a test~~~~" itemprop="url">Just a test~~~~</a>
+      <a href="/2015/10/07/GeeksforGeeks-030/" title="GeeksforGeeks 030-C++中的拷贝去除" itemprop="url">GeeksforGeeks 030-C++中的拷贝去除</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-07T07:34:50.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    <time datetime="2015-10-07T13:34:50.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <h3 id="This_is_a_test!!!">This is a test!!!</h3>
+        <p><strong>拷贝去除：Copy elision or Copy omission</strong><br>是一种编译器的优化技术，来避免对象的不必要拷贝<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">class</span> B</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:   </span><br><span class="line">    B(<span class="keyword">const</span> <span class="keyword">char</span>* str = <span class="string">"\0"</span>) <span class="comment">//default constructor</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Constructor called"</span> &lt;&lt; endl;</span><br><span class="line">    &#125;   </span><br><span class="line">     </span><br><span class="line">    B(<span class="keyword">const</span> B &amp;b)  <span class="comment">//copy constructor</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Copy constructor called"</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    B ob = <span class="string">"copy me"</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">The output of above program is:</span><br><span class="line">Constructor called</span><br></pre></td></tr></table></figure>
+<p>当对象ob创建时，一个参数的构造函数将“copy me”转化成了一个临时对象，并将临时对象拷贝给对象ob<br>因此<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">B ob = <span class="string">"copy me"</span>;</span><br></pre></td></tr></table></figure></p>
+<p>将会被编译器转化成<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">B ob = B(<span class="string">"copy me"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>但是，绝大多数编译器避免了临时对象的创建和拷贝<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">B ob = <span class="string">"copy me"</span>; <span class="comment">//copy initialization</span></span><br></pre></td></tr></table></figure></p>
+<p>会转化为<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">B <span class="title">ob</span><span class="params">(<span class="string">"copy me"</span>)</span></span>; <span class="comment">//direct initialization</span></span><br></pre></td></tr></table></figure></p>
+<p>如果不想让编译器忽略拷贝构造函数，在g++中可以使用“-fno-elide-constructors”来编译程序<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">aashish@aashish-ThinkPad-SL400:~$ g++ copy_elision.cpp -fno-elide-constructors</span><br><span class="line">aashish@aashish-ThinkPad-SL400:~$ ./a.out</span><br><span class="line">Constructor called</span><br><span class="line">Copy constructor called</span><br></pre></td></tr></table></figure></p>
+<p>如上所示，会先调用构造函数，然后再调用拷贝构造函数</p>
+<p><a href="http://blog.chinaunix.net/uid-22754909-id-3969535.html" target="_blank" rel="external">http://blog.chinaunix.net/uid-22754909-id-3969535.html</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> G</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">int</span> i;</span><br><span class="line">        G() &#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"ctor"</span>&lt;&lt;endl;i+=<span class="number">1</span>;&#125;</span><br><span class="line">        G(<span class="keyword">const</span> G&amp; rg)&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"copy ctor"</span>&lt;&lt;endl;i+=<span class="number">2</span>;&#125;</span><br><span class="line">        G&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> G&amp; rg)&#123;<span class="built_in">cout</span>&lt;&lt;__FUNCTION__&lt;&lt;endl;i+=<span class="number">3</span>;<span class="keyword">return</span> *<span class="keyword">this</span>;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> G::i=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function">G <span class="title">Create</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;__FUNCTION__&lt;&lt;<span class="string">" starts"</span>&lt;&lt;endl;</span><br><span class="line">        G obj;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;__FUNCTION__&lt;&lt;<span class="string">" ends"</span>&lt;&lt;endl;</span><br><span class="line">        <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span><br><span class="line"></span>&#123;</span><br><span class="line">        G g1=Create();</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"G.i="</span>&lt;&lt;G::i&lt;&lt;endl;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>VC编译器，用2008或者2012，Debug版都是3，Release版都是1。用GCC4.7，Debug/Release都是1。<br>因为G g1=Create();这句话，可能会触发C++编译器的一个实现特性，叫做NRVO，命名返回值优化。也就是G函数中的obj并没有被创建在G的调用栈中，而是调用Create()函数的main的栈当中，因此obj不再是一个函数的返回变量，而是用g1给Create()返回的变量命名。<br>VC的Debug版没有触发NRVO，因此会多调用一个拷贝构造函数，结果和Release版不一样。</p>
+
         
         
         <p class="article-more-link">
@@ -107,6 +118,11 @@
     </div>
     <footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
 
 
 </div>
@@ -134,28 +150,32 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/06/hello-world/" title="Hello World" itemprop="url">Hello World</a>
+      <a href="/2015/10/07/GeeksforGeeks-029/" title="GeeksforGeeks 029-C++析构函数的小问题" itemprop="url">GeeksforGeeks 029-C++析构函数的小问题</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-06T06:05:20.639Z" itemprop="datePublished"> 发表于 2015-10-06</time>
+    <time datetime="2015-10-07T13:34:45.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>预测下列程序的输出<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">int</span> i;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> A</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ~A()</span><br><span class="line">    &#123;</span><br><span class="line">        i=<span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    i=<span class="number">3</span>;</span><br><span class="line">    A ob;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"i = "</span> &lt;&lt; foo() &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以上程序的输出是i=3。<br>当从一个函数返回时，析构函数是最后一个被调用的函数，对象ob的析构函数在i的值被拷贝到foo函数的返回值之后才被调用。因此，在析构函数将i的值改成10之前当前i的值被复制输出。</p>
+<p><strong>如何将i最后的输出改为10</strong></p>
+<ol>
+<li><p>返回引用</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">int</span> i;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> A</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ~A()</span><br><span class="line">    &#123;</span><br><span class="line">        i = <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span>&amp; <span class="title">foo</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    i = <span class="number">3</span>;</span><br><span class="line">    A ob;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"i = "</span> &lt;&lt; foo() &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时i的地址被复制给函数的返回值，</p>
+</li>
+<li><p>在block scope中创建对象ob</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">int</span> i;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> A</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ~A()</span><br><span class="line">    &#123;</span><br><span class="line">        i = <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    i = <span class="number">3</span>;</span><br><span class="line">    &#123;</span><br><span class="line">        A ob;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"i = "</span> &lt;&lt; foo() &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时对象的析构函数将会在block之内被调用</p>
+</li>
+</ol>
 
         
         
@@ -165,6 +185,518 @@
     </div>
     <footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/07/GeeksforGeeks-028/" title="GeeksforGeeks 028-私有的析构函数" itemprop="url">GeeksforGeeks 028-私有的析构函数</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-07T13:34:39.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>预测以下程序的输出<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Test</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">   ~Test() &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123; &#125;</span><br></pre></td></tr></table></figure></p>
+<p>以上程序可以正常运行，如下程序呢<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Test</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">   ~Test() &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  Test t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>会出现编译错误，如下程序呢<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Test</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">   ~Test() &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">   Test *t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以上程序正常运行，因为没有对象被创建，程序只是创建了一个Test*类型的指针，不需要析构。<br>如下函数<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Test</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">   ~Test() &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">   Test *t = <span class="keyword">new</span> Test;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>同样正常运行，因为通过动态内存分配创建一个对象时，删除它是程序员的责任，编译器不会有问题。<br>如下程序会报错<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Test</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">   ~Test() &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">   Test *t = <span class="keyword">new</span> Test;</span><br><span class="line">   <span class="keyword">delete</span> t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当一个类有私有析构函数时，只有这个类的动态对象可以被创建，如下程序有一个私有析构函数，并且有一个友元函数，只有友元函数才可以删除对象<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="comment">// A class with private destuctor</span></span><br><span class="line"><span class="keyword">class</span> Test</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    ~Test() &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">friend</span> <span class="keyword">void</span> <span class="title">destructTest</span><span class="params">(Test* )</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Only this function can destruct objects of Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">destructTest</span><span class="params">(Test* ptr)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">delete</span> ptr;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="comment">// create an object</span></span><br><span class="line">    Test *ptr = <span class="keyword">new</span> Test;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// destruct the object</span></span><br><span class="line">    destructTest (ptr);</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>私有析构函数的用处</strong><br>当我们需要控制一个类的析构时，可以将析构函数私有化。<br>对于一个动态创建的对象，当你向一个函数传递了一个指向该对象的指针，并且函数删除了该对象时。如果对象在函数之后被引用，引用会是无效的。<br><a href="http://blogs.msdn.com/b/larryosterman/archive/2005/07/01/434684.aspx" target="_blank" rel="external">http://blogs.msdn.com/b/larryosterman/archive/2005/07/01/434684.aspx</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/07/GeeksforGeeks-027/" title="GeeksforGeeks 027-默认构造函数" itemprop="url">GeeksforGeeks 027-默认构造函数</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-07T13:33:56.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><strong>默认构造函数：</strong>没有任何参数，或者每个参数都有默认值的构造函数。<br>如果程序员没有声明构造函数，编译器将会隐式的声明<br>编译器会根据环境生成默认的构造函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// compiler "declares" constructor</span></span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> A</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// User defined constructor</span></span><br><span class="line">    A()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"A Constructor"</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// uninitialized</span></span><br><span class="line">    <span class="keyword">int</span> size;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> B : <span class="keyword">public</span> A</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// compiler defines default constructor of B, and</span></span><br><span class="line">    <span class="comment">// inserts stub to call A constructor</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">// compiler won't initialize any data of A</span></span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> C : <span class="keyword">public</span> A</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    C()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// User defined default constructor of C</span></span><br><span class="line">        <span class="comment">// Compiler inserts stub to call A's construtor</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"B Constructor"</span> &lt;&lt; endl;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// compiler won't initialize any data of A</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> D</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    D()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// User defined default constructor of D</span></span><br><span class="line">        <span class="comment">// a - constructor to be called, compiler inserts</span></span><br><span class="line">        <span class="comment">// stub to call A constructor</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"D Constructor"</span> &lt;&lt; endl;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// compiler won't initialize any data of 'a'</span></span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    A a;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    Base base;</span><br><span class="line"> </span><br><span class="line">    B b;</span><br><span class="line">    C c;</span><br><span class="line">    D d;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>output：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">A Constructor</span><br><span class="line">A Constructor</span><br><span class="line">B Constructor</span><br><span class="line">A Constructor</span><br><span class="line">D Constructor</span><br></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/07/GeeksforGeeks-026/" title="GeeksforGeeks 026-什么时候使用初始化列表" itemprop="url">GeeksforGeeks 026-什么时候使用初始化列表</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-07T13:33:52.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <ol>
+<li><p>非static的const变量必须使用初始化列表初始化</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Test &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> t;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Test(<span class="keyword">int</span> t):t(t) &#123;&#125;  <span class="comment">//Initializer list must be used</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getT</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> t; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">Test <span class="title">t1</span><span class="params">(<span class="number">10</span>)</span></span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;t1.getT();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/* OUTPUT:</span><br><span class="line">   10</span><br><span class="line">*/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>引用成员</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Initialization of reference data members</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Test &#123;</span><br><span class="line">    <span class="keyword">int</span> &amp;t;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Test(<span class="keyword">int</span> &amp;t):t(t) &#123;&#125;  <span class="comment">//Initializer list must be used</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getT</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> t; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x = <span class="number">20</span>;</span><br><span class="line">    <span class="function">Test <span class="title">t1</span><span class="params">(x)</span></span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;t1.getT()&lt;&lt;endl;</span><br><span class="line">    x = <span class="number">30</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;t1.getT()&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* OUTPUT:</span><br><span class="line">    20</span><br><span class="line">    30</span><br><span class="line"> */</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>没有默认构造函数的对象</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> A &#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    A(<span class="keyword">int</span> );</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">A::A(<span class="keyword">int</span> arg) &#123;</span><br><span class="line">    i = arg;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"A's Constructor called: Value of i: "</span> &lt;&lt; i &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Class B contains object of A</span></span><br><span class="line"><span class="keyword">class</span> B &#123;</span><br><span class="line">    A a;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    B(<span class="keyword">int</span> );</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">B::B(<span class="keyword">int</span> x):a(x) &#123;  <span class="comment">//Initializer list must be used</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"B's Constructor called"</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">B <span class="title">obj</span><span class="params">(<span class="number">10</span>)</span></span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* OUTPUT:</span><br><span class="line">    A's Constructor called: Value of i: 10</span><br><span class="line">    B's Constructor called</span><br><span class="line">*/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>初始化基类成员</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> A &#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    A(<span class="keyword">int</span> );</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">A::A(<span class="keyword">int</span> arg) &#123;</span><br><span class="line">    i = arg;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"A's Constructor called: Value of i: "</span> &lt;&lt; i &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Class B is derived from A</span></span><br><span class="line"><span class="keyword">class</span> B: A &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    B(<span class="keyword">int</span> );</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">B::B(<span class="keyword">int</span> x):A(x) &#123; <span class="comment">//Initializer list must be used</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"B's Constructor called"</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">B <span class="title">obj</span><span class="params">(<span class="number">10</span>)</span></span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当构造函数参数的名字和数据成员名字相同时</p>
+<figure class="highlight"><figcaption><span><iostream></iostream></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">using namespace std;&#10; &#10;class A &#123;&#10;    int i;&#10;public:&#10;    A(int );&#10;    int getI() const &#123; return i; &#125;&#10;&#125;;&#10; &#10;A::A(int i):i(i) &#123; &#125;  // Either Initializer list or this pointer must be used&#10;/* The above constructor can also be written as&#10;A::A(int i) &#123;&#10;    this-&#62;i = i;&#10;&#125;&#10;*/&#10; &#10;int main() &#123;&#10;    A a(10);&#10;    cout&#60;&#60;a.getI();&#10;    return 0;&#10;&#125;&#10;/* OUTPUT:&#10;    10&#10;*/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>出于性能考虑<br>对于如下程序</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Without Initializer List</span></span><br><span class="line"><span class="keyword">class</span> MyClass &#123;</span><br><span class="line">    Type variable;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    MyClass(Type a) &#123;  <span class="comment">// Assume that Type is an already</span></span><br><span class="line">                     <span class="comment">// declared class and it has appropriate</span></span><br><span class="line">                     <span class="comment">// constructors and operators</span></span><br><span class="line">      variable = a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre><code><span class="number">1.</span> 程序首先为“a”调用构造函数
+<span class="number">2.</span> 在MyClass()构造函数里调用复制操作符
+<span class="number">3.</span> 当程序超出“a”的作用域时，调用“Type”类的析构函数
+</code></pre><p>对于如下程序</p>
+<figure class="highlight"><figcaption><span>With Initializer List</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class MyClass &#123;&#10;    Type variable;&#10;public:&#10;    MyClass(Type a):variable(a) &#123;   // Assume that Type is an already&#10;                     // declared class and it has appropriate&#10;                     // constructors and operators&#10;    &#125;&#10;&#125;;</span><br></pre></td></tr></table></figure>
+<pre><code><span class="number">1</span>. “Type”类的拷贝构造函数被调用以初始化“<span class="literal">a</span>”，初始化列表里的参数
+<span class="number">2</span>. 当程序超出“<span class="literal">a</span>”的作用域时，调用“Type”类的析构函数
+</code></pre></li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/07/GeeksforGeeks-025/" title="GeeksforGeeks 025-数据成员的初始化" itemprop="url">GeeksforGeeks 025-数据成员的初始化</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-07T13:33:45.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>类成员的初始化顺序是按照类声明中出现的顺序排列的<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Test &#123;</span><br><span class="line">  <span class="keyword">private</span>:   </span><br><span class="line">    <span class="keyword">int</span> y;</span><br><span class="line">    <span class="keyword">int</span> x;   </span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    Test() : x(<span class="number">10</span>), y(x + <span class="number">10</span>) &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">void</span> Test::print()</span><br><span class="line">&#123;</span><br><span class="line">   <span class="built_in">cout</span>&lt;&lt;<span class="string">"x = "</span>&lt;&lt;x&lt;&lt;<span class="string">" y = "</span>&lt;&lt;y;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    Test t;</span><br><span class="line">    t.print();</span><br><span class="line">    getchar();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以上程序x值正确，y值错误，因为y在x之前初始化</p>
+<p>以下两种方法可以解决问题<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// First: Change the order of declaration.</span></span><br><span class="line"><span class="keyword">class</span> Test &#123;</span><br><span class="line">  <span class="keyword">private</span>:   </span><br><span class="line">    <span class="keyword">int</span> x;   </span><br><span class="line">    <span class="keyword">int</span> y;</span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    Test() : x(<span class="number">10</span>), y(x + <span class="number">10</span>) &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Second: Change the order of initialization.</span></span><br><span class="line"><span class="keyword">class</span> Test &#123;</span><br><span class="line">  <span class="keyword">private</span>:   </span><br><span class="line">    <span class="keyword">int</span> y;</span><br><span class="line">    <span class="keyword">int</span> x;   </span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    Test() : x(y-<span class="number">10</span>), y(<span class="number">20</span>) &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/07/GeeksforGeeks-024/" title="GeeksforGeeks 024-C++中的析构函数" itemprop="url">GeeksforGeeks 024-C++中的析构函数</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-07T13:33:39.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>析构函数在如下情况被调用</p>
+<pre><code><span class="number">1.</span> 函数结束
+<span class="number">2.</span> 程序结束
+<span class="number">3.</span> 包含局部变量的block结束
+<span class="number">4.</span> <span class="keyword">delete</span>被调用
+</code></pre><p>一个类只能有一个析构函数</p>
+<p>析构函数可以是虚函数</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/07/GeeksforGeeks-023/" title="GeeksforGeeks 023-C++中的拷贝构造函数" itemprop="url">GeeksforGeeks 023-C++中的拷贝构造函数</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-07T13:33:34.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>拷贝构造函数在如下情况被调用</p>
+<pre><code><span class="number">1.</span> 当一个类的对象通过值来返回时
+<span class="number">2.</span> 当一个类的对象作为一个参数传递时
+<span class="number">3.</span> 当一个对象通过相同类的另一个对象创建时
+<span class="number">4.</span> 当编译器生成一个临时对象时
+</code></pre><p>拷贝构造函数和赋值操作符<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MyClass t1, t2;</span><br><span class="line">MyClass t3 = t1;  <span class="comment">// ----&gt; (1)</span></span><br><span class="line">t2 = t1;          <span class="comment">// -----&gt; (2)</span></span><br></pre></td></tr></table></figure></p>
+<p>当一个对象从一个已存在的对象中创建，作为当前存在对象的一份拷贝时，调用拷贝构造函数<br>当一个已经被初始化的对象被另一个已存在的对象赋予新值时，调用赋值操作符<br>1-拷贝构造函数<br>2-赋值操作符</p>
+<p>拷贝构造函数可以是私有的，此时类的对象不可以被拷贝，当类含有指针或者动态分配的内存资源时特别有效。</p>
+<p>为什么拷贝构造函数的参数是一个引用？<br>当一个对象作为参数传递时会调用拷贝构造函数，如果不是引用的话，会导致死循环。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/07/GeeksforGeeks-022/" title="GeeksforGeeks 022-C++中的构造函数" itemprop="url">GeeksforGeeks 022-C++中的构造函数</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-07T13:33:30.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>构造函数和普通函数不同：</p>
+<pre><code><span class="number">1.</span> 构造函数和类的名字相同
+<span class="number">2.</span> 构造函数没有返回值
+<span class="number">3.</span> 当对象创建时，构造函数自动被调用
+<span class="number">4.</span> 如果不指定构造函数，编译器会生成一个默认的构造函数
+</code></pre><p>编译器会为每一个类创建默认的构造函数，但是当定义了自己的构造函数时，编译器就不会创建默认构造函数了<br>如下程序编译出错：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> myInteger</span><br><span class="line">&#123;</span><br><span class="line">   <span class="keyword">private</span>:</span><br><span class="line">     <span class="keyword">int</span> value;</span><br><span class="line">   <span class="keyword">public</span>: </span><br><span class="line">     myInteger(<span class="keyword">int</span> v)  <span class="comment">// parametrized constructor</span></span><br><span class="line">     &#123;  value = v;  &#125;</span><br><span class="line">   </span><br><span class="line">     <span class="comment">//...other things in class  </span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  myInteger I1;</span><br><span class="line">  getchar();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/07/GeeksforGeeks-021/" title="GeeksforGeeks 021-C++中的this指针" itemprop="url">GeeksforGeeks 021-C++中的this指针</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-07T13:33:25.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>函数调用链<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Test</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="keyword">int</span> x;</span><br><span class="line">  <span class="keyword">int</span> y;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  Test(<span class="keyword">int</span> x = <span class="number">0</span>, <span class="keyword">int</span> y = <span class="number">0</span>) &#123; <span class="keyword">this</span>-&gt;x = x; <span class="keyword">this</span>-&gt;y = y; &#125;</span><br><span class="line">  <span class="function">Test &amp;<span class="title">setX</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123; x = a; <span class="keyword">return</span> *<span class="keyword">this</span>; &#125;</span><br><span class="line">  <span class="function">Test &amp;<span class="title">setY</span><span class="params">(<span class="keyword">int</span> b)</span> </span>&#123; y = b; <span class="keyword">return</span> *<span class="keyword">this</span>; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"x = "</span> &lt;&lt; x &lt;&lt; <span class="string">" y = "</span> &lt;&lt; y &lt;&lt; endl; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="function">Test <span class="title">obj1</span><span class="params">(<span class="number">5</span>, <span class="number">5</span>)</span></span>;</span><br><span class="line"> </span><br><span class="line">  <span class="comment">// Chained function calls.  All calls modify the same object</span></span><br><span class="line">  <span class="comment">// as the same object is returned by reference</span></span><br><span class="line">  obj1.setX(<span class="number">10</span>).setY(<span class="number">20</span>);</span><br><span class="line"> </span><br><span class="line">  obj1.print();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">10</span> y = <span class="number">20</span></span><br></pre></td></tr></table></figure></p>
+<p>对于一个类X，this指针是X<em> const<br>如果一个成员函数X被声明为const，this指针为const X </em>const </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">class</span> X &#123;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line">    <span class="comment">// this is passed as hidden argument to fun().</span></span><br><span class="line">    <span class="comment">// Type of this is const X*</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">class</span> X &#123;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span> <span class="keyword">volatile</span> </span>&#123;</span><br><span class="line">     <span class="comment">// this is passed as hidden argument to fun().</span></span><br><span class="line">     <span class="comment">// Type of this is volatile X*</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">class</span> X &#123;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span> <span class="keyword">const</span> <span class="keyword">volatile</span> </span>&#123;</span><br><span class="line">     <span class="comment">// this is passed as hidden argument to fun().</span></span><br><span class="line">     <span class="comment">// Type of this is const volatile X*</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id=""> </h1><p>delete最好不要用在this指针上面，如果使用，需要考虑下面的情况</p>
+<ol>
+<li><p>delete操作只对使用了new的对象有效</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> A</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">delete</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="comment">/* Following is Valid */</span></span><br><span class="line">  A *ptr = <span class="keyword">new</span> A;</span><br><span class="line">  ptr-&gt;fun();</span><br><span class="line">  ptr = <span class="literal">NULL</span> <span class="comment">// make ptr NULL to make sure that things are not accessed using ptr.</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">  <span class="comment">/* And following is Invalid: Undefined Behavior */</span></span><br><span class="line">  A a;</span><br><span class="line">  a.fun();</span><br><span class="line"> </span><br><span class="line">  getchar();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>delete之后，所有的成员都不可以访问</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> A</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">int</span> x;</span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    A() &#123; x = <span class="number">0</span>;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">delete</span> <span class="keyword">this</span>;</span><br><span class="line"> </span><br><span class="line">      <span class="comment">/* Invalid: Undefined Behavior */</span></span><br><span class="line">      <span class="built_in">cout</span>&lt;&lt;x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
 
 
 </div>
@@ -188,7 +720,7 @@
 
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/page/5/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+    <a class="extend prev" rel="prev" href="/page/5/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/">Next<span></span></a>
   </nav>
 
 </div>
@@ -214,7 +746,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>50</sup></a></li>
+			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>74</sup></a></li>
 		  
 		
 		</ul>
