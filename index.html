@@ -85,6 +85,68 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/11/28/OpenGl-001/" title="OpenGl-001-OBJ模型的预处理" itemprop="url">OpenGl-001-OBJ模型的预处理</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-28T04:43:24.000Z" itemprop="datePublished"> 发表于 2015-11-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>OBJ文件是一种非常常见的模型文件，这里主要讲一下OBJ模型文件的预处理问题。<br>我在某一个项目中需要绘制大规模的城市场景，勘测局提供的是max文件。但是项目中没有专业的美工人员可以对模型进行优化，原始的模型文件如果直接拿来使用将会极大地影响绘制效率，因此需要开发人员进行优化。在这里，使用一个小场景来进行演示。</p>
+<ol>
+<li>导出OBJ模型<br>首先，将max文件转化成OBJ文件，这里先用3dsmax转成OBJ文件，再使用Deep Exploration再转一遍OBJ。因为OBJ格式标准比较多，因此需要通过Deep Explanation转化为统一的格式。我们可以看到，导出的文件包括一个OBJ文件，一个MTL文件，以及非常多的贴图文件。整个场景有1852个Draw Call，50万个面片，以及100多万的顶点。<br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img01.png" alt="OBJ文件"><br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img02.png" alt="原始模型"></li>
+<li>合并相同的材质<br>打开OBJ文件可以看到，在一个Group内，包括v（顶点坐标），vt（纹理坐标），vn（法线），usemtl（使用什么材质），f（面片）。一个OBJ文件中，不同的Group可能包含相同的材质。因此，首先对使用相同材质的面片进行合并，也就是把使用相同材质的面片合并在一起。</li>
+<li>合并贴图<br>建模人员使用了大量的独立的小贴图，增加了绘制批次。因此，需要将这些小贴图合并成大贴图。其实就是一个纹理坐标映射的过程，首先定义目标贴图，把小贴图复制到目标贴图上，再重新计算对应的纹理坐标，直至目标贴图被填满。保存目标贴图，并重复上面的过程。</li>
+<li>重新合并材质<br>将贴图进行合并之后，材质又会被重新打乱，因此需要再次对材质进行合并，重复第2步。</li>
+</ol>
+<p>模型经过处理，可以发现Draw Call的数量下降到了952，效果显著。<br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img03.png" alt="处理之后的模型"></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/OpenGL/">OpenGL</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/11/14/GeeksforGeeks-082/" title="GeeksforGeeks-082-虚函数解析" itemprop="url">GeeksforGeeks-082-虚函数解析</a>
   </h1>
   <p class="article-author">By
@@ -669,63 +731,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/14/GeeksforGeeks-073/" title="GeeksforGeeks-073-模板和默认参数" itemprop="url">GeeksforGeeks-073-模板和默认参数</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-14T08:19:43.000Z" itemprop="datePublished"> 发表于 2015-11-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><strong>C++中模板的默认参数：</strong><br>和函数的默认参数一样，模板也可以有自己的默认参数。<br>如下程序，第二个参数U使用char作为自己的默认参数。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T, <span class="keyword">class</span> U = <span class="keyword">char</span>&gt; <span class="keyword">class</span> A</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    T x;</span><br><span class="line">    U y;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    A&lt;<span class="keyword">char</span>&gt; a;</span><br><span class="line">    A&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; b;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(a)&lt;&lt;endl;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(b)&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Output: (char takes 1 byte and int takes 4 bytes)<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">8</span></span><br></pre></td></tr></table></figure></p>
-<p>同样，和默认的函数参数一样，如果一个模板参数有默认值，那么在这个参数之后的所有模板参数都必须要有默认值。<br>如下程序编译失败：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T = <span class="keyword">char</span>, <span class="keyword">class</span> U, <span class="keyword">class</span> V = <span class="keyword">int</span>&gt; <span class="keyword">class</span> A  <span class="comment">// Error</span></span><br><span class="line">&#123;</span><br><span class="line">   <span class="comment">// members of A</span></span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -755,6 +760,10 @@
 		
 		  
 			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/OpenGL/" title="OpenGL">OpenGL<sup>1</sup></a></li>
 		  
 		
 		</ul>

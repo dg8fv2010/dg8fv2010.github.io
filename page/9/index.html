@@ -85,6 +85,62 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/10/07/GeeksforGeeks-003/" title="GeeksforGeeks 003-C和C++中void*的不同" itemprop="url">GeeksforGeeks 003-C和C++中void*的不同</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-07T08:21:03.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>C允许void*指针指向任意指针类型无需转换<br>如下代码只能在C中编译通过<br>隐式类型转换<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span>* ptr;</span><br><span class="line"><span class="keyword">int</span> *i = ptr; <span class="comment">/* Implicit conversion from void* to int* */</span></span><br><span class="line"><span class="keyword">int</span> *j = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>) * <span class="number">5</span>); <span class="comment">/* Implicit conversion from void* to int* */</span></span><br></pre></td></tr></table></figure></p>
+<h1 id=""> </h1><p>显式类型转换<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span>* ptr;</span><br><span class="line"><span class="keyword">int</span> *i = (<span class="keyword">int</span> *) ptr;</span><br><span class="line"><span class="keyword">int</span> *j = (<span class="keyword">int</span> *) <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>) * <span class="number">5</span>);</span><br></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/10/07/GeeksforGeeks-002/" title="GeeksforGeeks 002-C++中的Name Mangling和extern &quot;C&quot;" itemprop="url">GeeksforGeeks 002-C++中的Name Mangling和extern &quot;C&quot;</a>
   </h1>
   <p class="article-author">By
@@ -355,6 +411,10 @@
 		
 		  
 			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/OpenGL/" title="OpenGL">OpenGL<sup>1</sup></a></li>
 		  
 		
 		</ul>

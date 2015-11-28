@@ -4,23 +4,32 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>GeeksforGeeks 012-main函数能否被重载 | Hexo</title>
+    <title>OpenGl-001-OBJ模型的预处理 | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Xue Wentao">
     
 
     
-    <meta name="description" content="123456789101112131415161718192021222324#include &amp;lt;iostream&amp;gt;using namespace std;int main(int a)&amp;#123;    cout &amp;lt;&amp;lt; a &amp;lt;&amp;lt; &quot;\n&quot;;    return 0;&amp;#125;int main(char *a)&amp;#123;    cout &amp;lt;&amp;lt; a">
+    <meta name="description" content="OBJ文件是一种非常常见的模型文件，这里主要讲一下OBJ模型文件的预处理问题。我在某一个项目中需要绘制大规模的城市场景，勘测局提供的是max文件。但是项目中没有专业的美工人员可以对模型进行优化，原始的模型文件如果直接拿来使用将会极大地影响绘制效率，因此需要开发人员进行优化。在这里，使用一个小场景来进行演示。
+
+导出OBJ模型首先，将max文件转化成OBJ文件，这里先用3dsmax转成OBJ文件，再">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GeeksforGeeks 012-main函数能否被重载">
-<meta property="og:url" content="http://yoursite.com/2015/10/07/GeeksforGeeks-012/index.html">
+<meta property="og:title" content="OpenGl-001-OBJ模型的预处理">
+<meta property="og:url" content="http://yoursite.com/2015/11/28/OpenGl-001/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="123456789101112131415161718192021222324#include &amp;lt;iostream&amp;gt;using namespace std;int main(int a)&amp;#123;    cout &amp;lt;&amp;lt; a &amp;lt;&amp;lt; &quot;\n&quot;;    return 0;&amp;#125;int main(char *a)&amp;#123;    cout &amp;lt;&amp;lt; a">
-<meta property="og:updated_time" content="2015-10-07T12:55:58.069Z">
+<meta property="og:description" content="OBJ文件是一种非常常见的模型文件，这里主要讲一下OBJ模型文件的预处理问题。我在某一个项目中需要绘制大规模的城市场景，勘测局提供的是max文件。但是项目中没有专业的美工人员可以对模型进行优化，原始的模型文件如果直接拿来使用将会极大地影响绘制效率，因此需要开发人员进行优化。在这里，使用一个小场景来进行演示。
+
+导出OBJ模型首先，将max文件转化成OBJ文件，这里先用3dsmax转成OBJ文件，再">
+<meta property="og:image" content="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img01.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img02.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img03.png">
+<meta property="og:updated_time" content="2015-11-28T07:31:57.491Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GeeksforGeeks 012-main函数能否被重载">
-<meta name="twitter:description" content="123456789101112131415161718192021222324#include &amp;lt;iostream&amp;gt;using namespace std;int main(int a)&amp;#123;    cout &amp;lt;&amp;lt; a &amp;lt;&amp;lt; &quot;\n&quot;;    return 0;&amp;#125;int main(char *a)&amp;#123;    cout &amp;lt;&amp;lt; a">
+<meta name="twitter:title" content="OpenGl-001-OBJ模型的预处理">
+<meta name="twitter:description" content="OBJ文件是一种非常常见的模型文件，这里主要讲一下OBJ模型文件的预处理问题。我在某一个项目中需要绘制大规模的城市场景，勘测局提供的是max文件。但是项目中没有专业的美工人员可以对模型进行优化，原始的模型文件如果直接拿来使用将会极大地影响绘制效率，因此需要开发人员进行优化。在这里，使用一个小场景来进行演示。
+
+导出OBJ模型首先，将max文件转化成OBJ文件，这里先用3dsmax转成OBJ文件，再">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -84,14 +93,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/07/GeeksforGeeks-012/" title="GeeksforGeeks 012-main函数能否被重载" itemprop="url">GeeksforGeeks 012-main函数能否被重载</a>
+      <a href="/2015/11/28/OpenGl-001/" title="OpenGl-001-OBJ模型的预处理" itemprop="url">OpenGl-001-OBJ模型的预处理</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-07T12:50:52.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    <time datetime="2015-11-28T04:43:24.000Z" itemprop="datePublished"> 发表于 2015-11-28</time>
     
   </p>
 </header>
@@ -104,8 +113,14 @@
 		
 		</div>
 		
-		<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> a)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; a &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">char</span> *a)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; a &lt;&lt; <span class="string">" "</span> &lt;&lt; b;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    main(<span class="number">3</span>);</span><br><span class="line">    main(<span class="string">"C++"</span>);</span><br><span class="line">    main(<span class="number">9</span>, <span class="number">6</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>以上函数编译报错<br>如果想重载main函数，需要将main函数声明为成员函数</p>
+		<p>OBJ文件是一种非常常见的模型文件，这里主要讲一下OBJ模型文件的预处理问题。<br>我在某一个项目中需要绘制大规模的城市场景，勘测局提供的是max文件。但是项目中没有专业的美工人员可以对模型进行优化，原始的模型文件如果直接拿来使用将会极大地影响绘制效率，因此需要开发人员进行优化。在这里，使用一个小场景来进行演示。</p>
+<ol>
+<li>导出OBJ模型<br>首先，将max文件转化成OBJ文件，这里先用3dsmax转成OBJ文件，再使用Deep Exploration再转一遍OBJ。因为OBJ格式标准比较多，因此需要通过Deep Explanation转化为统一的格式。我们可以看到，导出的文件包括一个OBJ文件，一个MTL文件，以及非常多的贴图文件。整个场景有1852个Draw Call，50万个面片，以及100多万的顶点。<br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img01.png" alt="OBJ文件"><br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img02.png" alt="原始模型"></li>
+<li>合并相同的材质<br>打开OBJ文件可以看到，在一个Group内，包括v（顶点坐标），vt（纹理坐标），vn（法线），usemtl（使用什么材质），f（面片）。一个OBJ文件中，不同的Group可能包含相同的材质。因此，首先对使用相同材质的面片进行合并，也就是把使用相同材质的面片合并在一起。</li>
+<li>合并贴图<br>建模人员使用了大量的独立的小贴图，增加了绘制批次。因此，需要将这些小贴图合并成大贴图。其实就是一个纹理坐标映射的过程，首先定义目标贴图，把小贴图复制到目标贴图上，再重新计算对应的纹理坐标，直至目标贴图被填满。保存目标贴图，并重复上面的过程。</li>
+<li>重新合并材质<br>将贴图进行合并之后，材质又会被重新打乱，因此需要再次对材质进行合并，重复第2步。</li>
+</ol>
+<p>模型经过处理，可以发现Draw Call的数量下降到了952，效果显著。<br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img03.png" alt="处理之后的模型"></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -113,7 +128,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+  <a class="article-category-link" href="/categories/OpenGL/">OpenGL</a>
 </div>
 
 
@@ -123,7 +138,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/10/07/GeeksforGeeks-012/" data-title="GeeksforGeeks 012-main函数能否被重载 | Hexo" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/11/28/OpenGl-001/" data-title="OpenGl-001-OBJ模型的预处理 | Hexo" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -136,19 +151,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/10/07/GeeksforGeeks-013/" title="GeeksforGeeks 013-C++中的inline函数">
-  <strong>上一篇：</strong><br/>
-  <span>
-  GeeksforGeeks 013-C++中的inline函数</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/10/07/GeeksforGeeks-011/"  title="GeeksforGeeks 011-函数重载在继承中是否有效">
+<a href="/2015/11/14/GeeksforGeeks-082/"  title="GeeksforGeeks-082-虚函数解析">
  <strong>下一篇：</strong><br/> 
- <span>GeeksforGeeks 011-函数重载在继承中是否有效
+ <span>GeeksforGeeks-082-虚函数解析
 </span>
 </a>
 </div>

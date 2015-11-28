@@ -85,6 +85,66 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/11/14/GeeksforGeeks-063/" title="GeeksforGeeks-063-C++中的智能指针" itemprop="url">GeeksforGeeks-063-C++中的智能指针</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-14T06:55:27.000Z" itemprop="datePublished"> 发表于 2015-11-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>考虑下面的程序：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MyClass *ptr = <span class="keyword">new</span> MyClass();</span><br><span class="line">ptr-&gt;doSomething();</span><br><span class="line"><span class="comment">//  We must do delete(ptr) to avoid memory leak</span></span><br></pre></td></tr></table></figure></p>
+<p>使用智能指针，我们可以不需要显示地调用delete。<br>下面是一个简单的智能指针类：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"> </span><br><span class="line">class SmartPtr</span><br><span class="line">&#123;</span><br><span class="line">   int *ptr;  // Actual pointer</span><br><span class="line">public:</span><br><span class="line">   // Constructor: Refer http://www.geeksforgeeks.org/g-fact-93/</span><br><span class="line">   // for use of explicit keyword</span><br><span class="line">   explicit SmartPtr(int *p = NULL) &#123; ptr = p; &#125;</span><br><span class="line"> </span><br><span class="line">   // Destructor</span><br><span class="line">   ~SmartPtr() &#123; delete(ptr); &#125; </span><br><span class="line"> </span><br><span class="line">   // Overloading dereferencing operator</span><br><span class="line">   int &amp;operator *() &#123;  return *ptr; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    SmartPtr ptr(new int());</span><br><span class="line">    *ptr = 20;</span><br><span class="line">    cout &lt;&lt; *ptr;</span><br><span class="line"> </span><br><span class="line">    // We don't need to call delete ptr: when the object</span><br><span class="line">    // ptr goes out of scope, destructor for it is automatically</span><br><span class="line">    // called and destructor does delete ptr.</span><br><span class="line"> </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">20</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>我们能否实现一个对所有类型都适用的智能指针类？</strong><br>可以，通过使用模板。如下代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// A generic smart pointer class</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> SmartPtr</span><br><span class="line">&#123;</span><br><span class="line">   T *ptr;  <span class="comment">// Actual pointer</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   <span class="comment">// Constructor</span></span><br><span class="line">   <span class="function"><span class="keyword">explicit</span> <span class="title">SmartPtr</span><span class="params">(T *p = <span class="literal">NULL</span>)</span> </span>&#123; ptr = p; &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// Destructor</span></span><br><span class="line">   ~SmartPtr() &#123; <span class="keyword">delete</span>(ptr); &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// Overloading dereferncing operator</span></span><br><span class="line">   T &amp; <span class="keyword">operator</span> * () &#123;  <span class="keyword">return</span> *ptr; &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// Overloding arrow operator so that members of T can be accessed</span></span><br><span class="line">   <span class="comment">// like a pointer (useful if T represents a class or struct or</span></span><br><span class="line">   <span class="comment">// union type)</span></span><br><span class="line">   T * <span class="keyword">operator</span> -&gt; () &#123; <span class="keyword">return</span> ptr; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    SmartPtr&lt;<span class="keyword">int</span>&gt; ptr(<span class="keyword">new</span> <span class="keyword">int</span>());</span><br><span class="line">    *ptr = <span class="number">20</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; *ptr;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">20</span></span><br></pre></td></tr></table></figure></p>
+<p>C++库提供了一些智能指针的实现 auto_ptr, unique_ptr,shared_ptr and weak_ptr</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/11/14/GeeksforGeeks-062/" title="GeeksforGeeks-062-C++中的Pre-increment (or pre-decrement)" itemprop="url">GeeksforGeeks-062-C++中的Pre-increment (or pre-decrement)</a>
   </h1>
   <p class="article-author">By
@@ -611,76 +671,6 @@ x = <span class="number">30</span>, y = <span class="number">0</span>
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/14/GeeksforGeeks-053/" title="GeeksforGeeks-053-纯虚函数和抽象类" itemprop="url">GeeksforGeeks-053-纯虚函数和抽象类</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-14T05:48:28.000Z" itemprop="datePublished"> 发表于 2015-11-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>有的时候我们无法实现所有基类提供的函数，这样一个类叫做抽象类。<br>例如，令Shape成为一个抽象类，我们不能够提供draw()函数的实现，但是我们知道每一个派生类都必须实现draw()函数。<br>C++中的纯虚函数是一个不需要实现的虚函数。只需要声明它。<br>纯虚函数在声明时设为0。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// An abstract class</span></span><br><span class="line"><span class="keyword">class</span> Test</span><br><span class="line">&#123;  </span><br><span class="line">    <span class="comment">// Data members of class</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// Pure Virtual Function</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">   </span><br><span class="line">   <span class="comment">/* Other members */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>纯虚函数的实现是通过从抽象类派生出来的类实现的。<br>如下代码进行演示：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Base</span><br><span class="line">&#123;</span><br><span class="line">   <span class="keyword">int</span> x;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getX</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> x; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// This class ingerits from Base and implements fun()</span></span><br><span class="line"><span class="keyword">class</span> Derived: <span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> y;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"fun() called"</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    Derived d;</span><br><span class="line">    d.fun();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun() called</span><br></pre></td></tr></table></figure></p>
-<p><strong>需要注意的地方：</strong><br>    <strong>1. 一个类是一个抽象类，它必须至少有一个纯虚函数。如下程序，Test是一个抽象类，因为有一个抽象函数。</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pure virtual functions make a class abstract</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Test</span><br><span class="line">&#123;</span><br><span class="line">   <span class="keyword">int</span> x;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getX</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> x; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    Test t;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<pre><code><span class="label">Output:</span>
-</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Compiler Error: cannot declare variable 't' to be of abstract</span><br><span class="line"> type 'Test' because the following virtual functions are pure </span><br><span class="line">within 'Test': note:    virtual void Test::show()</span><br></pre></td></tr></table></figure>
-<p><strong>2. 可以有抽象类的指针或引用。如下程序正常运行：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Derived: <span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"In Derived \n"</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    Base *bp = <span class="keyword">new</span> Derived();</span><br><span class="line">    bp-&gt;show();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<pre><code><span class="label">Output:</span>
-</code></pre><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">In Derived</span><br></pre></td></tr></table></figure>
-<p><strong>3. 如果不在派生类中override纯虚函数，那么派生类同样会成为抽象类。</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">class</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Derived : <span class="keyword">public</span> Base &#123; &#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  Derived d;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<pre><code><span class="comment"><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Compiler Error: cannot declare variable 'd' to be of abstract type </span><br><span class="line">'Derived'  because the following virtual functions are pure within </span><br><span class="line">'Derived': virtual void Base::show()</span><br></pre></td></tr></table></figure></span>
-</code></pre><p><strong>4. 一个抽象类可以有构造函数。</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// An abstract class with constructor</span></span><br><span class="line"><span class="keyword">class</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">   <span class="keyword">int</span> x;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">  Base(<span class="keyword">int</span> i) &#123; x = i; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Derived: <span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> y;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Derived(<span class="keyword">int</span> i, <span class="keyword">int</span> j):Base(i) &#123; y = j; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"x = "</span> &lt;&lt; x &lt;&lt; <span class="string">", y = "</span> &lt;&lt; y; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="function">Derived <span class="title">d</span><span class="params">(<span class="number">4</span>, <span class="number">5</span>)</span></span>;</span><br><span class="line">    d.fun();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<pre><code><span class="label">Output:</span>
-</code></pre><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">4</span>, y = <span class="number">5</span></span><br></pre></td></tr></table></figure>
-<p>C++ VS Java<br>在Java中，一个类可以通过使用abstract关键字来定义为抽象类。同样，一个函数也可以通过abstract关键字来定义为纯虚或抽象的</p>
-<p>接口 VS 抽象类<br>接口不会实现任何函数，它被认为是方法声明的集合。<br>在C++中，接口可以通过让一个类的所有函数都是纯虚函数来模拟</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
@@ -710,6 +700,10 @@ x = <span class="number">30</span>, y = <span class="number">0</span>
 		
 		  
 			<li><a href="/categories/GeeksforGeeks/" title="GeeksforGeeks">GeeksforGeeks<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/OpenGL/" title="OpenGL">OpenGL<sup>1</sup></a></li>
 		  
 		
 		</ul>
