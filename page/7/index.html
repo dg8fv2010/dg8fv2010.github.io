@@ -85,6 +85,67 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/10/07/GeeksforGeeks-024/" title="GeeksforGeeks 024-C++中的析构函数" itemprop="url">GeeksforGeeks 024-C++中的析构函数</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-07T13:33:39.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>析构函数在如下情况被调用</p>
+<pre><code><span class="number">1.</span> 函数结束
+<span class="number">2.</span> 程序结束
+<span class="number">3.</span> 包含局部变量的block结束
+<span class="number">4.</span> <span class="keyword">delete</span>被调用
+</code></pre><p>一个类只能有一个析构函数</p>
+<p>析构函数可以是虚函数</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/10/07/GeeksforGeeks-023/" title="GeeksforGeeks 023-C++中的拷贝构造函数" itemprop="url">GeeksforGeeks 023-C++中的拷贝构造函数</a>
   </h1>
   <p class="article-author">By
@@ -646,69 +707,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/10/07/GeeksforGeeks-014/" title="GeeksforGeeks 014-mallo() vs new" itemprop="url">GeeksforGeeks 014-mallo() vs new</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
-		
-  <p class="article-time">
-    <time datetime="2015-10-07T12:51:01.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <ol>
-<li><p>new会调用构造函数，主要的数据类型（char，int，float）会被new初始化</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">   <span class="keyword">int</span> *n = <span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">10</span>); <span class="comment">// initialization with new()</span></span><br><span class="line">   <span class="built_in">cout</span>&lt;&lt;*n;</span><br><span class="line">   getchar();</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>new是操作符，malloc()是函数</p>
-</li>
-<li><p>new返回指定的数据类型，malloc()返回void*</p>
-</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/page/6/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/">Next<span></span></a>
@@ -741,7 +739,7 @@
 		  
 		
 		  
-			<li><a href="/categories/OpenGL/" title="OpenGL">OpenGL<sup>1</sup></a></li>
+			<li><a href="/categories/OpenGL/" title="OpenGL">OpenGL<sup>2</sup></a></li>
 		  
 		
 		</ul>

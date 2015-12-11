@@ -85,6 +85,66 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/11/14/GeeksforGeeks-064/" title="GeeksforGeeks-064-重载C++中的流操作符" itemprop="url">GeeksforGeeks-064-重载C++中的流操作符</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-14T06:55:32.000Z" itemprop="datePublished"> 发表于 2015-11-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>在重载流操作符之前需要注意以下问题：</p>
+<pre><code><span class="number">1.</span> <span class="built_in">cout</span>是ostream类的对象，<span class="built_in">cin</span>是istream类的对象。
+<span class="number">2.</span> 这些操作符必须作为全局函数被重载，如果希望访问类的私有成员变量，需要将其设为友元。
+</code></pre><p>为什么流操作符必须作为全局函数重载？<br>在操作符重载中，如果一个操作符作为成员函数被重载，那么这个对象必须是在该操作符的左边。<br>考虑代码ob1+ob2（假设ob1和ob2是两个不同类的对象），为了使程序正常运行，必须重载ob1所属类的+操作符，或者将+操作符的重载函数作为全局函数。<br>如果想让流操作符成为成员函数，那么它们只能成为ostream和istream类的成员函数，这不是一个好的选择，因此，它们通常被重载为有两个参数的全局函数。</p>
+<p>如下是一个完整的演示程序：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Complex</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> real, imag;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Complex(<span class="keyword">int</span> r = <span class="number">0</span>, <span class="keyword">int</span> i =<span class="number">0</span>)</span><br><span class="line">    &#123;  real = r;   imag = i; &#125;</span><br><span class="line">    <span class="keyword">friend</span> ostream &amp; <span class="keyword">operator</span> &lt;&lt; (ostream &amp;out, <span class="keyword">const</span> Complex &amp;c);</span><br><span class="line">    <span class="keyword">friend</span> istream &amp; <span class="keyword">operator</span> &gt;&gt; (istream &amp;in,  Complex &amp;c);</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">ostream &amp; <span class="keyword">operator</span> &lt;&lt; (ostream &amp;out, <span class="keyword">const</span> Complex &amp;c)</span><br><span class="line">&#123;</span><br><span class="line">    out &lt;&lt; c.real;</span><br><span class="line">    out &lt;&lt; <span class="string">"+i"</span> &lt;&lt; c.imag &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> out;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">istream &amp; <span class="keyword">operator</span> &gt;&gt; (istream &amp;in,  Complex &amp;c)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Enter Real Part "</span>;</span><br><span class="line">    in &gt;&gt; c.real;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Enter Imagenory Part "</span>;</span><br><span class="line">    in &gt;&gt; c.imag;</span><br><span class="line">    <span class="keyword">return</span> in;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">   Complex c1;</span><br><span class="line">   <span class="built_in">cin</span> &gt;&gt; c1;</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; <span class="string">"The complex object is "</span>;</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; c1;</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Enter Real Part <span class="number">10</span></span><br><span class="line">Enter Imagenory Part <span class="number">20</span></span><br><span class="line">The <span class="keyword">complex</span> object is <span class="number">10</span>+i20</span><br></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/11/14/GeeksforGeeks-063/" title="GeeksforGeeks-063-C++中的智能指针" itemprop="url">GeeksforGeeks-063-C++中的智能指针</a>
   </h1>
   <p class="article-author">By
@@ -611,66 +671,6 @@ x = <span class="number">30</span>, y = <span class="number">0</span>
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/14/GeeksforGeeks-054/" title="GeeksforGeeks-054-纯虚析构函数" itemprop="url">GeeksforGeeks-054-纯虚析构函数</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-14T05:48:32.000Z" itemprop="datePublished"> 发表于 2015-11-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>在C++中，一个纯虚的析构函数是被允许的。需要注意的是，如果一个类包含纯虚析构函数，那么必须有这个纯虚函数的函数体。<br>看以来很奇怪。但是析构函数往往按照类派生相反的顺序被调用。这就意味着派生类的析构函数会先被调用，然后基类的析构函数才会被调用。<br>如果纯虚析构函数的函数体没有定义，那么在对象析构的过程中就会出错。<br>因此，编译器和连接器会强制保证纯虚析构函数的函数体存在。</p>
-<p>如下程序：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">class</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">virtual</span> ~Base()=<span class="number">0</span>; <span class="comment">// Pure virtual destructor</span></span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Derived : <span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ~Derived()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"~Derived() is executed"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    Base *b=<span class="keyword">new</span> Derived();</span><br><span class="line">    <span class="keyword">delete</span> b;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>链接器会报错：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">test.cpp:(.text$_ZN7DerivedD1Ev[__ZN7DerivedD1Ev]+<span class="number">0x4c</span>): </span><br><span class="line">undefined reference to `Base::~Base()'</span><br></pre></td></tr></table></figure></p>
-<p>如果提供了纯虚析构函数的实现，程序即可编译并正常运行。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">class</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">virtual</span> ~Base()=<span class="number">0</span>; <span class="comment">// Pure virtual destructor</span></span><br><span class="line">&#125;;</span><br><span class="line">Base::~Base()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Pure virtual destructor is called"</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Derived : <span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ~Derived()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"~Derived() is executed\n"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    Base *b = <span class="keyword">new</span> Derived();</span><br><span class="line">    <span class="keyword">delete</span> b;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~Derived() is executed</span><br><span class="line">Pure <span class="keyword">virtual</span> destructor is called</span><br></pre></td></tr></table></figure></p>
-<p>需要注意的是，如果一个类包含纯虚析构函数，这个类会成为抽象函数。<br>如下程序：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">class</span> Test</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">virtual</span> ~Test()=<span class="number">0</span>; <span class="comment">// Test now becomes abstract class</span></span><br><span class="line">&#125;;</span><br><span class="line">Test::~Test() &#123; &#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    Test p;</span><br><span class="line">    Test* t1 = <span class="keyword">new</span> Test;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">The above program fails in compilation &amp; shows following error messages.</span><br><span class="line">[Error] cannot declare variable ‘p’ to be of abstract type ‘Test’</span><br><span class="line">[Note] because the following virtual functions are pure within ‘Test':</span><br><span class="line">[Note] virtual Test::~Test()</span><br><span class="line">[Error] cannot allocate an object of abstract type ‘Test’</span><br><span class="line">[Note] since type ‘Test’ has pure virtual functions</span><br></pre></td></tr></table></figure>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
@@ -703,7 +703,7 @@ x = <span class="number">30</span>, y = <span class="number">0</span>
 		  
 		
 		  
-			<li><a href="/categories/OpenGL/" title="OpenGL">OpenGL<sup>1</sup></a></li>
+			<li><a href="/categories/OpenGL/" title="OpenGL">OpenGL<sup>2</sup></a></li>
 		  
 		
 		</ul>

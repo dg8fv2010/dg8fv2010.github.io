@@ -4,23 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>GeeksforGeeks-051-C++中虚函数的私有化 | Hexo</title>
+    <title>OpenGL-002-OpenGL程序在A卡上运行的问题 | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Xue Wentao">
     
 
     
-    <meta name="description" content="在C++中，虚函数可以是私有的，并且可以被派生类override。如下程序可以正常运行：12345678910111213141516171819202122#include&amp;lt;iostream&amp;gt;using namespace std; class Derived; class Base &amp;#123;private:    virtual void fun() &amp;#123; cout &amp;">
+    <meta name="description" content="在A卡上进行GLSL的开发，需要执行更加严格的编程规范。有一个工程，之前都是在N卡上开发运行的，没有任何问题，但是在A卡上却无法运行。首先，有的OpenGL函数在A卡上执行崩溃，这个问题很好定位，也非常好解决。但是，在程序运行起来之后，却发现绘制的结果是不对的。因为工程比较大，代码结构也比较复杂，只能使用glGetError逐步进行定位。发现程序有的地方会出现error 1282 : invali">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GeeksforGeeks-051-C++中虚函数的私有化">
-<meta property="og:url" content="http://yoursite.com/2015/11/14/GeeksforGeeks-051/index.html">
+<meta property="og:title" content="OpenGL-002-OpenGL程序在A卡上运行的问题">
+<meta property="og:url" content="http://yoursite.com/2015/12/11/OpenGL-002/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="在C++中，虚函数可以是私有的，并且可以被派生类override。如下程序可以正常运行：12345678910111213141516171819202122#include&amp;lt;iostream&amp;gt;using namespace std; class Derived; class Base &amp;#123;private:    virtual void fun() &amp;#123; cout &amp;">
-<meta property="og:updated_time" content="2015-11-14T05:50:20.694Z">
+<meta property="og:description" content="在A卡上进行GLSL的开发，需要执行更加严格的编程规范。有一个工程，之前都是在N卡上开发运行的，没有任何问题，但是在A卡上却无法运行。首先，有的OpenGL函数在A卡上执行崩溃，这个问题很好定位，也非常好解决。但是，在程序运行起来之后，却发现绘制的结果是不对的。因为工程比较大，代码结构也比较复杂，只能使用glGetError逐步进行定位。发现程序有的地方会出现error 1282 : invali">
+<meta property="og:updated_time" content="2015-12-11T06:13:12.543Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GeeksforGeeks-051-C++中虚函数的私有化">
-<meta name="twitter:description" content="在C++中，虚函数可以是私有的，并且可以被派生类override。如下程序可以正常运行：12345678910111213141516171819202122#include&amp;lt;iostream&amp;gt;using namespace std; class Derived; class Base &amp;#123;private:    virtual void fun() &amp;#123; cout &amp;">
+<meta name="twitter:title" content="OpenGL-002-OpenGL程序在A卡上运行的问题">
+<meta name="twitter:description" content="在A卡上进行GLSL的开发，需要执行更加严格的编程规范。有一个工程，之前都是在N卡上开发运行的，没有任何问题，但是在A卡上却无法运行。首先，有的OpenGL函数在A卡上执行崩溃，这个问题很好定位，也非常好解决。但是，在程序运行起来之后，却发现绘制的结果是不对的。因为工程比较大，代码结构也比较复杂，只能使用glGetError逐步进行定位。发现程序有的地方会出现error 1282 : invali">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -84,14 +84,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/14/GeeksforGeeks-051/" title="GeeksforGeeks-051-C++中虚函数的私有化" itemprop="url">GeeksforGeeks-051-C++中虚函数的私有化</a>
+      <a href="/2015/12/11/OpenGL-002/" title="OpenGL-002-OpenGL程序在A卡上运行的问题" itemprop="url">OpenGL-002-OpenGL程序在A卡上运行的问题</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Xue Wentao" target="_blank" itemprop="author">Xue Wentao</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-14T05:48:12.000Z" itemprop="datePublished"> 发表于 2015-11-14</time>
+    <time datetime="2015-12-11T02:26:40.000Z" itemprop="datePublished"> 发表于 2015-12-11</time>
     
   </p>
 </header>
@@ -104,19 +104,15 @@
 		
 		</div>
 		
-		<p>在C++中，虚函数可以是私有的，并且可以被派生类override。<br>如下程序可以正常运行：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Derived;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Base &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"Base Fun"</span>; &#125;</span><br><span class="line"><span class="function"><span class="keyword">friend</span> <span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Derived: <span class="keyword">public</span> Base &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"Derived Fun"</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">   Base *ptr = <span class="keyword">new</span> Derived;</span><br><span class="line">   ptr-&gt;fun();</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Derived <span class="title">fun</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
-<p>以上程序有几点需要注意：</p>
-<pre><code><span class="number">1</span>. ptr是基类类型的指针并且指向派生类，当ptr-&gt;<span class="function"><span class="title">fun</span><span class="params">()</span></span>被调用时，派生类的<span class="function"><span class="title">fun</span><span class="params">()</span></span>函数被执行。
-<span class="number">2</span>. <span class="function"><span class="title">main</span><span class="params">()</span></span>函数是基类的友元函数，如果去除友元关系，程序会编译失败。
-</code></pre>  
+		<p>在A卡上进行GLSL的开发，需要执行更加严格的编程规范。<br>有一个工程，之前都是在N卡上开发运行的，没有任何问题，但是在A卡上却无法运行。<br>首先，有的OpenGL函数在A卡上执行崩溃，这个问题很好定位，也非常好解决。<br>但是，在程序运行起来之后，却发现绘制的结果是不对的。因为工程比较大，代码结构也比较复杂，只能使用glGetError逐步进行定位。发现程序有的地方会出现error 1282 : invalid operation。但是此处出现的错误是由更之前的引起的。<br>最后发现，我在fragment shader中使用了sampler2DRect这样一个变量，如果在glUseProgram之前绑定这个变量对应的资源，程序就可以正常运行。但是如果把这个变量类型改成sampler2D，那么在glUseProgram之前之后绑定资源都不会有问题了。<br>我觉得，A卡在glUseProgram之前，如果对shader中使用的参数手动绑定了资源，就会使用手动绑定的资源，否则可能会默认绑定一个资源，如果是贴图，就是sampler2D，但如果对应贴图的变量类型是sampler2DRect，绑定就会失败，但是程序不会崩溃，只能用glGetError获取错误信息。<br>由此可见，在A卡上，在glUseProgram之前需要绑定好所有的资源，但是在N卡上，就不会存在这样的问题。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/GeeksforGeeks/">GeeksforGeeks</a>
+  <a class="article-category-link" href="/categories/OpenGL/">OpenGL</a>
 </div>
 
 
@@ -126,7 +122,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/11/14/GeeksforGeeks-051/" data-title="GeeksforGeeks-051-C++中虚函数的私有化 | Hexo" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/12/11/OpenGL-002/" data-title="OpenGL-002-OpenGL程序在A卡上运行的问题 | Hexo" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -139,19 +135,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/11/14/GeeksforGeeks-052/" title="GeeksforGeeks-052-虚函数可以是inline的吗？">
-  <strong>上一篇：</strong><br/>
-  <span>
-  GeeksforGeeks-052-虚函数可以是inline的吗？</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/10/18/GeeksforGeeks-050/"  title="GeeksforGeeks-050-C++中的RTTI(Run-time typ information)">
+<a href="/2015/11/28/OpenGL-001/"  title="OpenGL-001-OBJ模型的预处理">
  <strong>下一篇：</strong><br/> 
- <span>GeeksforGeeks-050-C++中的RTTI(Run-time typ information)
+ <span>OpenGL-001-OBJ模型的预处理
 </span>
 </a>
 </div>
