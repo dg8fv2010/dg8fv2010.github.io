@@ -100,13 +100,6 @@
 </header>
 	<div class="article-content">
 		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-		
-			
-		
-		</div>
-		
 		<p>使用一个指向基类的指针来删除派生类对象，如果基类的析构函数不是虚函数，那么这个操作是未定义的。因此，基类的析构函数必须是虚函数。<br>如下程序会导致未定义的行为，在不同的编译器上可能会产生不同的结果，使用Dev-CPP编译时，输出如下结果：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Constructing base</span><br><span class="line">Constructing derived</span><br><span class="line">Destructing base</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A program without virtual destructor causing undefined behavior</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> base &#123;</span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    base()    </span><br><span class="line">    &#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"Constructing base \n"</span>; &#125;</span><br><span class="line">    ~base()</span><br><span class="line">    &#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"Destructing base \n"</span>; &#125;    </span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> derived: <span class="keyword">public</span> base &#123;</span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    derived()    </span><br><span class="line">    &#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"Constructing derived \n"</span>; &#125;</span><br><span class="line">    ~derived()</span><br><span class="line">    &#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"Destructing derived \n"</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  derived *d = <span class="keyword">new</span> derived(); </span><br><span class="line">  base *b = d;</span><br><span class="line">  <span class="keyword">delete</span> b;</span><br><span class="line">  getchar();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>将基类的析构函数设为虚函数可以保证派生类被正确的析构，因为基类和派生类的析构函数都会被调用；<br>如下程序输出：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Constructing base</span><br><span class="line">Constructing derived</span><br><span class="line">Destructing derived</span><br><span class="line">Destructing base</span><br></pre></td></tr></table></figure></p>
@@ -165,13 +158,6 @@
 
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
-
-  <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目录</strong>
- 
- 
- 
-  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -240,7 +226,7 @@
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
 		
 		<a href="/about" target="_blank" title="Xue Wentao">Xue Wentao</a>
 		
@@ -297,8 +283,6 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
-      
-      $('#toc.toc-aside').css('display', 'none');
         
     }
   });

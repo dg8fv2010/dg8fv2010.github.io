@@ -98,8 +98,14 @@
 </header>
     <div class="article-content">
         
-        <p>在A卡上进行GLSL的开发，需要执行更加严格的编程规范。<br>有一个工程，之前都是在N卡上开发运行的，没有任何问题，但是在A卡上却无法运行。<br>首先，有的OpenGL函数在A卡上执行崩溃，这个问题很好定位，也非常好解决。<br>但是，在程序运行起来之后，却发现绘制的结果是不对的。因为工程比较大，代码结构也比较复杂，只能使用glGetError逐步进行定位。发现程序有的地方会出现error 1282 : invalid operation。但是此处出现的错误是由更之前的引起的。<br>最后发现，我在fragment shader中使用了sampler2DRect这样一个变量，如果在glUseProgram之前绑定这个变量对应的资源，程序就可以正常运行。但是如果把这个变量类型改成sampler2D，那么在glUseProgram之前之后绑定资源都不会有问题了。<br>我觉得，A卡在glUseProgram之前，如果对shader中使用的参数手动绑定了资源，就会使用手动绑定的资源，否则可能会默认绑定一个资源，如果是贴图，就是sampler2D，但如果对应贴图的变量类型是sampler2DRect，绑定就会失败，但是程序不会崩溃，只能用glGetError获取错误信息。<br>由此可见，在A卡上，在glUseProgram之前需要绑定好所有的资源，但是在N卡上，就不会存在这样的问题。</p>
-
+        <p>在A卡上进行GLSL的开发，需要执行更加严格的编程规范。<br>有一个工程，之前都是在N卡上开发运行的，没有任何问题，但是在A卡上却无法运行。</p>
+<h3 id="1-">1.</h3><pre><code>如果<span class="built_in">shader</span>文件以UTF-<span class="number">8</span>带签名的形式进行保存，会引入一个标记位。A卡无法识别，导致程序<span class="built_in">shader</span>编译失败。
+</code></pre><h3 id="2-">2.</h3><pre><code>有的OpenGL函数在<span class="literal">A</span>卡上执行崩溃，这个问题很好定位，也非常好解决。
+</code></pre><h3 id="3-">3.</h3><pre><code>但是，在程序运行起来之后，却发现绘制的结果是不对的。因为工程比较大，代码结构也比较复杂，只能使用glGetError逐步进行定位。发现程序有的地方会出现error <span class="number">1282</span> : invalid operation。但是此处出现的错误是由更之前的引起的。
+最后发现，我在fragment shader中使用了<span class="keyword">sampler2DRect</span>这样一个变量，如果在glUseProgram之前绑定这个变量对应的资源，程序就可以正常运行。但是如果把这个变量类型改成<span class="keyword">sampler2D</span>，那么在glUseProgram之前之后绑定资源都不会有问题了。  
+我觉得，A卡在glUseProgram之前，如果对shader中使用的参数手动绑定了资源，就会使用手动绑定的资源，否则可能会默认绑定一个资源，如果是贴图，就是<span class="keyword">sampler2D</span>，但如果对应贴图的变量类型是<span class="keyword">sampler2DRect</span>，绑定就会失败，但是程序不会崩溃，只能用glGetError获取错误信息。
+由此可见，在A卡上，在glUseProgram之前需要绑定好所有的资源，但是在N卡上，就不会存在这样的问题。
+</code></pre>
         
         
         <p class="article-more-link">
@@ -153,13 +159,15 @@
 </header>
     <div class="article-content">
         
-        <p>OBJ文件是一种非常常见的模型文件，这里主要讲一下OBJ模型文件的预处理问题。<br>我在某一个项目中需要绘制大规模的城市场景，勘测局提供的是max文件。但是项目中没有专业的美工人员可以对模型进行优化，原始的模型文件如果直接拿来使用将会极大地影响绘制效率，因此需要开发人员进行优化。在这里，使用一个小场景来进行演示。</p>
-<ol>
-<li>导出OBJ模型<br>首先，将max文件转化成OBJ文件，这里先用3dsmax转成OBJ文件，再使用Deep Exploration再转一遍OBJ。因为OBJ格式标准比较多，因此需要通过Deep Explanation转化为统一的格式。我们可以看到，导出的文件包括一个OBJ文件，一个MTL文件，以及非常多的贴图文件。整个场景有1852个Draw Call，50万个面片，以及100多万的顶点。<br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img01.png" alt="OBJ文件"><br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img02.png" alt="原始模型"></li>
-<li>合并相同的材质<br>打开OBJ文件可以看到，在一个Group内，包括v（顶点坐标），vt（纹理坐标），vn（法线），usemtl（使用什么材质），f（面片）。一个OBJ文件中，不同的Group可能包含相同的材质。因此，首先对使用相同材质的面片进行合并，也就是把使用相同材质的面片合并在一起。</li>
-<li>合并贴图<br>建模人员使用了大量的独立的小贴图，增加了绘制批次。因此，需要将这些小贴图合并成大贴图。其实就是一个纹理坐标映射的过程，首先定义目标贴图，把小贴图复制到目标贴图上，再重新计算对应的纹理坐标，直至目标贴图被填满。保存目标贴图，并重复上面的过程。</li>
-<li>重新合并材质<br>将贴图进行合并之后，材质又会被重新打乱，因此需要再次对材质进行合并，重复第2步。</li>
-</ol>
+        <p>我在某个项目需要绘制大规模的城市场景，提供的是max文件。但是项目中没有专业的美工人员可以对模型进行优化，原始的模型文件有以下特点。</p>
+<pre><code><span class="number">1.</span> 模型包含很多名称不同但内容相同的材质
+<span class="number">2.</span> 模型没有经过合并材质的处理，包含大量的独立小贴图
+</code></pre><p>如果直接拿来使用将会极大地影响绘制效率，因此进行优化。在这里，使用部分场景进行演示。</p>
+<h2 id="1-_导出OBJ模型">1. 导出OBJ模型</h2><p>首先，将max文件转化成OBJ文件，这里先用3dsmax转成OBJ文件，再使用Deep Exploration再转一遍OBJ。因为OBJ格式标准比较多，因此需要通过Deep Explanation转化为统一的格式。我们可以看到，导出的文件包括一个OBJ文件，一个MTL文件，以及非常多的贴图文件。整个场景有1852个Draw Call，50万个面片，以及100多万的顶点。<br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img01.png" alt="OBJ文件"><br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img02.png" alt="原始模型"></p>
+<h2 id="2-_去除重复材质">2. 去除重复材质</h2><p>在mtl文件中，包含很多内容相同，名称不同的材质。因此需要去除mtl文件中的冗余材质，并修改在obj文件中的引用。</p>
+<h2 id="3-_拆分材质">3. 拆分材质</h2><p>打开OBJ文件可以看到，在一个Group内，包括v（顶点坐标），vt（纹理坐标），vn（法线），usemtl（材质），f（面片）。一个OBJ文件中，一个的Group可能包含许多的材质。需要将材质进行拆分，使得每一个Group只包含一个材质。</p>
+<h2 id="4-_合并贴图">4. 合并贴图</h2><p>建模人员使用了大量的独立的小贴图，增加了绘制批次。因此，需要将这些小贴图合并成大贴图。其实就是一个纹理坐标映射的过程，首先定义目标贴图，把小贴图复制到目标贴图上，再重新计算对应的纹理坐标，直至目标贴图被填满。保存目标贴图，并重复上面的过程。</p>
+<h2 id="5-_重新拆分材质">5. 重新拆分材质</h2><p>将贴图进行合并之后，材质又会被重新打乱，因此需要再次对材质进行合并，重复第3步。</p>
 <p>模型经过处理，可以发现Draw Call的数量下降到了952，效果显著。<br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img03.png" alt="处理之后的模型"></p>
 
         
@@ -798,7 +806,7 @@
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
 		
 		<a href="/about" target="_blank" title="Xue Wentao">Xue Wentao</a>
 		

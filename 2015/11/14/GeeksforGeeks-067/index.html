@@ -97,13 +97,6 @@
 </header>
 	<div class="article-content">
 		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-		
-			
-		
-		</div>
-		
 		<p>栈展开-Stack Unwinding<br>在运行时从函数调用栈中移除函数入口的过程叫做栈展开。<br>抛出异常时，将暂停当前函数的执行，开始查找匹配的catch子句。首先检查throw本身是否在try块内部，如果是，检查与该try相关的catch子句，看是否可以处理该异常。如果不能处理，就退出当前函数，并且释放当前函数的内存并销毁局部对象，继续到上层的调用函数中查找，直到找到一个可以处理该异常的catch。这个过程称为栈展开（stack unwinding）。当处理该异常的catch结束之后，紧接着该catch之后的点继续执行。<br>栈展开通常和异常处理相关。<br>在C++中，当一个异常发生时，函数调用栈会线性地寻找异常的处理者，函数调用栈里在可以处理该异常的函数之前的所有函数入口都会被移除。所以，如果异常没有在同一个函数（被抛出的函数）中被处理时，将会引起栈展开。</p>
 <p>如下代码的输出是：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">f3() Start</span><br><span class="line">f2() Start</span><br><span class="line">f1() Start</span><br><span class="line">Caught Exception: 100</span><br><span class="line">f3() End</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line">  </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// A sample function f1() that throws an int exception</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f1</span><span class="params">()</span> <span class="title">throw</span> <span class="params">(<span class="keyword">int</span>)</span> </span>&#123;</span><br><span class="line">  <span class="built_in">cout</span>&lt;&lt;<span class="string">"\n f1() Start "</span>;</span><br><span class="line">  <span class="keyword">throw</span> <span class="number">100</span>;</span><br><span class="line">  <span class="built_in">cout</span>&lt;&lt;<span class="string">"\n f1() End "</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Another sample function f2() that calls f1()</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f2</span><span class="params">()</span> <span class="title">throw</span> <span class="params">(<span class="keyword">int</span>)</span> </span>&#123;</span><br><span class="line">  <span class="built_in">cout</span>&lt;&lt;<span class="string">"\n f2() Start "</span>;</span><br><span class="line">  f1();</span><br><span class="line">  <span class="built_in">cout</span>&lt;&lt;<span class="string">"\n f2() End "</span>;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line"><span class="comment">// Another sample function f3() that calls f2() and handles exception thrown by f1()</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f3</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">cout</span>&lt;&lt;<span class="string">"\n f3() Start "</span>;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    f2();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">catch</span>(<span class="keyword">int</span> i) &#123;</span><br><span class="line">   <span class="built_in">cout</span>&lt;&lt;<span class="string">"\n Caught Exception: "</span>&lt;&lt;i;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">cout</span>&lt;&lt;<span class="string">"\n f3() End"</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// A driver function to demonstrate Stack Unwinding  process</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  f3();</span><br><span class="line">  </span><br><span class="line">  getchar();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -162,13 +155,6 @@
 
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
-
-  <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目录</strong>
- 
- 
- 
-  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -237,7 +223,7 @@
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
 		
 		<a href="/about" target="_blank" title="Xue Wentao">Xue Wentao</a>
 		
@@ -294,8 +280,6 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
-      
-      $('#toc.toc-aside').css('display', 'none');
         
     }
   });

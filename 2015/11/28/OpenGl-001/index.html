@@ -11,25 +11,31 @@
     
 
     
-    <meta name="description" content="OBJ文件是一种非常常见的模型文件，这里主要讲一下OBJ模型文件的预处理问题。我在某一个项目中需要绘制大规模的城市场景，勘测局提供的是max文件。但是项目中没有专业的美工人员可以对模型进行优化，原始的模型文件如果直接拿来使用将会极大地影响绘制效率，因此需要开发人员进行优化。在这里，使用一个小场景来进行演示。
-
-导出OBJ模型首先，将max文件转化成OBJ文件，这里先用3dsmax转成OBJ文件，再">
+    <meta name="description" content="我在某个项目需要绘制大规模的城市场景，提供的是max文件。但是项目中没有专业的美工人员可以对模型进行优化，原始的模型文件有以下特点。
+1. 模型包含很多名称不同但内容相同的材质
+2. 模型没有经过合并材质的处理，包含大量的独立小贴图
+如果直接拿来使用将会极大地影响绘制效率，因此进行优化。在这里，使用部分场景进行演示。
+1. 导出OBJ模型首先，将max文件转化成OBJ文件，这里先用3dsmax转成">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenGL-001-OBJ模型的预处理">
 <meta property="og:url" content="http://yoursite.com/2015/11/28/OpenGL-001/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="OBJ文件是一种非常常见的模型文件，这里主要讲一下OBJ模型文件的预处理问题。我在某一个项目中需要绘制大规模的城市场景，勘测局提供的是max文件。但是项目中没有专业的美工人员可以对模型进行优化，原始的模型文件如果直接拿来使用将会极大地影响绘制效率，因此需要开发人员进行优化。在这里，使用一个小场景来进行演示。
-
-导出OBJ模型首先，将max文件转化成OBJ文件，这里先用3dsmax转成OBJ文件，再">
+<meta property="og:description" content="我在某个项目需要绘制大规模的城市场景，提供的是max文件。但是项目中没有专业的美工人员可以对模型进行优化，原始的模型文件有以下特点。
+1. 模型包含很多名称不同但内容相同的材质
+2. 模型没有经过合并材质的处理，包含大量的独立小贴图
+如果直接拿来使用将会极大地影响绘制效率，因此进行优化。在这里，使用部分场景进行演示。
+1. 导出OBJ模型首先，将max文件转化成OBJ文件，这里先用3dsmax转成">
 <meta property="og:image" content="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img01.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img02.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img03.png">
-<meta property="og:updated_time" content="2015-11-28T08:37:39.763Z">
+<meta property="og:updated_time" content="2016-01-30T11:00:16.039Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenGL-001-OBJ模型的预处理">
-<meta name="twitter:description" content="OBJ文件是一种非常常见的模型文件，这里主要讲一下OBJ模型文件的预处理问题。我在某一个项目中需要绘制大规模的城市场景，勘测局提供的是max文件。但是项目中没有专业的美工人员可以对模型进行优化，原始的模型文件如果直接拿来使用将会极大地影响绘制效率，因此需要开发人员进行优化。在这里，使用一个小场景来进行演示。
-
-导出OBJ模型首先，将max文件转化成OBJ文件，这里先用3dsmax转成OBJ文件，再">
+<meta name="twitter:description" content="我在某个项目需要绘制大规模的城市场景，提供的是max文件。但是项目中没有专业的美工人员可以对模型进行优化，原始的模型文件有以下特点。
+1. 模型包含很多名称不同但内容相同的材质
+2. 模型没有经过合并材质的处理，包含大量的独立小贴图
+如果直接拿来使用将会极大地影响绘制效率，因此进行优化。在这里，使用部分场景进行演示。
+1. 导出OBJ模型首先，将max文件转化成OBJ文件，这里先用3dsmax转成">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -106,20 +112,15 @@
 </header>
 	<div class="article-content">
 		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-		
-			
-		
-		</div>
-		
-		<p>OBJ文件是一种非常常见的模型文件，这里主要讲一下OBJ模型文件的预处理问题。<br>我在某一个项目中需要绘制大规模的城市场景，勘测局提供的是max文件。但是项目中没有专业的美工人员可以对模型进行优化，原始的模型文件如果直接拿来使用将会极大地影响绘制效率，因此需要开发人员进行优化。在这里，使用一个小场景来进行演示。</p>
-<ol>
-<li>导出OBJ模型<br>首先，将max文件转化成OBJ文件，这里先用3dsmax转成OBJ文件，再使用Deep Exploration再转一遍OBJ。因为OBJ格式标准比较多，因此需要通过Deep Explanation转化为统一的格式。我们可以看到，导出的文件包括一个OBJ文件，一个MTL文件，以及非常多的贴图文件。整个场景有1852个Draw Call，50万个面片，以及100多万的顶点。<br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img01.png" alt="OBJ文件"><br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img02.png" alt="原始模型"></li>
-<li>合并相同的材质<br>打开OBJ文件可以看到，在一个Group内，包括v（顶点坐标），vt（纹理坐标），vn（法线），usemtl（使用什么材质），f（面片）。一个OBJ文件中，不同的Group可能包含相同的材质。因此，首先对使用相同材质的面片进行合并，也就是把使用相同材质的面片合并在一起。</li>
-<li>合并贴图<br>建模人员使用了大量的独立的小贴图，增加了绘制批次。因此，需要将这些小贴图合并成大贴图。其实就是一个纹理坐标映射的过程，首先定义目标贴图，把小贴图复制到目标贴图上，再重新计算对应的纹理坐标，直至目标贴图被填满。保存目标贴图，并重复上面的过程。</li>
-<li>重新合并材质<br>将贴图进行合并之后，材质又会被重新打乱，因此需要再次对材质进行合并，重复第2步。</li>
-</ol>
+		<p>我在某个项目需要绘制大规模的城市场景，提供的是max文件。但是项目中没有专业的美工人员可以对模型进行优化，原始的模型文件有以下特点。</p>
+<pre><code><span class="number">1.</span> 模型包含很多名称不同但内容相同的材质
+<span class="number">2.</span> 模型没有经过合并材质的处理，包含大量的独立小贴图
+</code></pre><p>如果直接拿来使用将会极大地影响绘制效率，因此进行优化。在这里，使用部分场景进行演示。</p>
+<h2 id="1-_导出OBJ模型">1. 导出OBJ模型</h2><p>首先，将max文件转化成OBJ文件，这里先用3dsmax转成OBJ文件，再使用Deep Exploration再转一遍OBJ。因为OBJ格式标准比较多，因此需要通过Deep Explanation转化为统一的格式。我们可以看到，导出的文件包括一个OBJ文件，一个MTL文件，以及非常多的贴图文件。整个场景有1852个Draw Call，50万个面片，以及100多万的顶点。<br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img01.png" alt="OBJ文件"><br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img02.png" alt="原始模型"></p>
+<h2 id="2-_去除重复材质">2. 去除重复材质</h2><p>在mtl文件中，包含很多内容相同，名称不同的材质。因此需要去除mtl文件中的冗余材质，并修改在obj文件中的引用。</p>
+<h2 id="3-_拆分材质">3. 拆分材质</h2><p>打开OBJ文件可以看到，在一个Group内，包括v（顶点坐标），vt（纹理坐标），vn（法线），usemtl（材质），f（面片）。一个OBJ文件中，一个的Group可能包含许多的材质。需要将材质进行拆分，使得每一个Group只包含一个材质。</p>
+<h2 id="4-_合并贴图">4. 合并贴图</h2><p>建模人员使用了大量的独立的小贴图，增加了绘制批次。因此，需要将这些小贴图合并成大贴图。其实就是一个纹理坐标映射的过程，首先定义目标贴图，把小贴图复制到目标贴图上，再重新计算对应的纹理坐标，直至目标贴图被填满。保存目标贴图，并重复上面的过程。</p>
+<h2 id="5-_重新拆分材质">5. 重新拆分材质</h2><p>将贴图进行合并之后，材质又会被重新打乱，因此需要再次对材质进行合并，重复第3步。</p>
 <p>模型经过处理，可以发现Draw Call的数量下降到了952，效果显著。<br><img src="https://raw.githubusercontent.com/dg8fv2010/img/master/OpenGL-001-img03.png" alt="处理之后的模型"></p>
   
 	</div>
@@ -174,13 +175,6 @@
 
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
-
-  <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目录</strong>
- 
- 
- 
-  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -249,7 +243,7 @@
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
 		
 		<a href="/about" target="_blank" title="Xue Wentao">Xue Wentao</a>
 		
@@ -306,8 +300,6 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
-      
-      $('#toc.toc-aside').css('display', 'none');
         
     }
   });

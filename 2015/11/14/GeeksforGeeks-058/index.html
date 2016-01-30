@@ -97,13 +97,6 @@
 </header>
 	<div class="article-content">
 		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-		
-			
-		
-		</div>
-		
 		<p>预测下面程序的输出：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> Complex</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">double</span> real;</span><br><span class="line">    <span class="keyword">double</span> imag;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// Default constructor</span></span><br><span class="line">    Complex(<span class="keyword">double</span> r = <span class="number">0.0</span>, <span class="keyword">double</span> i = <span class="number">0.0</span>) : real(r), imag(i) &#123;&#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// A method to compare two Complex numbers</span></span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> == (Complex rhs) &#123;</span><br><span class="line">       <span class="keyword">return</span> (real == rhs.real &amp;&amp; imag == rhs.imag)? <span class="literal">true</span> : <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="comment">// a Complex object</span></span><br><span class="line">    <span class="function">Complex <span class="title">com1</span><span class="params">(<span class="number">3.0</span>, <span class="number">0.0</span>)</span></span>;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> (com1 == <span class="number">3.0</span>)</span><br><span class="line">       <span class="built_in">cout</span> &lt;&lt; <span class="string">"Same"</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">       <span class="built_in">cout</span> &lt;&lt; <span class="string">"Not Same"</span>;</span><br><span class="line">     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>Output: The program compiles fine and produces following output.<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Same</span><br></pre></td></tr></table></figure></p>
 <p>如果一个类有一个只有一个参数的构造函数，那么这个构造函数就会成为转换构造函数，因为这样一个构造函数允许一个单独的参数转化成对应的类型。<br>我们可以避免这样的隐式变换，因为这可能导致不可预计的结果。因此可以使用explicit关键字。<br>如下程序使用explicit关键字，导致编译出错：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"> </span><br><span class="line">using namespace std;</span><br><span class="line"> </span><br><span class="line">class Complex</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    double real;</span><br><span class="line">    double imag;</span><br><span class="line"> </span><br><span class="line">public:</span><br><span class="line">    // Default constructor</span><br><span class="line">    explicit Complex(double r = 0.0, double i = 0.0) : real(r), imag(i) &#123;&#125;</span><br><span class="line"> </span><br><span class="line">    // A method to compare two Complex numbers</span><br><span class="line">    bool operator== (Complex rhs) &#123;</span><br><span class="line">       return (real == rhs.real &amp;&amp; imag == rhs.imag)? true : false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    // a Complex object</span><br><span class="line">    Complex com1(3.0, 0.0);</span><br><span class="line"> </span><br><span class="line">    if (com1 == 3.0)</span><br><span class="line">       cout &lt;&lt; "Same";</span><br><span class="line">    else</span><br><span class="line">       cout &lt;&lt; "Not Same";</span><br><span class="line">     return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -163,13 +156,6 @@
 
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
-
-  <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目录</strong>
- 
- 
- 
-  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -238,7 +224,7 @@
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
 		
 		<a href="/about" target="_blank" title="Xue Wentao">Xue Wentao</a>
 		
@@ -295,8 +281,6 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
-      
-      $('#toc.toc-aside').css('display', 'none');
         
     }
   });

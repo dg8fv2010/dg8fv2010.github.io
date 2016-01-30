@@ -97,13 +97,6 @@
 </header>
 	<div class="article-content">
 		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-		
-			
-		
-		</div>
-		
 		<p>在C++中，可以使得操作符适用于自己定义的类。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"> </span><br><span class="line">class Complex &#123;</span><br><span class="line">private:</span><br><span class="line">    int real, imag;</span><br><span class="line">public:</span><br><span class="line">    Complex(int r = 0, int i =0)  &#123;real = r;   imag = i;&#125;</span><br><span class="line">     </span><br><span class="line">    // This is automatically called when '+' is used with</span><br><span class="line">    // between two Complex objects</span><br><span class="line">    Complex operator + (Complex const &amp;obj) &#123;</span><br><span class="line">         Complex res;</span><br><span class="line">         res.real = real + obj.real;</span><br><span class="line">         res.imag = imag + obj.imag;</span><br><span class="line">         return res;</span><br><span class="line">    &#125;</span><br><span class="line">    void print() &#123; cout &lt;&lt; real &lt;&lt; " + i" &lt;&lt; imag &lt;&lt; endl; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Complex c1(10, 5), c2(2, 4);</span><br><span class="line">    Complex c3 = c1 + c2; // An example call to "operator+"</span><br><span class="line">    c3.print();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>Output:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span> + i9</span><br></pre></td></tr></table></figure></p>
 <p><strong>操作符函数和正常函数有什么区别？</strong><br>操作符函数和正常的函数相同，唯一不同的是，一个操作符函数的名字通常是operator关键字跟着操作符符号，当对应的操作符被使用时，操作符函数被调用。<br>如下程序是全局操作符函数的例子：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"> </span><br><span class="line">class Complex &#123;</span><br><span class="line">private:</span><br><span class="line">    int real, imag;</span><br><span class="line">public:</span><br><span class="line">    Complex(int r = 0, int i =0)  &#123;real = r;   imag = i;&#125;</span><br><span class="line">    void print() &#123; cout &lt;&lt; real &lt;&lt; " + i" &lt;&lt; imag &lt;&lt; endl; &#125;</span><br><span class="line"> </span><br><span class="line">// The global operator function is made friend of this class so</span><br><span class="line">// that it can access private members</span><br><span class="line">friend Complex operator + (Complex const &amp;, Complex const &amp;);</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">Complex operator + (Complex const &amp;c1, Complex const &amp;c2)</span><br><span class="line">&#123;</span><br><span class="line">     return Complex(c1.real + c2.real, c1.imag + c2.imag);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Complex c1(10, 5), c2(2, 4);</span><br><span class="line">    Complex c3 = c1 + c2; // An example call to "operator+"</span><br><span class="line">    c3.print();</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -169,13 +162,6 @@ x = <span class="number">30</span>, y = <span class="number">0</span>
 
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
-
-  <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目录</strong>
- 
- 
- 
-  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -244,7 +230,7 @@ x = <span class="number">30</span>, y = <span class="number">0</span>
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
 		
 		<a href="/about" target="_blank" title="Xue Wentao">Xue Wentao</a>
 		
@@ -301,8 +287,6 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
-      
-      $('#toc.toc-aside').css('display', 'none');
         
     }
   });

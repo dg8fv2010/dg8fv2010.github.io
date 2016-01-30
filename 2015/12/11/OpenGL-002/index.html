@@ -11,16 +11,25 @@
     
 
     
-    <meta name="description" content="在A卡上进行GLSL的开发，需要执行更加严格的编程规范。有一个工程，之前都是在N卡上开发运行的，没有任何问题，但是在A卡上却无法运行。首先，有的OpenGL函数在A卡上执行崩溃，这个问题很好定位，也非常好解决。但是，在程序运行起来之后，却发现绘制的结果是不对的。因为工程比较大，代码结构也比较复杂，只能使用glGetError逐步进行定位。发现程序有的地方会出现error 1282 : invali">
+    <meta name="description" content="在A卡上进行GLSL的开发，需要执行更加严格的编程规范。有一个工程，之前都是在N卡上开发运行的，没有任何问题，但是在A卡上却无法运行。
+1.如果shader文件以UTF-8带签名的形式进行保存，会引入一个标记位。A卡无法识别，导致程序shader编译失败。
+2.有的OpenGL函数在A卡上执行崩溃，这个问题很好定位，也非常好解决。
+3.但是，在程序运行起来之后，却发现绘制的结果是不对的。因为工程比">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenGL-002-OpenGL程序在A卡上运行的问题">
 <meta property="og:url" content="http://yoursite.com/2015/12/11/OpenGL-002/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="在A卡上进行GLSL的开发，需要执行更加严格的编程规范。有一个工程，之前都是在N卡上开发运行的，没有任何问题，但是在A卡上却无法运行。首先，有的OpenGL函数在A卡上执行崩溃，这个问题很好定位，也非常好解决。但是，在程序运行起来之后，却发现绘制的结果是不对的。因为工程比较大，代码结构也比较复杂，只能使用glGetError逐步进行定位。发现程序有的地方会出现error 1282 : invali">
-<meta property="og:updated_time" content="2015-12-11T06:13:12.543Z">
+<meta property="og:description" content="在A卡上进行GLSL的开发，需要执行更加严格的编程规范。有一个工程，之前都是在N卡上开发运行的，没有任何问题，但是在A卡上却无法运行。
+1.如果shader文件以UTF-8带签名的形式进行保存，会引入一个标记位。A卡无法识别，导致程序shader编译失败。
+2.有的OpenGL函数在A卡上执行崩溃，这个问题很好定位，也非常好解决。
+3.但是，在程序运行起来之后，却发现绘制的结果是不对的。因为工程比">
+<meta property="og:updated_time" content="2016-01-30T11:16:04.863Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenGL-002-OpenGL程序在A卡上运行的问题">
-<meta name="twitter:description" content="在A卡上进行GLSL的开发，需要执行更加严格的编程规范。有一个工程，之前都是在N卡上开发运行的，没有任何问题，但是在A卡上却无法运行。首先，有的OpenGL函数在A卡上执行崩溃，这个问题很好定位，也非常好解决。但是，在程序运行起来之后，却发现绘制的结果是不对的。因为工程比较大，代码结构也比较复杂，只能使用glGetError逐步进行定位。发现程序有的地方会出现error 1282 : invali">
+<meta name="twitter:description" content="在A卡上进行GLSL的开发，需要执行更加严格的编程规范。有一个工程，之前都是在N卡上开发运行的，没有任何问题，但是在A卡上却无法运行。
+1.如果shader文件以UTF-8带签名的形式进行保存，会引入一个标记位。A卡无法识别，导致程序shader编译失败。
+2.有的OpenGL函数在A卡上执行崩溃，这个问题很好定位，也非常好解决。
+3.但是，在程序运行起来之后，却发现绘制的结果是不对的。因为工程比">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -97,15 +106,14 @@
 </header>
 	<div class="article-content">
 		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-		
-			
-		
-		</div>
-		
-		<p>在A卡上进行GLSL的开发，需要执行更加严格的编程规范。<br>有一个工程，之前都是在N卡上开发运行的，没有任何问题，但是在A卡上却无法运行。<br>首先，有的OpenGL函数在A卡上执行崩溃，这个问题很好定位，也非常好解决。<br>但是，在程序运行起来之后，却发现绘制的结果是不对的。因为工程比较大，代码结构也比较复杂，只能使用glGetError逐步进行定位。发现程序有的地方会出现error 1282 : invalid operation。但是此处出现的错误是由更之前的引起的。<br>最后发现，我在fragment shader中使用了sampler2DRect这样一个变量，如果在glUseProgram之前绑定这个变量对应的资源，程序就可以正常运行。但是如果把这个变量类型改成sampler2D，那么在glUseProgram之前之后绑定资源都不会有问题了。<br>我觉得，A卡在glUseProgram之前，如果对shader中使用的参数手动绑定了资源，就会使用手动绑定的资源，否则可能会默认绑定一个资源，如果是贴图，就是sampler2D，但如果对应贴图的变量类型是sampler2DRect，绑定就会失败，但是程序不会崩溃，只能用glGetError获取错误信息。<br>由此可见，在A卡上，在glUseProgram之前需要绑定好所有的资源，但是在N卡上，就不会存在这样的问题。</p>
-  
+		<p>在A卡上进行GLSL的开发，需要执行更加严格的编程规范。<br>有一个工程，之前都是在N卡上开发运行的，没有任何问题，但是在A卡上却无法运行。</p>
+<h3 id="1-">1.</h3><pre><code>如果<span class="built_in">shader</span>文件以UTF-<span class="number">8</span>带签名的形式进行保存，会引入一个标记位。A卡无法识别，导致程序<span class="built_in">shader</span>编译失败。
+</code></pre><h3 id="2-">2.</h3><pre><code>有的OpenGL函数在<span class="literal">A</span>卡上执行崩溃，这个问题很好定位，也非常好解决。
+</code></pre><h3 id="3-">3.</h3><pre><code>但是，在程序运行起来之后，却发现绘制的结果是不对的。因为工程比较大，代码结构也比较复杂，只能使用glGetError逐步进行定位。发现程序有的地方会出现error <span class="number">1282</span> : invalid operation。但是此处出现的错误是由更之前的引起的。
+最后发现，我在fragment shader中使用了<span class="keyword">sampler2DRect</span>这样一个变量，如果在glUseProgram之前绑定这个变量对应的资源，程序就可以正常运行。但是如果把这个变量类型改成<span class="keyword">sampler2D</span>，那么在glUseProgram之前之后绑定资源都不会有问题了。  
+我觉得，A卡在glUseProgram之前，如果对shader中使用的参数手动绑定了资源，就会使用手动绑定的资源，否则可能会默认绑定一个资源，如果是贴图，就是<span class="keyword">sampler2D</span>，但如果对应贴图的变量类型是<span class="keyword">sampler2DRect</span>，绑定就会失败，但是程序不会崩溃，只能用glGetError获取错误信息。
+由此可见，在A卡上，在glUseProgram之前需要绑定好所有的资源，但是在N卡上，就不会存在这样的问题。
+</code></pre>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -150,13 +158,6 @@
 
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
-
-  <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目录</strong>
- 
- 
- 
-  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -225,7 +226,7 @@
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
 		
 		<a href="/about" target="_blank" title="Xue Wentao">Xue Wentao</a>
 		
@@ -282,8 +283,6 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
-      
-      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
